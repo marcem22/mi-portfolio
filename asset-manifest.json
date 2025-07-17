@@ -1,16 +1,19 @@
 {
   "files": {
-    "main.css": "/mi-portfolio/static/css/main.79c764a4.css",
-    "main.js": "/mi-portfolio/static/js/main.ef500347.js",
+    "main.css": "/mi-portfolio/static/css/main.14431286.css",
+    "main.js": "/mi-portfolio/static/js/main.97c6d709.js",
     "static/js/453.d2701ecf.chunk.js": "/mi-portfolio/static/js/453.d2701ecf.chunk.js",
     "static/media/avatar.png": "/mi-portfolio/static/media/avatar.11919cb91ba40c43c647.png",
+    "static/media/gobierno.png": "/mi-portfolio/static/media/gobierno.ad32cf6356d96e83ef54.png",
+    "static/media/habitos.png": "/mi-portfolio/static/media/habitos.0719386fa3ff2e6a0694.png",
+    "static/media/teassist.png": "/mi-portfolio/static/media/teassist.253bf781fb1cee75022a.png",
     "index.html": "/mi-portfolio/index.html",
-    "main.79c764a4.css.map": "/mi-portfolio/static/css/main.79c764a4.css.map",
-    "main.ef500347.js.map": "/mi-portfolio/static/js/main.ef500347.js.map",
+    "main.14431286.css.map": "/mi-portfolio/static/css/main.14431286.css.map",
+    "main.97c6d709.js.map": "/mi-portfolio/static/js/main.97c6d709.js.map",
     "453.d2701ecf.chunk.js.map": "/mi-portfolio/static/js/453.d2701ecf.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.79c764a4.css",
-    "static/js/main.ef500347.js"
+    "static/css/main.14431286.css",
+    "static/js/main.97c6d709.js"
   ]
 }
