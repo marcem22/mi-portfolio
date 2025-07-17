@@ -1,70 +1,160 @@
-# Getting Started with Create React App
+# 🌟 Portfolio Personal - Marcela Mancini
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> **Desarrolladora Web Junior** especializada en tecnologías modernas y experiencias interactivas
 
-## Available Scripts
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-purple?style=for-the-badge)](https://marcem22.github.io/mi-portfolio)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/marcem22/mi-portfolio)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Sobre este proyecto
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Este portfolio web representa mi trabajo como desarrolladora junior, mostrando proyectos, habilidades técnicas y mi trayectoria profesional. Diseñado con un enfoque moderno y responsivo, utiliza tecnologías de vanguardia para crear una experiencia de usuario fluida y atractiva.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### ✨ Características principales
 
-### `npm test`
+- 🎨 **Diseño moderno** con efectos glassmorphism y gradientes dinámicos
+- 📱 **Totalmente responsivo** - se adapta a todos los dispositivos
+- ⚡ **Animaciones suaves** y transiciones fluidas
+- 🌙 **Tema oscuro elegante** con acentos de color vibrantes
+- 🔍 **Navegación intuitiva** con filtros y accesos directos
+- 🎯 **Optimizado para rendimiento** con Vite y React
+- 📄 **CV descargable** integrado
+- 💼 **Showcase de proyectos** con detalles técnicos
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🛠️ Tecnologías utilizadas
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🔧 Herramientas de desarrollo
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Build Tool**: Vite
+- **CSS Framework**: Tailwind CSS
+- **Iconos**: Lucide React
+- **Deploy**: GitHub Pages
+- **Version Control**: Git & GitHub
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🏃‍♀️ Cómo ejecutar localmente
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Prerrequisitos
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Node.js (versión 16 o superior)
+- npm o yarn
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Instalación
 
-## Learn More
+```bash
+# Clonar el repositorio
+git clone https://github.com/marcem22/mi-portfolio.git
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Navegar al directorio
+cd mi-portfolio
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Instalar dependencias
+npm install
 
-### Code Splitting
+# Ejecutar en modo desarrollo
+npm run dev
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Scripts disponibles
 
-### Analyzing the Bundle Size
+```bash
+# Desarrollo
+npm run dev          # Inicia el servidor de desarrollo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# Producción
+npm run build        # Genera la build de producción
+npm run preview      # Previsualiza la build de producción
 
-### Making a Progressive Web App
+# Deploy
+npm run deploy       # Deploya automáticamente a GitHub Pages
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 🌐 Deploy
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Este proyecto está configurado para deployar automáticamente a GitHub Pages. Cada push a la rama `main` activará el proceso de deploy.
 
-### Deployment
+**URL del sitio**: [https://marcem22.github.io/mi-portfolio](https://marcem22.github.io/mi-portfolio)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Deploy manual
 
-### `npm run build` fails to minify
+```bash
+npm run deploy
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 🎯 Próximas mejoras
+
+- [ ] Integración con CMS para proyectos dinámicos
+- [ ] Sistema de blog personal
+- [ ] Modo claro/oscuro toggle
+- [ ] Animaciones más avanzadas con Framer Motion
+- [ ] Internacionalización (ES/EN)
+- [ ] Optimizaciones SEO avanzadas
+
+---
+
+## 📞 Contacto
+
+¿Te gusta mi trabajo? ¡Hablemos!
+
+📧 **Email**: [marcelamancinidiaz@gmail.com](mailto:marcelamancinidiaz@gmail.com)  
+💼 **LinkedIn**: [linkedin.com/in/marcela-mancini-dev](https://linkedin.com/in/marcela-mancini-dev)  
+🐙 **GitHub**: [github.com/marcem22](https://github.com/marcem22)  
+📍 **Ubicación**: San Juan, Argentina
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo una **licencia personalizada** que permite el uso del código como referencia educativa y profesional, con las siguientes condiciones:
+
+### ✅ Está permitido:
+- Usar el código como referencia para aprender
+- Inspeccionar la estructura y metodologías utilizadas
+- Adaptar componentes específicos para tus propios proyectos
+- Utilizar el código en entornos educativos y de aprendizaje
+
+### ⚠️ Condiciones obligatorias:
+- **Atribución requerida**: Si utilizas cualquier parte de este código, debes incluir:
+  ```
+  Código original por Marcela Mancini
+  GitHub: https://github.com/marcem22
+  Portfolio: https://marcem22.github.io/mi-portfolio
+  ```
+- **No copiar el diseño completo**: No está permitido clonar el portfolio completo sin modificaciones significativas
+- **Respetar contenido personal**: Todo el contenido personal (textos, CV, información de contacto) debe ser reemplazado
+
+### ❌ No está permitido:
+- Redistribuir el código como propio sin atribución
+- Usar mi información personal, textos o contenido específico
+- Comercializar el código sin permiso explícito
+- Hacer un fork directo para uso personal sin modificaciones
+
+### 🤝 Uso comercial:
+Para uso comercial o redistribución, por favor contacta conmigo previamente: [marcelamancinidiaz@gmail.com](mailto:marcelamancinidiaz@gmail.com)
+
+**En resumen**: Puedes aprender y usar partes del código, pero siempre menciona que está basado en mi trabajo. ¡La atribución es muy importante para los desarrolladores!
+
+---
+
+<div align="center">
+
+**Desarrollado con 💜 por Marcela Mancini**
+
+*¿Te gustó este portfolio? ¡Dale una ⭐ al repositorio!*
+
+</div>
