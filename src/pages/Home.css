@@ -1,70 +1,253 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+/* Variables CSS para tu paleta personal única */
+:root {
+  /* Tu paleta vibrante y personal */
+  --magenta-intenso: #F2138E;
+  --magenta-profundo: #D91494;
+  --purpura-electrico: #3703A6;
+  --azul-cosmico: #2C04BF;
+  --negro-absoluto: #0D0D0D;
+  
+  /* Variaciones y tonos adicionales */
+  --magenta-claro: #FF4DB3;
+  --magenta-suave: #FFB3E6;
+  --purpura-claro: #8A4FFF;
+  --purpura-suave: #C9B3FF;
+  --azul-claro: #6B47FF;
+  --gris-texto: #E8E8E8;
+
+  /* Mapeo de variables para uso en componentes */
+  --fondo-principal: var(--negro-absoluto);
+  --acento-primario: var(--magenta-intenso);
+  --acento-secundario: var(--purpura-electrico);
+  --acento-terciario: var(--azul-cosmico);
+  --acento-magenta: var(--magenta-profundo);
+  --texto-principal: #FFFFFF;
+  --texto-secundario: var(--gris-texto);
+  --hover-borde: var(--magenta-intenso);
+}
+
+/* Fuente global */
 * {
   font-family: 'Inter', sans-serif;
 }
 
+/* Estilos globales para body */
 body {
   cursor: none;
+  background-color: var(--fondo-principal);
+  color: var(--texto-principal);
 }
 
+/* Efecto escritura con animación blink */
 .writing-effect {
-  border-right: 3px solid #FF7EB9;
-  
+  border-right: 3px solid var(--magenta-intenso);
   padding-right: 5px;
   animation: blink 1s infinite;
 }
 
 @keyframes blink {
-  0%, 50% { border-color: #FF7EB9; }
-  51%, 100% { border-color: transparent; }
+  0%, 50% {
+    border-color: var(--magenta-intenso);
+  }
+  51%, 100% {
+    border-color: transparent;
+  }
 }
 
-.particle {
-  position: absolute;
-  background: radial-gradient(circle, rgba(255, 126, 185, 0.6) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  animation: float 6s ease-in-out infinite;
+/* Animación gentle-float para avatar */
+.gentle-float {
+  animation: gentleFloat 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(242, 19, 142, 0.4));
+  opacity: 0.15;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(180deg); }
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: scale(1) translateY(0px);
+    opacity: 0.15;
+    filter: drop-shadow(0 0 20px rgba(242, 19, 142, 0.4));
+  }
+  50% {
+    transform: scale(1.02) translateY(-8px);
+    opacity: 0.25;
+    filter: drop-shadow(0 0 30px rgba(55, 3, 166, 0.5));
+  }
 }
 
+/* Texto con resplandor suave */
 .glow-text {
-  text-shadow: 0 0 20px rgba(255, 126, 185, 0.5),
-               0 0 40px rgba(255, 126, 185, 0.3),
-               0 0 60px rgba(255, 126, 185, 0.2);
+  text-shadow:
+    0 0 20px rgba(242, 19, 142, 0.6),
+    0 0 40px rgba(242, 19, 142, 0.3);
+  transition: all 0.3s ease;
+  color: var(--texto-principal);
 }
 
-.glass-morphism {
-  backdrop-filter: blur(20px);
-  background: rgba(15, 23, 42, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.glow-text:hover {
+  text-shadow:
+    0 0 30px rgba(242, 19, 142, 0.8),
+    0 0 60px rgba(55, 3, 166, 0.6),
+    0 0 90px rgba(44, 4, 191, 0.4);
+  filter: drop-shadow(0 0 20px rgba(242, 19, 142, 0.5));
 }
 
-.hover-lift {
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+/* Resplandor sutil para textos secundarios */
+.subtle-glow-light {
+  text-shadow: 0 0 15px rgba(203, 213, 225, 0.3);
+  transition: all 0.3s ease;
 }
 
-.hover-lift:hover {
-  transform: translateY(-15px) scale(1.02);
-  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15));
+.subtle-glow-light:hover {
+  text-shadow: 0 0 25px rgba(203, 213, 225, 0.5);
 }
 
-.pulse-ring {
-  animation: pulse-ring 2s ease-out infinite;
+/* Efectos magnéticos para las tarjetas */
+.card-magnetic {
+  will-change: transform;
+  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-@keyframes pulse-ring {
+.card-magnetic:hover {
+  animation: cardFloat 4s ease-in-out infinite;
+}
+
+@keyframes cardFloat {
+  0%, 100% {
+    transform: scale(1.05) rotate(-1deg) translateY(0px);
+  }
+  25% {
+    transform: scale(1.06) rotate(-0.5deg) translateY(-3px);
+  }
+  50% {
+    transform: scale(1.05) rotate(-1deg) translateY(-5px);
+  }
+  75% {
+    transform: scale(1.06) rotate(-1.5deg) translateY(-2px);
+  }
+}
+
+/* Efectos de brillo dinámicos */
+@keyframes shimmer {
   0% {
-    transform: scale(1);
-    opacity: 1;
+    background-position: -200% 0;
   }
   100% {
-    transform: scale(1.5);
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-effect {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Partículas mejoradas con más movimiento */
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-15px) translateX(8px) rotate(90deg) scale(1.1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-25px) translateX(-5px) rotate(180deg) scale(0.9);
+    opacity: 0.25;
+  }
+  75% {
+    transform: translateY(-12px) translateX(-8px) rotate(270deg) scale(1.05);
+    opacity: 0.15;
+  }
+}
+
+/* Efectos de glassmorphism mejorados */
+.glass-effect {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Animaciones de entrada escalonadas */
+@keyframes slideInUp {
+  from {
     opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.stagger-animation {
+  animation: slideInUp 0.8s ease-out forwards;
+}
+
+/* Efectos de hover más dinámicos */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(34, 197, 94, 0.6);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Mejoras en los gradientes */
+.gradient-border {
+  position: relative;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Modo de alto contraste (opcional) */
+@media (prefers-contrast: high) {
+  :root {
+    --fondo-principal: #000000;
+    --texto-principal: #FFFFFF;
+    --acento-primario: #00FF00;
+    --acento-secundario: #0080FF;
+  }
+}
+
+/* Responsivo para móviles */
+@media (max-width: 768px) {
+  .gentle-float {
+    animation-duration: 4s;
+  }
+  
+  .glow-text {
+    text-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+  }
+  
+  .writing-effect {
+    border-right-width: 2px;
   }
 }

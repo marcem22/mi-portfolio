@@ -1,281 +1,355 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+/* Variables de paleta futurista */
+:root {
+  --magenta-intenso: #F2138E;
+  --magenta-profundo: #D91494;
+  --purpura-electrico: #3703A6;
+  --azul-cosmico: #2C04BF;
+  --negro-absoluto: #0D0D0D;
+  
+  --fondo-principal: var(--negro-absoluto);
+  --acento-primario: var(--magenta-intenso);
+  --acento-secundario: var(--purpura-electrico);
+  --acento-terciario: var(--azul-cosmico);
+  --texto-principal: #FFFFFF;
+  --texto-secundario: #E8E8E8;
+
+  --shadow-soft: rgba(242, 19, 142, 0.08);
+  --shadow-medium: rgba(242, 19, 142, 0.12);
+  --shadow-strong: rgba(242, 19, 142, 0.16);
+}
+
+/* Fuente general */
 * {
   font-family: 'Inter', sans-serif;
 }
 
-body {
-  cursor: none;
+/* Utilidades de color */
+.bg-light {
+  background-color: var(--fondo-principal);
 }
 
-/* Animaciones de partículas */
-.particle {
-  position: absolute;
-  background: radial-gradient(circle, rgba(255, 126, 185, 0.6) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  animation: float 8s ease-in-out infinite;
+.text-dark {
+  color: var(--texto-principal);
 }
 
-@keyframes float {
-  0%, 100% { 
-    transform: translateY(0px) rotate(0deg); 
-    opacity: 0.3;
-  }
-  50% { 
-    transform: translateY(-25px) rotate(180deg); 
-    opacity: 0.8;
-  }
+.text-gray {
+  color: var(--texto-secundario);
 }
 
-/* Efectos de texto */
-.glow-text {
-  text-shadow: 0 0 20px rgba(255, 126, 185, 0.5),
-               0 0 40px rgba(255, 126, 185, 0.3),
-               0 0 60px rgba(255, 126, 185, 0.2);
-  animation: glow-pulse 3s ease-in-out infinite alternate;
-}
-
-@keyframes glow-pulse {
-  0% {
-    text-shadow: 0 0 20px rgba(255, 126, 185, 0.5),
-                 0 0 40px rgba(255, 126, 185, 0.3),
-                 0 0 60px rgba(255, 126, 185, 0.2);
-  }
-  100% {
-    text-shadow: 0 0 25px rgba(255, 126, 185, 0.8),
-                 0 0 50px rgba(255, 126, 185, 0.5),
-                 0 0 75px rgba(255, 126, 185, 0.3);
-  }
-}
-
-/* Glassmorphism */
-.glass-morphism {
-  backdrop-filter: blur(20px);
-  background: rgba(15, 23, 42, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-}
-
-/* Efectos hover */
-.hover-lift {
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.hover-lift:hover {
-  transform: translateY(-10px) scale(1.02);
-  filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.25));
-}
-
-/* Animaciones de entrada */
-.fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Efectos de filtros */
-.filter-button {
-  position: relative;
-  overflow: hidden;
-}
-
-.filter-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transition: left 0.5s;
-}
-
-.filter-button:hover::before {
-  left: 100%;
-}
-
-/* Efectos de tarjetas de proyecto */
+/* Contenedor tarjeta de proyecto */
 .project-card {
   position: relative;
   overflow: hidden;
-  transition: all 0.5s ease;
-}
-
-.project-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-}
-
-.project-card:hover::before {
-  opacity: 1;
-}
-
-/* Animación de ondas */
-.wave-animation {
-  position: relative;
-  overflow: hidden;
-}
-
-.wave-animation::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 126, 185, 0.3), transparent);
-  animation: wave 2s infinite;
-}
-
-@keyframes wave {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
-
-/* Efectos de brillo */
-.shimmer {
-  position: relative;
-  overflow: hidden;
-}
-
-.shimmer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
-
-/* Efectos de pulsación */
-.pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 126, 185, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(255, 126, 185, 0.6);
-  }
-}
-
-/* Efectos de entrada escalonada */
-.stagger-fade-in {
-  animation: staggerFadeIn 0.6s ease-out forwards;
-}
-
-@keyframes staggerFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Efectos de tecnologías */
-.tech-tag {
-  position: relative;
-  overflow: hidden;
   transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px var(--shadow-soft);
+  backdrop-filter: blur(10px);
+}
+
+.project-card:hover {
+  border-color: var(--acento-primario);
+  box-shadow: 0 8px 25px var(--shadow-medium), 0 0 20px rgba(242, 19, 142, 0.4);
+  transform: translateY(-4px);
+}
+
+/* Imagen dentro de tarjeta */
+.image-container {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+/* Badge destacado */
+.featured-badge {
+  background-color: var(--acento-primario);
+  border-color: var(--acento-primario);
+  color: var(--texto-principal);
+}
+
+/* Tags de tecnologías */
+.tech-tag {
+  display: inline-block;
+  background-color: var(--acento-secundario);
+  color: var(--texto-principal);
+  border: 1px solid var(--acento-secundario);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: 500;
 }
 
 .tech-tag:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+  background-color: var(--acento-primario);
+  color: var(--texto-principal);
+  border-color: var(--acento-primario);
+  transform: scale(1.05) translateY(-1px);
 }
 
-/* Efectos de botones */
-.btn-gradient {
-  position: relative;
-  overflow: hidden;
+/* Botones enlaces proyectos */
+.btn-ver-proyecto {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
   transition: all 0.3s ease;
-}
-
-.btn-gradient::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.btn-gradient:hover::before {
-  left: 100%;
-}
-
-/* Responsividad mejorada */
-@media (max-width: 768px) {
-  .glow-text {
-    font-size: 2.5rem;
-  }
-  
-  .project-card {
-    margin-bottom: 1rem;
-  }
-  
-  .filter-button {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-  }
-}
-
-/* Efectos de scroll */
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
-}
-
-.scroll-reveal.revealed {
-  opacity: 1;
+  background-color: var(--acento-primario);
+  color: var(--texto-principal);
+  border: 2px solid var(--acento-primario);
+  box-shadow: 0 2px 8px var(--shadow-soft);
+  cursor: pointer;
   transform: translateY(0);
 }
 
-/* Efectos de carga */
-.loading-skeleton {
-  background: linear-gradient(90deg, 
-    rgba(255, 255, 255, 0.1) 25%, 
-    rgba(255, 255, 255, 0.2) 50%, 
-    rgba(255, 255, 255, 0.1) 75%
-  );
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
+.btn-ver-proyecto:hover {
+  background-color: var(--magenta-profundo);
+  border-color: var(--magenta-profundo);
+  box-shadow: 0 4px 12px var(--shadow-medium), 0 0 20px rgba(242, 19, 142, 0.4);
+  transform: translateY(-2px);
+  color: var(--texto-principal);
 }
 
-@keyframes loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+.btn-codigo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background-color: transparent;
+  color: var(--acento-terciario);
+  border: 2px solid var(--acento-terciario);
+  box-shadow: 0 2px 8px rgba(44, 4, 191, 0.1);
+  cursor: pointer;
+  transform: translateY(0);
+}
+
+.btn-codigo:hover {
+  background-color: var(--acento-terciario);
+  color: var(--texto-principal);
+  border-color: var(--acento-terciario);
+  box-shadow: 0 4px 12px rgba(44, 4, 191, 0.2), 0 0 20px rgba(44, 4, 191, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Sección CTA */
+.cta-container {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 16px var(--shadow-soft);
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 42rem;
+  margin: 0 auto;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.cta-title {
+  color: var(--texto-principal);
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cta-text {
+  color: var(--texto-secundario);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.btn-trabajar-juntos {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background-color: var(--acento-terciario);
+  color: var(--texto-principal);
+  border: 2px solid var(--acento-terciario);
+  box-shadow: 0 4px 16px rgba(44, 4, 191, 0.2);
+  cursor: pointer;
+  transform: translateY(0);
+}
+
+.btn-trabajar-juntos:hover {
+  background-color: var(--acento-secundario);
+  color: var(--texto-principal);
+  border-color: var(--acento-secundario);
+  box-shadow: 0 6px 20px rgba(55, 3, 166, 0.3), 0 0 20px rgba(55, 3, 166, 0.4);
+  transform: translateY(-3px);
+}
+
+/* Título principal */
+.main-title {
+  color: var(--texto-principal);
+  font-weight: 800;
+}
+
+/* Texto con acento */
+.accent-text {
+  color: var(--acento-primario);
+  font-weight: 600;
+}
+
+/* Frase motivacional */
+.motivational-text {
+  color: var(--texto-secundario);
+  position: relative;
+  font-style: italic;
+  font-size: 0.875rem;
+}
+
+.motivational-text::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: var(--acento-primario);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .project-card {
+    margin-bottom: 1rem;
+  }
+
+  .tech-tag {
+    font-size: 0.75rem;
+  }
+
+  .btn-ver-proyecto,
+  .btn-codigo {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Animación shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Animaciones para partículas decorativas */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Partículas con animación */
+.particle-lime {
+  background-color: var(--acento-primario);
+  animation: float 3s ease-in-out infinite;
+}
+
+.particle-teal {
+  background-color: var(--acento-terciario);
+  animation: float 2.5s ease-in-out infinite reverse;
+}
+
+.particle-magenta {
+  background-color: var(--acento-secundario);
+  animation: float 3.5s ease-in-out infinite;
+}
+
+.particle-olive {
+  background-color: var(--magenta-profundo);
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Hover lift efecto */
+.hover-lift {
+  transition: all 0.3s ease;
+  will-change: transform;
+}
+
+.hover-lift:hover {
+  transform: translateY(-6px);
+  filter: drop-shadow(0 8px 16px var(--shadow-medium));
+}
+
+/* Mejoras contraste texto en tarjeta */
+.project-card .text-gray {
+  color: var(--texto-secundario);
+}
+
+.project-card:hover .text-gray {
+  color: var(--texto-principal);
+}
+
+.project-card h3:hover {
+  color: var(--acento-primario) !important;
+}
+
+/* QuickNav */
+
+/* Botón principal */
+.quicknav-button {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--acento-terciario);
+  color: var(--acento-terciario);
+  box-shadow: 0 2px 8px var(--shadow-soft);
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+.quicknav-button:hover {
+  background-color: var(--acento-primario);
+  color: var(--texto-principal);
+  border-color: var(--acento-primario);
+  box-shadow: 0 4px 16px var(--shadow-medium), 0 0 20px rgba(242, 19, 142, 0.4);
+}
+
+/* Efecto brillo al hover */
+.quicknav-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(242, 19, 142, 0.1),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Borde interno brillante */
+.quicknav-border {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Icono */
+.quicknav-icon {
+  filter: drop-shadow(0 1px 2px var(--shadow-soft));
+  transition: all 0.3s ease;
+}
+
+.quicknav-button:hover .quicknav-icon {
+  filter: drop-shadow(0 2px 4px var(--shadow-medium));
+}
+
+/* Texto */
+.quicknav-text {
+  transition: all 0.3s ease;
 }

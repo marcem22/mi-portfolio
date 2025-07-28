@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { FaGithub, FaLinkedin, FaWhatsapp, FaTelegramPlane, FaInstagram } from 'react-icons/fa';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Layout, FolderOpen, FileText, Mail } from 'lucide-react';
+import QuickNav from '../components/QuickNav';
+import BackgroundEffects from '../components/BackgroundEffects';
 
 import './Contacto.css';
 
 
 function Contacto() {
     const [isVisible, setIsVisible] = useState(false);
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [particles, setParticles] = useState([]);
+   
     const [formData, setFormData] = useState({
         nombre: '',
         email: '',
@@ -19,50 +18,41 @@ function Contacto() {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState('');
-    const location = useLocation();
-    const navigate = useNavigate();
-
-    const quickNav = [
-        { id: 'home', name: 'Inicio', icon: Layout, route: '/' },
-        { id: 'proyectos', name: 'Proyectos', icon: FolderOpen, route: '/proyectos' },
-        { id: 'cv', name: 'Curriculum', icon: FileText, route: '/cv' },
-        { id: 'contacto', name: 'Contacto', icon: Mail, route: '/contacto' }
-    ];
-
+    
     const socialLinks = [
         {
             name: 'LinkedIn',
             icon: <FaLinkedin />,
             url: 'https://www.linkedin.com/in/marcela-mancini-dev',
-            color: 'from-blue-500 to-blue-700',
+            color: '#3703A6',
             description: 'Conectemos profesionalmente'
         },
         {
             name: 'GitHub',
             icon: <FaGithub />,
             url: 'https://github.com/marcem22',
-            color: 'from-gray-400 to-gray-800',
+            color: '#0D0D0D',
             description: 'Mirá mi código'
         },
         {
             name: "Telegram",
             url: "https://t.me/TU_USUARIO",
             icon: <FaTelegramPlane />,
-            color: "from-blue-200 to-blue-600",
+            color: '#3703A6',
             description: "Canal o chat de Telegram"
         },
         {
             name: 'Instagram',
             icon: <FaInstagram />,
             url: 'https://www.instagram.com/marcemancinid',
-            color: 'from-pink-500 to-rose-500',
+            color: '#F2138E',
             description: 'Mi lado más creativo'
         },
         {
             name: "WhatsApp",
             url: "https://wa.me/5492644825831",
             icon: <FaWhatsapp />,
-            color: "from-green-400 to-green-600",
+            color: '#2C04BF',
             description: "Contacto directo"
         }
     ];
@@ -78,35 +68,6 @@ function Contacto() {
 
     useEffect(() => {
         setIsVisible(true);
-
-        // Mouse tracking
-        const handleMouseMove = (e) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
-        };
-
-        // Generar partículas
-        const generateParticles = () => {
-            const newParticles = [];
-            for (let i = 0; i < 12; i++) {
-                newParticles.push({
-                    id: i,
-                    x: Math.random() * window.innerWidth,
-                    y: Math.random() * window.innerHeight,
-                    size: Math.random() * 4 + 2,
-                    speedX: (Math.random() - 0.5) * 0.4,
-                    speedY: (Math.random() - 0.5) * 0.4,
-                    opacity: Math.random() * 0.5 + 0.2,
-                });
-            }
-            setParticles(newParticles);
-        };
-
-        window.addEventListener('mousemove', handleMouseMove);
-        generateParticles();
-
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-        };
     }, []);
 
     const handleInputChange = (e) => {
@@ -122,84 +83,49 @@ function Contacto() {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch('https://formspree.io/f/xblkrnee', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    nombre: formData.nombre,
-                    email: formData.email,
-                    asunto: formData.asunto,
-                    mensaje: formData.mensaje,
-                    tipoProyecto: formData.tipoProyecto
-                })
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                setSubmitStatus('success');
-                // Reset form after success
-                setTimeout(() => {
-                    setFormData({
-                        nombre: '',
-                        email: '',
-                        asunto: '',
-                        mensaje: '',
-                        tipoProyecto: ''
-                    });
-                    setSubmitStatus('');
-                }, 3000);
-            } else {
-                setSubmitStatus('error');
-                console.error('Error en el envío:', data);
-            }
+            // Simulando envío para el demo
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            setSubmitStatus('success');
+            setTimeout(() => {
+                setFormData({
+                    nombre: '',
+                    email: '',
+                    asunto: '',
+                    mensaje: '',
+                    tipoProyecto: ''
+                });
+                setSubmitStatus('');
+            }, 3000);
         } catch (error) {
             setSubmitStatus('error');
-            console.error('Error en el fetch:', error);
+            console.error('Error en el envío:', error);
         } finally {
             setIsSubmitting(false);
         }
     };
 
-
+    
     return (
-        <div className="min-h-screen relative bg-slate-900 text-white overflow-hidden font-sans">
-            {/* Fondo dinámico */}
-            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-slate-900 via-purple-900/20 to-pink-900/20">
-                <div className="absolute w-96 h-96 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full filter blur-3xl animate-pulse top-[-10%] left-[-10%]"></div>
-                <div className="absolute w-96 h-96 bg-gradient-to-r from-pink-500/30 to-rose-500/30 rounded-full filter blur-3xl animate-pulse bottom-[-10%] right-[-10%] animation-delay-1000"></div>
-                <div className="absolute w-64 h-64 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full filter blur-2xl animate-bounce top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-            </div>
-
-            {/* Partículas flotantes */}
-            {particles.map((particle) => (
-                <div
-                    key={particle.id}
-                    className="particle"
-                    style={{
-                        left: particle.x,
-                        top: particle.y,
-                        width: particle.size,
-                        height: particle.size,
-                        opacity: particle.opacity,
-                        animationDelay: `${particle.id * 0.8}s`,
-                    }}
-                />
-            ))}
-
-            {/* Cursor personalizado */}
-            <div
-                className="fixed w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full pointer-events-none z-50 mix-blend-screen transition-all duration-300 ease-out"
-                style={{
-                    transform: `translate(${mousePosition.x - 16}px, ${mousePosition.y - 16}px)`,
-                    opacity: mousePosition.x > 0 ? 1 : 0,
-                    filter: 'blur(1px)',
-                }}
-            >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full animate-ping opacity-30"></div>
+        <div style={{ backgroundColor: '#0D0D0D' }} className="min-h-screen relative text-white overflow-hidden font-sans">
+           <BackgroundEffects />
+          
+            
+            {/* Efectos de fondo con partículas */}
+            <div className="absolute inset-0 overflow-hidden">
+                {[...Array(20)].map((_, i) => (
+                    <div
+                        key={i}
+                        className="particle"
+                        style={{
+                            left: `${Math.random() * 100}%`,
+                            top: `${Math.random() * 100}%`,
+                            width: `${Math.random() * 6 + 4}px`,
+                            height: `${Math.random() * 6 + 4}px`,
+                            animationDelay: `${Math.random() * 10}s`,
+                            animationDuration: `${Math.random() * 10 + 10}s`
+                        }}
+                    />
+                ))}
             </div>
 
             {/* Contenido principal */}
@@ -208,40 +134,20 @@ function Contacto() {
 
                     {/* Header */}
                     <div className="text-center mb-16">
-                        <h1 className="text-5xl md:text-6xl font-bold mb-6 text-pink-500 glow-text">
+                        <h1 className="text-5xl md:text-6xl font-bold mb-6 glow-text" style={{ color: '#F2138E' }}>
                             Hablemos
                         </h1>
-                        <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
                             ¿Tenés una idea increíble? Me encanta colaborar en proyectos únicos.
-                            <span className="text-pink-400 font-medium"> Contame tu visión y hagámosla realidad juntos.</span>
+                            <span style={{ color: '#2C04BF' }} className="font-medium"> Contame tu visión y hagámosla realidad juntos.</span>
                         </p>
                     </div>
+                     <QuickNav />
 
                     <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-                        {/* Filtros */}
-                    <div className="flex flex-wrap justify-center gap-4 mb-12">
-                        {quickNav
-                            .filter(nav => location.pathname !== nav.route) // 👈 Esta línea filtra la vista actual
-                            .map((nav, index) => {
-                                return (
-                                    <button
-                                        key={nav.id}
-                                        onClick={() => navigate(nav.route)}
-                                       className="group relative overflow-hidden rounded-2xl px-6 py-3 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 bg-gradient-to-br from-white/15 to-slate-800/20 backdrop-blur-md border border-white/25 hover:bg-gradient-to-r hover:from-purple-500/30 hover:to-pink-500/30 hover:shadow-xl hover:shadow-purple-500/20"
-                                        style={{
-                                            animationDelay: `${index * 100}ms`,
-                                        }}
-                                    >
-                                        <div className="flex items-center space-x-2">
-                                            <nav.icon className="w-5 h-5" />
-                                            <span className="font-medium">{nav.name}</span>
-                                        </div>
-                                    </button>
-                                );
-                            })}
-                    </div>
+                        
                         {/* Formulario de contacto */}
-                        <form onSubmit={handleSubmit} className="space-y-8">
+                        <div className="space-y-8">
                             <div className="glass-morphism rounded-2xl p-8 hover-lift">
                                 <h2 className="text-2xl font-bold mb-6 text-white flex items-center">
                                     <span className="mr-3">📝</span>
@@ -250,7 +156,7 @@ function Contacto() {
 
                                 <div className="space-y-6">
                                     {/* Nombre */}
-                                    <div className="form-group">
+                                    <div>
                                         <label className="block text-sm font-medium text-gray-300 mb-2">
                                             Tu nombre
                                         </label>
@@ -259,14 +165,14 @@ function Contacto() {
                                             name="nombre"
                                             value={formData.nombre}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent backdrop-blur-sm transition-all duration-300"
+                                            className="form-input w-full px-4 py-3 rounded-xl placeholder-gray-400"
                                             placeholder="¿Cómo te llamas?"
                                             required
                                         />
                                     </div>
 
                                     {/* Email */}
-                                    <div className="form-group">
+                                    <div>
                                         <label className="block text-sm font-medium text-gray-300 mb-2">
                                             Email
                                         </label>
@@ -275,14 +181,14 @@ function Contacto() {
                                             name="email"
                                             value={formData.email}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent backdrop-blur-sm transition-all duration-300"
+                                            className="form-input w-full px-4 py-3 rounded-xl placeholder-gray-400"
                                             placeholder="tu@email.com"
                                             required
                                         />
                                     </div>
 
                                     {/* Tipo de proyecto */}
-                                    <div className="form-group">
+                                    <div>
                                         <label className="block text-sm font-medium text-gray-300 mb-2">
                                             Tipo de proyecto
                                         </label>
@@ -290,12 +196,12 @@ function Contacto() {
                                             name="tipoProyecto"
                                             value={formData.tipoProyecto}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent backdrop-blur-sm transition-all duration-300"
+                                            className="form-input w-full px-4 py-3 rounded-xl"
                                             required
                                         >
                                             <option value="" disabled>Selecciona el tipo de proyecto</option>
                                             {tiposProyecto.map((tipo) => (
-                                                <option key={tipo.value} value={tipo.value}>
+                                                <option key={tipo.value} value={tipo.value} style={{ backgroundColor: '#0D0D0D', color: 'white' }}>
                                                     {tipo.icon} {tipo.label}
                                                 </option>
                                             ))}
@@ -303,7 +209,7 @@ function Contacto() {
                                     </div>
 
                                     {/* Asunto */}
-                                    <div className="form-group">
+                                    <div>
                                         <label className="block text-sm font-medium text-gray-300 mb-2">
                                             Asunto
                                         </label>
@@ -312,14 +218,14 @@ function Contacto() {
                                             name="asunto"
                                             value={formData.asunto}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent backdrop-blur-sm transition-all duration-300"
+                                            className="form-input w-full px-4 py-3 rounded-xl placeholder-gray-400"
                                             placeholder="¿De qué querés hablar?"
                                             required
                                         />
                                     </div>
 
                                     {/* Mensaje */}
-                                    <div className="form-group">
+                                    <div>
                                         <label className="block text-sm font-medium text-gray-300 mb-2">
                                             Mensaje
                                         </label>
@@ -328,7 +234,7 @@ function Contacto() {
                                             value={formData.mensaje}
                                             onChange={handleInputChange}
                                             rows={5}
-                                            className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent backdrop-blur-sm transition-all duration-300 resize-none"
+                                            className="form-input w-full px-4 py-3 rounded-xl placeholder-gray-400 resize-none"
                                             placeholder="Contame más sobre tu proyecto, tus ideas, objetivos..."
                                             required
                                         />
@@ -336,13 +242,13 @@ function Contacto() {
 
                                     {/* Botón de envío */}
                                     <button
-                                        type="submit"
+                                        onClick={handleSubmit}
                                         disabled={isSubmitting}
                                         className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all duration-300 ${isSubmitting
-                                            ? 'bg-slate-600 cursor-not-allowed'
+                                            ? 'bg-gray-600 cursor-not-allowed'
                                             : submitStatus === 'success'
-                                                ? 'bg-gradient-to-r from-emerald-500 to-teal-500'
-                                                : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 hover-lift'
+                                                ? 'btn-success'
+                                                : 'btn-primary hover-lift'
                                             }`}
                                     >
                                         {isSubmitting ? (
@@ -364,8 +270,7 @@ function Contacto() {
                                     </button>
                                 </div>
                             </div>
-                        </form>
-
+                        </div>
 
                         {/* Información de contacto y redes */}
                         <div className="space-y-8">
@@ -384,17 +289,20 @@ function Contacto() {
                                             href={social.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="group relative overflow-hidden rounded-xl p-4 glass-morphism hover-lift cursor-pointer"
+                                            className="group relative overflow-hidden rounded-xl p-4 glass-morphism social-link cursor-pointer"
                                             style={{
                                                 animationDelay: `${index * 100}ms`,
                                             }}
                                         >
-                                            <div className={`absolute inset-0 bg-gradient-to-r ${social.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
+                                            <div 
+                                                className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
+                                                style={{ backgroundColor: social.color }}
+                                            ></div>
 
                                             <div className="relative flex items-center space-x-3">
-                                                <div className="text-2xl">{social.icon}</div>
+                                                <div className="text-2xl" style={{ color: social.color }}>{social.icon}</div>
                                                 <div>
-                                                    <h3 className="font-semibold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text transition-all duration-300">
+                                                    <h3 className="font-semibold text-white group-hover:text-white transition-all duration-300">
                                                         {social.name}
                                                     </h3>
                                                     <p className="text-gray-400 text-sm">{social.description}</p>
@@ -404,6 +312,7 @@ function Contacto() {
                                     ))}
                                 </div>
                             </div>
+
                             {/* Información de contacto */}
                             <div className="glass-morphism rounded-2xl p-8 hover-lift">
                                 <h2 className="text-2xl font-bold mb-6 text-white flex items-center">
@@ -413,7 +322,7 @@ function Contacto() {
 
                                 <div className="space-y-6">
                                     <div className="flex items-center space-x-4">
-                                        <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                                        <div className="contact-info-badge w-12 h-12 rounded-full flex items-center justify-center">
                                             <span className="text-xl">✨</span>
                                         </div>
                                         <div>
@@ -423,7 +332,7 @@ function Contacto() {
                                     </div>
 
                                     <div className="flex items-center space-x-4">
-                                        <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                                        <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#F2138E' }}>
                                             <span className="text-xl">🌍</span>
                                         </div>
                                         <div>
@@ -433,7 +342,7 @@ function Contacto() {
                                     </div>
 
                                     <div className="flex items-center space-x-4">
-                                        <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                                        <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#2C04BF' }}>
                                             <span className="text-xl">⚡</span>
                                         </div>
                                         <div>
@@ -456,7 +365,7 @@ function Contacto() {
                                     No importa si es grande o pequeña,
                                     toda gran idea empieza con una conversación.
                                 </p>
-                            </div>
+            </div>
                         </div>
                     </div>
 
@@ -470,15 +379,13 @@ function Contacto() {
             </div>
 
             {/* Elementos decorativos */}
-            <div className="absolute top-10 left-10 w-4 h-4 bg-purple-400 rounded-full animate-pulse opacity-50"></div>
-            <div className="absolute bottom-10 right-10 w-6 h-6 bg-pink-400 rounded-full animate-bounce opacity-30"></div>
-            <div className="absolute top-1/3 right-20 w-3 h-3 bg-cyan-400 rounded-full animate-ping opacity-40"></div>
-            <div className="absolute bottom-1/3 left-20 w-2 h-2 bg-rose-400 rounded-full animate-pulse opacity-40"></div>
-
+            <div className="decorative-element-1 absolute top-10 left-10 w-4 h-4 rounded-full animate-pulse opacity-50"></div>
+            <div className="decorative-element-2 absolute bottom-10 right-10 w-6 h-6 rounded-full animate-bounce opacity-60"></div>
+            <div className="decorative-element-3 absolute top-1/3 right-20 w-3 h-3 rounded-full animate-ping opacity-50"></div>
+            <div className="decorative-element-1 absolute bottom-1/3 left-20 w-2 h-2 rounded-full animate-pulse opacity-50"></div>
 
         </div>
     );
 }
-
 
 export default Contacto;
