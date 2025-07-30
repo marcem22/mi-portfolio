@@ -2,7 +2,7 @@
 
 > **Desarrolladora Web Junior** especializada en tecnologías modernas y experiencias interactivas
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-purple?style=for-the-badge)](https://marcem22.github.io/mi-portfolio)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-purple?style=for-the-badge)](https://mi-portfoliomm.vercel.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/marcem22/mi-portfolio)
 
 ---
@@ -38,7 +38,7 @@ Este portfolio web representa mi trabajo como desarrolladora junior, mostrando p
 - **Build Tool**: Vite
 - **CSS Framework**: Tailwind CSS
 - **Iconos**: Lucide React
-- **Deploy**: GitHub Pages
+- **Deploy**: Vercel
 - **Version Control**: Git & GitHub
 
 ---
@@ -75,24 +75,23 @@ npm run dev          # Inicia el servidor de desarrollo
 # Producción
 npm run build        # Genera la build de producción
 npm run preview      # Previsualiza la build de producción
-
-# Deploy
-npm run deploy       # Deploya automáticamente a GitHub Pages
 ```
 
 ---
 
 ## 🌐 Deploy
 
-Este proyecto está configurado para deployar automáticamente a GitHub Pages. Cada push a la rama `main` activará el proceso de deploy.
+Este proyecto está desplegado en **Vercel**, aprovechando su integración automática con GitHub para deployments continuos. Cada push a la rama principal activará automáticamente una nueva build.
 
-**URL del sitio**: [https://marcem22.github.io/mi-portfolio](https://marcem22.github.io/mi-portfolio)
+**URL del sitio**: [https://mi-portfoliomm.vercel.app/](https://mi-portfoliomm.vercel.app/)
 
-### Deploy manual
+### Características del deploy en Vercel
 
-```bash
-npm run deploy
-```
+- ✅ **Deploy automático** desde GitHub
+- ⚡ **Edge Network** global para máximo rendimiento  
+- 🔄 **Preview deployments** para branches y PRs
+- 📊 **Analytics integrados**
+- 🚀 **Optimizaciones automáticas** de performance
 
 ---
 
@@ -133,7 +132,7 @@ Este proyecto está bajo una **licencia personalizada** que permite el uso del c
   ```
   Código original por Marcela Mancini
   GitHub: https://github.com/marcem22
-  Portfolio: https://marcem22.github.io/mi-portfolio
+  Portfolio: https://mi-portfoliomm.vercel.app/
   ```
 - **No copiar el diseño completo**: No está permitido clonar el portfolio completo sin modificaciones significativas
 - **Respetar contenido personal**: Todo el contenido personal (textos, CV, información de contacto) debe ser reemplazado
