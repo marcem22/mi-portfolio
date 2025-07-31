@@ -1,9 +1,9 @@
 import './input.css';
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './output.css';
-import './App.css';  //
+import './App.css';  
+import './i18n';
 
 import reportWebVitals from './reportWebVitals';
 
