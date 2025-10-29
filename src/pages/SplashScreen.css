@@ -1,8 +1,15 @@
+:root {
+  --bg-dark: #0b0b0f;
+  --secondary: #ff1b6d;
+  --cursor: #ffb3e6;
+}
+
+/* Contenedor principal */
 #splash {
   position: fixed;
   inset: 0;
-  background-color: var(--bg-dark); /* Fondo negro del portfolio */
-  color: #ffe6f7; /* Rosa muy claro, casi blanco */
+  background-color: var(--bg-dark);
+  color: #ffe6f7;
   font-family: 'Courier New', monospace;
   display: flex;
   align-items: center;
@@ -12,6 +19,26 @@
   overflow: hidden;
   box-shadow: inset 0 0 100px var(--secondary);
   transition: opacity 1s ease;
+  min-height: 100dvh;
+  width: 100vw;
+}
+
+#splash.fadeout {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 💫 Halo ambiental */
+#splash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 77, 148, 0.15), transparent 70%);
+  animation: glow 6s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from { opacity: 0.3; }
+  to { opacity: 0.7; }
 }
 
 /* ✨ Brillo neón del texto */
@@ -21,15 +48,17 @@
     0 0 20px #ff80c1,
     0 0 40px #ff4d94,
     0 0 80px #ff1b6d;
+  padding: 0 16px;
+  max-width: 95vw;
 }
 
 /* 🖋️ Efecto de tipeo */
 .terminal p {
   opacity: 0;
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 4vw, 1.3rem);
   margin: 6px 0;
   white-space: nowrap;
-  border-right: 2px solid #ffb3e6; /* cursor rosado claro */
+  border-right: 2px solid var(--cursor);
   width: 0;
   overflow: hidden;
 }
@@ -39,7 +68,6 @@
   from { width: 0; opacity: 1; }
   to { width: 100%; opacity: 1; }
 }
-
 @keyframes blink {
   50% { border-color: transparent; }
 }
@@ -51,16 +79,20 @@
 #line4 { animation: typing 1.8s steps(30, end) 5.4s forwards, blink 0.7s step-end infinite alternate; }
 #line5 { animation: typing 2s steps(30, end) 7.6s forwards, blink 0.7s step-end infinite alternate; }
 
-/* 💫 Halo ambiental */
-#splash::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 77, 148, 0.15), transparent 70%);
-  animation: glow 6s ease-in-out infinite alternate;
+/* 💻 Línea final */
+.terminal .final {
+  font-size: clamp(1rem, 4.5vw, 1.4rem);
+  letter-spacing: 0.2px;
+  margin-top: 10px;
 }
 
-@keyframes glow {
-  from { opacity: 0.3; }
-  to { opacity: 0.7; }
+/* 🔧 Ajustes responsive (sin quitar efecto) */
+@media (max-width: 480px) {
+  .terminal p {
+    font-size: clamp(0.7rem, 3.2vw, 1rem); 
+    white-space: nowrap;  
+  }
+  .terminal .final {
+    font-size: clamp(0.8rem, 3.6vw, 1.1rem); 
+  }
 }
