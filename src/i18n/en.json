@@ -1,0 +1,18 @@
+{
+  "home": {
+    "greeting": "Hi, I'm Marcela",
+    "intro": "Full stack web developer with a focus on frontend and UI design"
+  },
+  "projects": {
+    "title": "Projects",
+    "viewProject": "View project",
+    "viewCode": "Code"
+  },
+  "contact": {
+    "title": "Contact",
+    "email": "Email"
+  },
+  "cv": {
+    "title": "Curriculum"
+  }
+}

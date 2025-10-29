@@ -1,0 +1,18 @@
+{
+  "home": {
+    "greeting": "Hola, soy Marcela",
+    "intro": "Desarrolladora web full stack con foco en frontend y diseño UI"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "viewProject": "Ver proyecto",
+    "viewCode": "Código"
+  },
+  "contact": {
+    "title": "Contacto",
+    "email": "Correo electrónico"
+  },
+  "cv": {
+    "title": "Currículum"
+  }
+}
