@@ -11,7 +11,6 @@ import {
 import Parallax3D from "../components/Parallax3D";
 import BackgroundEffects from "../components/BackgroundEffects";
 import SideNavbar from "../components/SideNavbar";
-import emailjs from "emailjs-com";
 
 function Contacto() {
   const [showForm, setShowForm] = useState(false);
@@ -41,22 +40,22 @@ function Contacto() {
   ];
 
   return (
-    <div className="relative h-[100dvh] overflow-hidden bg-[var(--bg-dark)] text-white">
+    <div className="relative min-h-[100dvh] w-screen overflow-hidden bg-[var(--bg-dark)] text-white flex flex-col justify-start">
       <BackgroundEffects />
       <Parallax3D />
       <SideNavbar />
 
-     {/* === HERO CON FONDO NEGRO + CÍRCULOS + FRASE FINAL === */}
-    <section className="relative z-[30] flex flex-col items-center justify-between text-center px-6 overflow-hidden h-full">
-
+      {/* === HERO CON FONDO NEGRO + CÍRCULOS + FRASE FINAL === */}
+      <section className="relative z-[30] flex flex-col items-center justify-center text-center w-screen h-[100dvh] overflow-hidden p-0 m-0">
+        
         {/* 🔹 HERO */}
-        <div className="relative w-full bg-[var(--bg-dark)] py-8 md:py-10 z-20">
+        <div className="relative w-full bg-[var(--bg-dark)] py-6 sm:py-8 md:py-8 z-20">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
             className="font-extrabold tracking-tight leading-tight text-white drop-shadow-[0_0_35px_rgba(255,27,109,0.4)]"
-            style={{ fontSize: "clamp(2.4rem, 6vw, 5rem)" }}
+            style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}
           >
             {displayText}
             <span style={blinkStyle} className="ml-1">|</span>
@@ -65,11 +64,9 @@ function Contacto() {
 
         {/* 🔹 CÍRCULOS */}
         <div
-          className="relative flex items-center justify-center w-full overflow-hidden"
+          className="relative flex items-center justify-center w-full flex-1 overflow-visible"
           style={{
-            flex: 1,
-            paddingTop: "1.5rem",
-            paddingBottom: "1rem",
+            marginTop: "1.5rem",
           }}
         >
           {/* Círculo central */}
@@ -81,7 +78,7 @@ function Contacto() {
             className="relative z-20 flex items-center justify-center rounded-full cursor-pointer
                       bg-gradient-to-br from-[#F2138E] to-[#2C04BF]
                       shadow-[0_0_50px_rgba(242,19,142,0.7)] border border-[#F2138E]/50
-                      w-[6rem] h-[6rem] sm:w-[8rem] sm:h-[8rem] md:w-[10rem] md:h-[10rem]"
+                      w-[7rem] h-[7rem] sm:w-[8rem] sm:h-[8rem] md:w-[10rem] md:h-[10rem]"
           >
             <FaEnvelope className="text-3xl sm:text-4xl md:text-5xl" />
           </motion.div>
@@ -92,16 +89,18 @@ function Contacto() {
             const w = typeof window !== "undefined" ? window.innerWidth : 1024;
 
             const radius =
-              w < 400 ? 55 :
-              w < 480 ? 75 :
-              w < 768 ? 95 :
-              w < 1024 ? 120 : 160; // 💡 más compacto en desktop
+              w < 380 ? 90 :
+              w < 480 ? 110 :
+              w < 640 ? 125 :
+              w < 768 ? 145 :
+              w < 1024 ? 165 : 190; // 💡 más separación
 
             const size =
-              w < 400 ? 36 :
-              w < 480 ? 46 :
-              w < 768 ? 54 :
-              w < 1024 ? 64 : 75;
+              w < 380 ? 46 :
+              w < 480 ? 54 :
+              w < 640 ? 60 :
+              w < 768 ? 68 :
+              w < 1024 ? 72 : 80;
 
             const x = Math.cos(angle) * radius;
             const y = Math.sin(angle) * radius;
@@ -134,9 +133,7 @@ function Contacto() {
             );
           })}
         </div>
-
-      
-    </section>
+      </section>
 
       {/* === MODAL === */}
       {showForm && (
@@ -213,7 +210,7 @@ function Contacto() {
         </div>
       )}
 
-      {/* animación cursor */}
+      {/* 🔹 Animación cursor */}
       <style>{`
         @keyframes blink {
           0%, 50%, 100% { opacity: 1; }

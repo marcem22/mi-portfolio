@@ -202,33 +202,80 @@ useEffect(() => {
             {/* HERO SECTION */}
             <div className="flex flex-col lg:flex-row items-center justify-between gap-16 mb-16">
               <div className="flex-1 text-center lg:text-left">
-                <h1 className="font-extrabold mb-8 tracking-tight leading-tight">
-                  <span className="block relative inline-block" style={{ 
-                    fontSize: '4rem', 
-                    color: 'var(--texto-principal)' 
-                  }}>
-                    Hola, soy
-                    <div className="absolute -right-4 top-1/2 -translate-y-1/2 w-12 h-0.5" 
-                      style={{ 
-                        backgroundColor: '#FF8FD6',
-                        boxShadow: '0 0 20px rgba(255, 143, 214, 0.8)'
-                      }} />
-                  </span>
-                  <span className="block mt-2 relative inline-block" 
-                    style={{ 
-                      fontSize: '5rem',
-                      color: '#FF8FD6',
-                      textShadow: '0 0 60px rgba(255, 143, 214, 0.6)'
-                    }}>
-                    Marcela
-                    <div className="absolute -bottom-2 left-0 right-0 h-1 rounded-full" 
-                      style={{ 
-                        background: 'linear-gradient(90deg, #FF8FD6, #FFB3E6, #FF8FD6)',
-                        boxShadow: '0 0 30px rgba(255, 143, 214, 0.8)',
-                        animation: 'shimmer 3s ease-in-out infinite'
-                      }} />
-                  </span>
-                </h1>
+              <h1
+                className="font-extrabold mb-8 tracking-tight leading-tight text-center lg:text-left whitespace-nowrap"
+                style={{
+                  display: "inline-block",
+                  transformOrigin: "left center",
+                  width: "100%",
+                }}
+              >
+                <span
+                  className="relative inline-block align-middle"
+                  style={{
+                    fontSize: "clamp(2.2rem, 6vw, 4rem)", // 🔥 se adapta dinámicamente
+                    color: "var(--texto-principal)",
+                  }}
+                >
+                  Hola, soy
+                  <div
+                    className="absolute -right-4 top-1/2 -translate-y-1/2 w-10 sm:w-12 h-0.5"
+                    style={{
+                      backgroundColor: "#FF8FD6",
+                      boxShadow: "0 0 20px rgba(255, 143, 214, 0.8)",
+                    }}
+                  />
+                </span>
+
+                <span
+                  className="relative inline-block align-middle ml-3"
+                  style={{
+                    fontSize: "clamp(2.6rem, 8vw, 5rem)", // 🔥 también adaptable
+                    color: "#FF8FD6",
+                    textShadow: "0 0 60px rgba(255, 143, 214, 0.6)",
+                  }}
+                >
+                  Marcela
+                  <div
+                    className="absolute -bottom-2 left-0 right-0 h-1 rounded-full"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, #FF8FD6, #FFB3E6, #FF8FD6)",
+                      boxShadow: "0 0 30px rgba(255, 143, 214, 0.8)",
+                      animation: "shimmer 3s ease-in-out infinite",
+                    }}
+                  />
+                </span>
+
+
+                <style>
+                  {`
+                    h1 {
+                      max-width: 100%;
+                      overflow: hidden;
+                    }
+
+                    @media (max-width: 640px) {
+                      h1 {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-wrap: nowrap;
+                        transform: scale(0.95);
+                      }
+                      h1 span:first-child {
+                        font-size: clamp(1.8rem, 6vw, 2.8rem) !important;
+                      }
+                      h1 span:last-child {
+                        font-size: clamp(2.2rem, 8vw, 3.2rem) !important;
+                      }
+                    }
+                  `}
+                </style>
+              </h1>
+
+
+
 
                 <div className="text-xl md:text-2xl mb-6 font-medium h-10 flex items-center justify-center lg:justify-start" 
                   style={{ color: '#FFFFFF' }}>
@@ -614,53 +661,67 @@ useEffect(() => {
                     >
                       {fact.text}
                     </p>
-{/* Tooltip con animación y triángulo */}
-<div
-  className="absolute left-1/2 bottom-full mb-3 w-max max-w-[160px] sm:max-w-[180px]
-             -translate-x-1/2 opacity-0 group-hover:opacity-100 pointer-events-none
-             transform translate-y-2 group-hover:translate-y-0 transition-all duration-400 ease-out
-             overflow-visible"
-  style={{
-    backgroundColor: "rgba(0,0,0,0.85)",
-    color: "white",
-    padding: "8px 12px",
-    borderRadius: "8px",
-    fontSize: "0.75rem",
-    boxShadow: `0 0 10px ${fact.color}60`,
-    whiteSpace: "normal",
-  }}
->
-  {/* Texto del tooltip */}
-  {fact.text === "Hincha de River Plate" && (
-  <span className="flex items-center justify-center gap-2">
-    Llevo una banda roja en el alma
-    <img
-      src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Logo_River_Plate.png"
-      alt="Escudo River Plate"
-      className="w-5 h-5 object-contain inline-block brightness-110 contrast-125"
-      style={{ filter: "drop-shadow(0 0 4px rgba(255,27,109,0.5))" }}
-    />
-  </span>
-)}
-  {fact.text === "Obsesionada con el rosa" && "Literal, hasta el código tiene rosa 💖"}
-  {fact.text === "Mamá de Buddy" && "Mi perro cree que soy una diosa del teclado 🐶"}
-  {fact.text === "Adicta a viajar" && "El mundo también se explora en HTML ✈️"}
-  {fact.text === "Amante de la cocina" && "Me encanta cocinar tanto como programar 👩‍🍳"}
-  {fact.text === "Team cerveza" && "🍺 + código = a veces buena idea"}
-  {fact.text === "Odio dibujar" && "Pero amo diseñar interfaces 🎨"}
-  {fact.text === "Nunca descanso" && "Compilando sueños a medianoche 🌙"}
 
-  {/* Triángulo */}
-  <div
-    className="absolute left-1/2 translate-x-[-50%] top-full w-0 h-0"
-    style={{
-      borderLeft: "6px solid transparent",
-      borderRight: "6px solid transparent",
-      borderTop: `6px solid rgba(0,0,0,0.85)`,
-      filter: `drop-shadow(0 0 4px ${fact.color}60)`,
-    }}
-  />
-</div>
+                    {/* Tooltip con animación y triángulo */}
+                    <div
+                      className={`absolute bottom-full mb-3 w-max max-w-[160px] sm:max-w-[180px]
+                                  opacity-0 group-hover:opacity-100 pointer-events-none
+                                  transform translate-y-2 group-hover:translate-y-0 transition-all duration-400 ease-out
+                                  overflow-visible tooltip
+                                  ${
+                                    fact.index >= 4
+                                      ? "right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 translate-x-[-40%]"
+                                      : "left-0 sm:left-1/2 sm:-translate-x-1/2 translate-x-[40%]"
+                                  }`}
+                      style={{
+                        backgroundColor: "rgba(0,0,0,0.85)",
+                        color: "white",
+                        padding: "8px 12px",
+                        borderRadius: "8px",
+                        fontSize: "0.75rem",
+                        boxShadow: `0 0 10px ${fact.color}60`,
+                        whiteSpace: "normal",
+                        zIndex: 50,
+                      }}
+                    >
+                      {/* Texto del tooltip */}
+                      {fact.text === "Hincha de River Plate" && (
+                        <span className="flex items-center justify-center gap-2">
+                          Llevo una banda roja en el alma
+                          <img
+                            src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Logo_River_Plate.png"
+                            alt="Escudo River Plate"
+                            className="w-5 h-5 object-contain inline-block brightness-110 contrast-125"
+                            style={{ filter: "drop-shadow(0 0 4px rgba(255,27,109,0.5))" }}
+                          />
+                        </span>
+                      )}
+                      {fact.text === "Obsesionada con el rosa" && "Literal, hasta el código tiene rosa 💖"}
+                      {fact.text === "Mamá de Buddy" && "Mi perro cree que soy una diosa del teclado 🐶"}
+                      {fact.text === "Adicta a viajar" && "El mundo también se explora en HTML ✈️"}
+                      {fact.text === "Amante de la cocina" && "Me encanta cocinar tanto como programar 👩‍🍳"}
+                      {fact.text === "Team cerveza" && "🍺 + código = a veces buena idea"}
+                      {fact.text === "Odio dibujar" && "Pero amo diseñar interfaces 🎨"}
+                      {fact.text === "Nunca descanso" && "Compilando sueños a medianoche 🌙"}
+
+                      {/* Triángulo */}
+                      <div
+                        className={`absolute top-full w-0 h-0
+                                    ${
+                                      fact.index >= 4
+                                        ? "right-6 sm:left-1/2 sm:-translate-x-1/2"
+                                        : "left-6 sm:left-1/2 sm:-translate-x-1/2"
+                                    }`}
+                        style={{
+                          borderLeft: "6px solid transparent",
+                          borderRight: "6px solid transparent",
+                          borderTop: `6px solid rgba(0,0,0,0.85)`,
+                          filter: `drop-shadow(0 0 4px ${fact.color}60)`,
+                        }}
+                      />
+                    </div>
+
+
 
                   </div>
                 ))}

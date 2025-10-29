@@ -13,6 +13,7 @@ function SkillsCube3D() {
     let previousMousePosition = { x: 0, y: 0 };
     let targetRotation = { x: 0, y: 0 };
     let autoRotate = true;
+    let initialDistance = null; // 👉 Para detectar zoom táctil
 
     try {
       // 🎬 Escena
@@ -82,76 +83,69 @@ function SkillsCube3D() {
       );
       cube.add(line);
 
-// 🏷️ Etiquetas limpias: icono + nombre en negro, sin fondo ni efectos
-const createLabel = (skill) => {
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return null;
+      // 🏷️ Etiquetas limpias: icono + nombre en negro
+      const createLabel = (skill) => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return null;
 
-  // Tamaño del lienzo
-  canvas.width = 512;
-  canvas.height = 256;
+        canvas.width = 512;
+        canvas.height = 256;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Fondo completamente transparente
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
 
-  // Configuración de texto
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
+        const iconSize = 52;
+        const textSize = 38;
 
-  // Estilo del icono (si el skill lo tiene)
-  ctx.font = "bold 52px sans-serif";
-  ctx.fillStyle = skill.color || "#F2138E";
-  const iconWidth = skill.icon ? ctx.measureText(skill.icon).width : 0;
+        // Icono
+        ctx.font = `bold ${iconSize}px sans-serif`;
+        ctx.fillStyle = skill.color || "#F2138E";
+        const iconWidth = skill.icon ? ctx.measureText(skill.icon).width : 0;
 
-  // Estilo del nombre
-  ctx.font = "bold 38px 'Poppins', sans-serif";
-  const nameWidth = ctx.measureText(skill.name).width;
+        // Nombre
+        ctx.font = `bold ${textSize}px 'Poppins', sans-serif`;
+        const nameWidth = ctx.measureText(skill.name).width;
+        const totalWidth = iconWidth + (skill.icon ? 30 : 0) + nameWidth;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
 
-  // Calcular posición combinada
-  const totalWidth = iconWidth + (skill.icon ? 30 : 0) + nameWidth;
-  const centerX = canvas.width / 2;
-  const centerY = canvas.height / 2;
+        if (skill.icon) {
+          ctx.font = `bold ${iconSize}px sans-serif`;
+          ctx.fillStyle = skill.color || "#F2138E";
+          ctx.fillText(skill.icon, centerX - totalWidth / 2 + iconWidth / 2, centerY);
+        }
 
-  // Dibujar icono si existe
-  if (skill.icon) {
-    ctx.font = "bold 52px sans-serif";
-    ctx.fillStyle = skill.color || "#F2138E";
-    ctx.fillText(skill.icon, centerX - totalWidth / 2 + iconWidth / 2, centerY);
-  }
+        ctx.font = `bold ${textSize}px 'Poppins', sans-serif`;
+        ctx.fillStyle = "#000000";
+        ctx.fillText(
+          skill.name,
+          centerX + (skill.icon ? totalWidth / 2 - nameWidth / 2 : 0),
+          centerY
+        );
 
-  // Dibujar nombre (en negro)
-  ctx.font = "bold 38px 'Poppins', sans-serif";
-  ctx.fillStyle = "#0000000";
-  ctx.fillText(skill.name, centerX + (skill.icon ? totalWidth / 2 - nameWidth / 2 : 0), centerY);
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.needsUpdate = true;
 
-  // Crear textura y sprite
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.needsUpdate = true;
+        const mat = new THREE.SpriteMaterial({ map: texture, transparent: true });
+        const sprite = new THREE.Sprite(mat);
+        sprite.scale.set(2.6, 1.2, 1);
 
-  const mat = new THREE.SpriteMaterial({ map: texture, transparent: true });
-  const sprite = new THREE.Sprite(mat);
-  sprite.scale.set(2.6, 1.2, 1);
+        return sprite;
+      };
 
-  return sprite;
-};
-
-
-
-      // 🔸 Crear etiquetas para las 6 caras (sin repetir)
+      // 🔸 Etiquetas para las 6 caras
       const labels = skills.map(createLabel);
       const offset = cubeSize / 2 + 0.05;
-
-      // ✅ Colocamos las etiquetas con leve inclinación en top y bottom para visibilidad
       const placements = [
         [0, 0, offset, 0, 0, 0], // Frente
         [0, 0, -offset, 0, Math.PI, 0], // Atrás
         [-offset, 0, 0, 0, Math.PI / 2, 0], // Izquierda
         [offset, 0, 0, 0, -Math.PI / 2, 0], // Derecha
-        [0, offset, 0, -Math.PI / 3, 0, 0], // Arriba (inclinada)
-        [0, -offset, 0, Math.PI / 3, 0, 0], // Abajo (inclinada)
+        [0, offset, 0, -Math.PI / 3, 0, 0], // Arriba
+        [0, -offset, 0, Math.PI / 3, 0, 0], // Abajo
       ];
-
       placements.forEach((placement, i) => {
         const [x, y, z, rx, ry, rz] = placement;
         const sprite = labels[i % labels.length];
@@ -183,7 +177,7 @@ const createLabel = (skill) => {
       particles = new THREE.Points(pGeo, pMat);
       scene.add(particles);
 
-      // 🎞️ Animación con rotación manual + automática
+      // 🎞️ Animación
       let ry = 0;
       const animate = () => {
         animationFrameId = requestAnimationFrame(animate);
@@ -195,30 +189,69 @@ const createLabel = (skill) => {
       };
       animate();
 
-      // 🖱️ Rotación manual
-      const onMouseDown = (e) => {
+      // 🖱️ / 📱 Interacción
+      const getClientPos = (e) => {
+        if (e.touches && e.touches.length > 0) {
+          return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        } else {
+          return { x: e.clientX, y: e.clientY };
+        }
+      };
+
+      const onPointerDown = (e) => {
+        e.preventDefault();
         isDragging = true;
         autoRotate = false;
-        previousMousePosition = { x: e.clientX, y: e.clientY };
+        const pos = getClientPos(e);
+        previousMousePosition = { x: pos.x, y: pos.y };
+
+        // 📱 Detectar inicio de gesto de zoom
+        if (e.touches && e.touches.length === 2) {
+          const dx = e.touches[0].clientX - e.touches[1].clientX;
+          const dy = e.touches[0].clientY - e.touches[1].clientY;
+          initialDistance = Math.sqrt(dx * dx + dy * dy);
+        }
       };
 
-      const onMouseMove = (e) => {
+      const onPointerMove = (e) => {
         if (!isDragging) return;
-        const deltaX = e.clientX - previousMousePosition.x;
-        const deltaY = e.clientY - previousMousePosition.y;
+
+        // 📱 Zoom multitáctil
+        if (e.touches && e.touches.length === 2) {
+          const dx = e.touches[0].clientX - e.touches[1].clientX;
+          const dy = e.touches[0].clientY - e.touches[1].clientY;
+          const newDistance = Math.sqrt(dx * dx + dy * dy);
+          if (initialDistance) {
+            const zoomFactor = newDistance / initialDistance;
+            camera.position.z = Math.min(Math.max(2, camera.position.z / zoomFactor), 10);
+          }
+          initialDistance = newDistance;
+          return;
+        }
+
+        // 🖱️ / ☝️ Rotación
+        const pos = getClientPos(e);
+        const deltaX = pos.x - previousMousePosition.x;
+        const deltaY = pos.y - previousMousePosition.y;
         targetRotation.y += deltaX * 0.005;
         targetRotation.x += deltaY * 0.005;
-        previousMousePosition = { x: e.clientX, y: e.clientY };
+        previousMousePosition = pos;
       };
 
-      const onMouseUp = () => {
+      const onPointerUp = () => {
         isDragging = false;
+        initialDistance = null;
         setTimeout(() => (autoRotate = true), 3000);
       };
 
-      container.addEventListener("mousedown", onMouseDown);
-      container.addEventListener("mousemove", onMouseMove);
-      container.addEventListener("mouseup", onMouseUp);
+      // ✅ Escuchar mouse + touch
+      container.addEventListener("mousedown", onPointerDown);
+      container.addEventListener("mousemove", onPointerMove);
+      container.addEventListener("mouseup", onPointerUp);
+
+      container.addEventListener("touchstart", onPointerDown, { passive: true });
+      container.addEventListener("touchmove", onPointerMove, { passive: true });
+      container.addEventListener("touchend", onPointerUp);
 
       // 📏 Resize
       const handleResize = () => {
@@ -233,9 +266,12 @@ const createLabel = (skill) => {
       return () => {
         cancelAnimationFrame(animationFrameId);
         window.removeEventListener("resize", handleResize);
-        container.removeEventListener("mousedown", onMouseDown);
-        container.removeEventListener("mousemove", onMouseMove);
-        container.removeEventListener("mouseup", onMouseUp);
+        container.removeEventListener("mousedown", onPointerDown);
+        container.removeEventListener("mousemove", onPointerMove);
+        container.removeEventListener("mouseup", onPointerUp);
+        container.removeEventListener("touchstart", onPointerDown);
+        container.removeEventListener("touchmove", onPointerMove);
+        container.removeEventListener("touchend", onPointerUp);
         if (renderer && renderer.domElement && container.contains(renderer.domElement)) {
           container.removeChild(renderer.domElement);
         }
@@ -250,16 +286,16 @@ const createLabel = (skill) => {
     <div className="w-full flex flex-col items-center justify-center">
       <h2
         className="text-3xl font-bold mb-8 relative inline-block"
-                  style={{ color: 'var(--texto-principal)' }}
+        style={{ color: "var(--texto-principal)" }}
       >
         Mis Habilidades
         <div
-                    className="absolute -bottom-1 left-0 w-20 h-0.5"
-                    style={{
-                      backgroundColor: '#FF8FD6',
-                      boxShadow: '0 0 15px rgba(255, 143, 214, 0.6)',
-                    }}
-       />
+          className="absolute -bottom-1 left-0 w-20 h-0.5"
+          style={{
+            backgroundColor: "#FF8FD6",
+            boxShadow: "0 0 15px rgba(255, 143, 214, 0.6)",
+          }}
+        />
       </h2>
 
       <div
@@ -270,6 +306,7 @@ const createLabel = (skill) => {
           height: "420px",
           background: "transparent",
           cursor: "grab",
+          touchAction: "none", // 🔒 evita conflicto con scroll en móvil
         }}
       />
     </div>
