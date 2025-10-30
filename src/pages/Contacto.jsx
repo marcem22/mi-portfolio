@@ -28,6 +28,12 @@ function Contacto() {
       return () => clearTimeout(timeout);
     }
   }, [index, text]);
+  useEffect(() => {
+  window.onSubmit = function (token) {
+    document.getElementById("contactForm").submit();
+      };
+  }, []);
+
 
   const blinkStyle = { animation: "blink 1s infinite" };
 
@@ -154,6 +160,7 @@ function Contacto() {
             <h2 className="text-2xl font-bold mb-4 text-white">Escribime un mensaje</h2>
 
             <form
+              id="contactForm"
               action="https://formspree.io/f/xblkrnee"
               method="POST"
               className="space-y-6"
@@ -192,6 +199,7 @@ function Contacto() {
                 <option value="Consultoría">💡 Consultoría</option>
                 <option value="Otro">🚀 Otro</option>
               </select>
+
               <textarea
                 name="mensaje"
                 placeholder="Tu mensaje..."
@@ -199,9 +207,22 @@ function Contacto() {
                 required
                 className="w-full p-4 rounded-xl bg-[var(--bg-dark)] border border-gray-600 resize-none focus:border-[#F2138E] outline-none transition-all"
               ></textarea>
+
+              {/* Honeypot invisible */}
+              <input
+                type="text"
+                name="_gotcha"
+                style={{ display: "none" }}
+                tabIndex="-1"
+                autoComplete="off"
+              />
+
+              {/* Botón con reCAPTCHA */}
               <button
-                type="submit"
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-[#F2138E] to-[#2C04BF] font-semibold hover:scale-[1.03] transition-all shadow-[0_0_25px_rgba(242,19,142,0.6)]"
+                className="g-recaptcha w-full py-3 rounded-xl bg-gradient-to-r from-[#F2138E] to-[#2C04BF] font-semibold hover:scale-[1.03] transition-all shadow-[0_0_25px_rgba(242,19,142,0.6)]"
+                data-sitekey="6LfaRvwrAAAAAEVqCKWHRVVNvvSC2oLTOou6ghpV"
+                data-callback="onSubmit"
+                data-action="submit"
               >
                 Enviar
               </button>
@@ -209,6 +230,7 @@ function Contacto() {
           </motion.div>
         </div>
       )}
+
 
       {/* 🔹 Animación cursor */}
       <style>{`
