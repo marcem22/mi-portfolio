@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../lib/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { signOut } from "firebase/auth";
+import { auth } from "../lib/firebase";
 
 function AdminCV() {
   const [profile, setProfile] = useState({
@@ -85,6 +87,12 @@ function AdminCV() {
       <h1 className="text-4xl font-bold mb-8 text-[var(--accent)]">
         Panel de administración del CV
       </h1>
+      <button
+        onClick={() => signOut(auth)}
+        className="absolute top-6 right-6 px-4 py-2 bg-[var(--accent)] text-white rounded-lg hover:bg-[#F2138E] transition-all"
+      >
+        Cerrar sesión
+      </button>
 
       {message && (
         <div className="mb-4 text-center text-lg font-semibold text-[var(--accent)]">
@@ -391,7 +399,7 @@ function AdminCV() {
                     }}
                     className="accent-[var(--accent)] w-4 h-4"
                 />
-                Marcar como proyecto destacado (se mostrará en el CV)
+                
                 </label>
 
                 {/* Botón eliminar */}

@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { db } from "../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import SideNavbar from "../components/SideNavbar";
-import Parallax3D from "../components/Parallax3D";
-import BackgroundEffects from "../components/BackgroundEffects";
 import { Link } from "react-router-dom";
 
 
@@ -36,7 +34,6 @@ function CV() {
       className="relative min-h-screen text-white bg-[#0a0a0a] print:bg-white print:text-black"
     >
       <SideNavbar />
-      <BackgroundEffects />
 
       {/* ===== HERO CV ===== */}
       <section className="relative z-[30] overflow-hidden bg-[var(--bg-dark)] text-[var(--text-primary)] print:bg-white pt-20 md:pt-0">
@@ -74,8 +71,6 @@ function CV() {
 
       {/* ===== CONTENIDO CV (scroll lineal) ===== */}
       <section id="cv-content" className="relative z-[10]">
-        {/* Parallax arranca recién acá (NO se ve en el Hero) */}
-        <Parallax3D />
 
         <div className="max-w-6xl mx-auto px-6 md:px-12 py-12 md:py-16 space-y-20">
           {/* PERFIL PROFESIONAL */}

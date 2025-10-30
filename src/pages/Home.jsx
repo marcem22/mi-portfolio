@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import BackgroundEffects from '../components/BackgroundEffects';
-import Parallax3D from '../components/Parallax3D';
 import SkillsCube3D from '../components/SkillsCube3D'; 
 import SplashScreen from "../components/SplashScreen";
 import avatarImg from '../assets/avatar.png';
@@ -21,9 +19,9 @@ function Home() {
 });
 
   const [showNewAvatar, setShowNewAvatar] = useState(false);
-// 🧠 Control del SplashScreen + transición de avatares + visibilidad
+//  Control del SplashScreen + transición de avatares + visibilidad
 useEffect(() => {
-  // ✅ Solo configurar la marca si aún no existe
+  //  Solo configurar la marca si aún no existe
   const splashWasShown = sessionStorage.getItem("splashShown");
 
   if (!splashWasShown) {
@@ -40,7 +38,7 @@ useEffect(() => {
   }
 }, []);
 
-// 🔁 Transición entre avatares y aparición del contenido
+// Transición entre avatares y aparición del contenido
 useEffect(() => {
   if (!showSplash) {
     setIsVisible(true);
@@ -164,9 +162,7 @@ useEffect(() => {
           transition: "opacity 1s ease"
         }}
       >
-        {/* 🌸 Efectos de fondo */}
-        <BackgroundEffects />
-        <Parallax3D />
+
 
         <style>{`
           @keyframes shimmer {

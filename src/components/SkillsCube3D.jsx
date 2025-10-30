@@ -13,19 +13,19 @@ function SkillsCube3D() {
     let previousMousePosition = { x: 0, y: 0 };
     let targetRotation = { x: 0, y: 0 };
     let autoRotate = true;
-    let initialDistance = null; // 👉 Para detectar zoom táctil
+    let initialDistance = null; // 
 
     try {
-      // 🎬 Escena
+      //  Escena
       scene = new THREE.Scene();
 
-      // 💡 Luces suaves
+      // Luces 
       scene.add(new THREE.AmbientLight(0xffffff, 1));
       const pointLight = new THREE.PointLight(0xffb3e6, 1.6);
       pointLight.position.set(2, 3, 4);
       scene.add(pointLight);
 
-      // 📷 Cámara
+      //  Cámara
       camera = new THREE.PerspectiveCamera(
         45,
         container.clientWidth / container.clientHeight,
@@ -34,14 +34,14 @@ function SkillsCube3D() {
       );
       camera.position.z = 4.5;
 
-      // 🧊 Render
+      // Render
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
       renderer.setSize(container.clientWidth, container.clientHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setClearColor(0x000000, 0);
       container.appendChild(renderer.domElement);
 
-      // 🎨 Skills
+      //  Skills
       const skills = [
         { name: "React", color: "#61DAFB", icon: "⚛️" },
         { name: "JavaScript", color: "#F7DF1E", icon: "🟨" },
@@ -51,7 +51,7 @@ function SkillsCube3D() {
         { name: "Git", color: "#F05032", icon: "📦" },
       ];
 
-      // 🔹 Cubo de color rosa translúcido
+      //  Cubo de color rosa translúcido
       const cubeSize = 2;
       const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
       const baseColor = new THREE.Color("#FF8FD6");
@@ -71,7 +71,7 @@ function SkillsCube3D() {
       cube = new THREE.Mesh(geometry, materials);
       scene.add(cube);
 
-      // 🌐 Wireframe
+      //  Wireframe
       const edges = new THREE.EdgesGeometry(geometry);
       const line = new THREE.LineSegments(
         edges,
@@ -83,7 +83,7 @@ function SkillsCube3D() {
       );
       cube.add(line);
 
-      // 🏷️ Etiquetas limpias: icono + nombre en negro
+      //  Etiquetas
       const createLabel = (skill) => {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
@@ -135,7 +135,7 @@ function SkillsCube3D() {
         return sprite;
       };
 
-      // 🔸 Etiquetas para las 6 caras
+      //  Etiquetas para las 6 caras
       const labels = skills.map(createLabel);
       const offset = cubeSize / 2 + 0.05;
       const placements = [
@@ -216,7 +216,7 @@ function SkillsCube3D() {
       const onPointerMove = (e) => {
         if (!isDragging) return;
 
-        // 📱 Zoom multitáctil
+        //  Zoom multitáctil
         if (e.touches && e.touches.length === 2) {
           const dx = e.touches[0].clientX - e.touches[1].clientX;
           const dy = e.touches[0].clientY - e.touches[1].clientY;
@@ -229,7 +229,7 @@ function SkillsCube3D() {
           return;
         }
 
-        // 🖱️ / ☝️ Rotación
+        //   Rotación
         const pos = getClientPos(e);
         const deltaX = pos.x - previousMousePosition.x;
         const deltaY = pos.y - previousMousePosition.y;
@@ -244,7 +244,7 @@ function SkillsCube3D() {
         setTimeout(() => (autoRotate = true), 3000);
       };
 
-      // ✅ Escuchar mouse + touch
+      //  Escuchar mouse + touch
       container.addEventListener("mousedown", onPointerDown);
       container.addEventListener("mousemove", onPointerMove);
       container.addEventListener("mouseup", onPointerUp);
@@ -253,7 +253,7 @@ function SkillsCube3D() {
       container.addEventListener("touchmove", onPointerMove, { passive: true });
       container.addEventListener("touchend", onPointerUp);
 
-      // 📏 Resize
+      //  Resize
       const handleResize = () => {
         if (!container) return;
         camera.aspect = container.clientWidth / container.clientHeight;
@@ -262,7 +262,7 @@ function SkillsCube3D() {
       };
       window.addEventListener("resize", handleResize);
 
-      // 🧹 Cleanup
+      //  Cleanup
       return () => {
         cancelAnimationFrame(animationFrameId);
         window.removeEventListener("resize", handleResize);
@@ -306,7 +306,7 @@ function SkillsCube3D() {
           height: "420px",
           background: "transparent",
           cursor: "grab",
-          touchAction: "none", // 🔒 evita conflicto con scroll en móvil
+          touchAction: "none", //  evita conflicto con scroll en móvil
         }}
       />
     </div>

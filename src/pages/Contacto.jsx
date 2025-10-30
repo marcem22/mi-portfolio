@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import SideNavbar from "../components/SideNavbar";
 import {
   FaGithub,
   FaLinkedin,
@@ -8,9 +9,8 @@ import {
   FaInstagram,
   FaEnvelope,
 } from "react-icons/fa";
-import Parallax3D from "../components/Parallax3D";
-import BackgroundEffects from "../components/BackgroundEffects";
-import SideNavbar from "../components/SideNavbar";
+
+
 
 function Contacto() {
   const [showForm, setShowForm] = useState(false);
@@ -47,8 +47,6 @@ function Contacto() {
 
   return (
     <div className="relative min-h-[100dvh] w-screen overflow-hidden bg-[var(--bg-dark)] text-white flex flex-col justify-start">
-      <BackgroundEffects />
-      <Parallax3D />
       <SideNavbar />
 
       {/* === HERO CON FONDO NEGRO + CÍRCULOS + FRASE FINAL === */}

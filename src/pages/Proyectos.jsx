@@ -3,8 +3,6 @@ import { db } from "../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import BackgroundEffects from "../components/BackgroundEffects";
-import Parallax3D from "../components/Parallax3D";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import SideNavbar from "../components/SideNavbar";
 
@@ -104,8 +102,6 @@ function TypewriterText({ text, speed = 60 }) {
 }
   return (
     <div className="relative min-h-screen bg-[var(--bg-dark)] text-white overflow-hidden">
-      <BackgroundEffects />
-      <Parallax3D />
         <SideNavbar />
 
       {/* === HERO === */}
