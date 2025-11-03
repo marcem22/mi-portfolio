@@ -218,7 +218,7 @@ function Contacto() {
               {/* Botón con reCAPTCHA */}
               <button
                 className="g-recaptcha w-full py-3 rounded-xl bg-gradient-to-r from-[#F2138E] to-[#2C04BF] font-semibold hover:scale-[1.03] transition-all shadow-[0_0_25px_rgba(242,19,142,0.6)]"
-                data-sitekey="6LfaRvwrAAAAAEVqCKWHRVVNvvSC2oLTOou6ghpV"
+                data-sitekey={import.meta.env.VITE_RECAPTCHA_KEY}
                 data-callback="onSubmit"
                 data-action="submit"
               >
