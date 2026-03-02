@@ -9,12 +9,15 @@ import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute'; 
 import Parallax3D from './components/Parallax3D'; 
 import BackgroundEffects from './components/BackgroundEffects';
+import { Analytics } from '@vercel/analytics/react';
+
 
 function App() {
   return (
     <Router>
       <Parallax3D />
       <BackgroundEffects />
+      <Analytics />
 
       <Routes>
         <Route path="/" element={<Home />} />
