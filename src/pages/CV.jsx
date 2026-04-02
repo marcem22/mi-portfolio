@@ -30,8 +30,7 @@ function CV() {
   if (loading) return null;
 
   return (
-    <div className="relative min-h-screen text-[var(--text-primary)] bg-[var(--bg-dark)] print:bg-white print:text-black">
-      
+    <div className="relative min-h-screen overflow-x-hidden text-[var(--text-primary)] bg-[var(--bg-dark)] print:bg-white print:text-black">
       <SideNavbar />
 
       <section id="hero-section" className="relative z-[30] overflow-hidden text-[var(--text-primary)] print:bg-white pt-20 md:pt-0 min-h-[100vh] flex items-center justify-center">

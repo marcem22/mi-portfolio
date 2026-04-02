@@ -309,8 +309,9 @@ function Home() {
                     </h2>
                   </div>
 
+                  {/* Arreglo de centrado y sombra: calc(100%-16px) y mx-auto para móvil */}
                   <div
-                    className="group relative rounded-none overflow-hidden transition-all duration-500 w-full"
+                    className="group relative rounded-none overflow-hidden transition-all duration-500 w-[calc(100%-16px)] mx-auto md:w-full"
                     style={{
                       backgroundColor: 'var(--bg-surface)',
                       border: '2px solid var(--border)',
@@ -451,8 +452,9 @@ function Home() {
                         Mi Recorrido
                       </h2>
 
+                      {/* Arreglo de centrado: w-[90%] sm:w-full mx-auto para móvil */}
                       <div 
-                        className="w-full max-w-[460px] min-h-[250px] bg-[#121212] rounded-none border-none relative overflow-hidden flex flex-col justify-between p-4 sm:p-6"
+                        className="w-[90%] sm:w-full max-w-[460px] mx-auto min-h-[250px] bg-[#121212] rounded-none border-none relative overflow-hidden flex flex-col justify-between p-4 sm:p-6"
                         style={{
                           boxShadow: "0 0 60px rgba(217, 82, 94, 0.6), 0 0 100px rgba(217, 82, 94, 0.2)",
                           animation: "float 6s ease-in-out infinite"
@@ -536,7 +538,8 @@ function Home() {
                     </h2>
                   </div>
 
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  {/* Arreglo de centrado: agregamos px-4 md:px-0 al contenedor de la grilla para separar sombras */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 px-4 md:px-0">
                     {funFacts.map((fact, index) => (
                       <div
                         key={index}
@@ -632,7 +635,8 @@ function Home() {
                     </h2>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {/* Arreglo de centrado: agregamos px-4 md:px-0 al contenedor de los botones grandes */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-0">
                     {menuItems.map((item, index) => (
                       <Link
                         to={item.to}

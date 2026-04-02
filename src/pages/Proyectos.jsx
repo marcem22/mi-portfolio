@@ -65,40 +65,41 @@ function Proyectos() {
   if (loading) return null;
 
   return (
-    <div className="relative min-h-screen w-full bg-[var(--bg-dark)] text-white overflow-hidden">
+    <div className="relative min-h-screen w-full bg-[var(--bg-dark)] text-white overflow-x-hidden">
       <SideNavbar />
 
       <section className="relative z-[30] bg-[var(--bg-dark)] text-[var(--text-primary)] py-10">
-  <div className="relative z-10 max-w-5xl mx-auto px-6 flex justify-center">
-    <motion.h1
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
-      className="font-black uppercase flex flex-col items-center w-full text-center"
-      style={{ lineHeight: "0.8" }}
-    >
-      <span
-        style={{
-          fontSize: "clamp(1.2rem, 3vw, 2rem)",
-          color: "#FFFFFF",
-          letterSpacing: "0.3em",
-          opacity: "0.9",
-        }}
-      >
-        Mis
-      </span>
-      <span
-        style={{
-          fontSize: "clamp(4rem, 12vw, 8rem)",
-          color: "var(--primary)",
-          letterSpacing: "-0.06em",
-        }}
-      >
-        <TypewriterText text="Proyectos" speed={55} />
-      </span>
-    </motion.h1>
-  </div>
-</section>
+        <div className="relative z-10 max-w-5xl mx-auto px-6 flex justify-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="font-black uppercase flex flex-col items-center w-full text-center"
+            style={{ lineHeight: "0.8" }}
+          >
+            <span
+              style={{
+                fontSize: "clamp(1.2rem, 3vw, 2rem)",
+                color: "#FFFFFF",
+                letterSpacing: "0.3em",
+                opacity: "0.9",
+              }}
+            >
+              Mis
+            </span>
+            <span
+              style={{
+                fontSize: "clamp(4rem, 12vw, 8rem)",
+                color: "var(--primary)",
+                letterSpacing: "-0.06em",
+              }}
+            >
+              <TypewriterText text="Proyectos" speed={55} />
+            </span>
+          </motion.h1>
+        </div>
+      </section>
+
       <section className="relative z-10 max-w-5xl mx-auto px-6 pt-14 pb-24">
         {projects.length === 0 ? (
           <p className="text-center text-[var(--text-muted)] text-lg mt-10">
@@ -117,7 +118,7 @@ function Proyectos() {
             {[...projects].reverse().map((project, i) => (
               <motion.div
                 key={i} 
-                className="relative w-full bg-[#121212] border border-[#2A2A2A] rounded-2xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] flex flex-col h-full group"
+                className="relative w-[calc(100%-16px)] mx-auto md:w-full bg-[#121212] border border-[#2A2A2A] rounded-2xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] flex flex-col h-full group"
                 variants={{
                   hidden: { opacity: 0, y: 30 },
                   visible: { opacity: 1, y: 0 },
