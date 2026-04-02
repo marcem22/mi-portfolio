@@ -13,11 +13,8 @@ function Login() {
     e.preventDefault();
     console.log("✅ Formulario enviado");
     try {
-      // Espera login
       const userCredential = await signInWithEmailAndPassword(auth, email, pw);
       console.log("✅ Login correcto:", userCredential.user);
-      
-      // Navega a admin
       navigate("/admin");
     } catch (err) {
       console.error("❌ Error al iniciar sesión:", err);
@@ -34,12 +31,12 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--bg-dark)] text-white">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--bg-dark)] text-[var(--text-primary)]">
       <form
         onSubmit={handleSubmit}
-        className="bg-[var(--bg-surface)] p-8 rounded-2xl shadow-lg w-full max-w-sm"
+        className="bg-[var(--bg-surface)] border border-[var(--border-light)] p-8 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.5)] w-full max-w-sm relative"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Acceso Admin</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center text-[var(--text-primary)]">Acceso Admin</h2>
 
         <input
           type="email"
@@ -47,7 +44,7 @@ function Login() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
           required
-          className="w-full mb-4 p-3 rounded bg-[var(--bg-hover)]"
+          className="w-full mb-4 p-4 rounded-xl bg-[var(--bg-dark)] border border-[var(--border)] focus:border-[var(--primary)] outline-none transition-all text-[var(--text-primary)]"
         />
 
         <input
@@ -56,18 +53,18 @@ function Login() {
           onChange={(e) => setPw(e.target.value)}
           placeholder="Contraseña"
           required
-          className="w-full mb-4 p-3 rounded bg-[var(--bg-hover)]"
+          className="w-full mb-6 p-4 rounded-xl bg-[var(--bg-dark)] border border-[var(--border)] focus:border-[var(--primary)] outline-none transition-all text-[var(--text-primary)]"
         />
 
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-[#F2138E] to-[#2C04BF] py-3 rounded-xl font-semibold hover:scale-[1.03] transition-all"
+          className="w-full bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] py-3 rounded-xl font-semibold hover:scale-[1.03] transition-all shadow-[0_0_20px_rgba(217,82,94,0.4)] text-white"
         >
           Entrar
         </button>
 
         {error && (
-          <p className="text-red-400 text-sm mt-3 text-center">{error}</p>
+          <p className="text-[var(--primary)] text-sm mt-4 text-center font-medium">{error}</p>
         )}
       </form>
     </div>

@@ -13,148 +13,112 @@ function SkillsCube3D() {
     let previousMousePosition = { x: 0, y: 0 };
     let targetRotation = { x: 0, y: 0 };
     let autoRotate = true;
-    let initialDistance = null; // 
+    let initialDistance = null; 
 
     try {
-      //  Escena
       scene = new THREE.Scene();
 
-      // Luces 
-      scene.add(new THREE.AmbientLight(0xffffff, 1));
-      const pointLight = new THREE.PointLight(0xffb3e6, 1.6);
-      pointLight.position.set(2, 3, 4);
-      scene.add(pointLight);
+      // Las luces ahora solo afectarán a las partículas
+      scene.add(new THREE.AmbientLight(0xffffff, 0.8)); 
+      
+      const frontLight = new THREE.PointLight(0xffffff, 2.5, 10);
+      frontLight.position.set(0, 0, 4); 
+      scene.add(frontLight);
 
-      //  Cámara
-      camera = new THREE.PerspectiveCamera(
-        45,
-        container.clientWidth / container.clientHeight,
-        0.1,
-        100
-      );
+      const accentLight = new THREE.PointLight(0xd9525e, 1.5, 10);
+      accentLight.position.set(2, 3, -2);
+      scene.add(accentLight);
+
+      // === LA CLAVE AQUÍ: Si el div no cargó el tamaño, forzamos 420px ===
+      const width = container.clientWidth || 520;
+      const height = container.clientHeight || 420;
+
+      camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
       camera.position.z = 4.5;
 
-      // Render
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setSize(width, height);
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setClearColor(0x000000, 0);
       container.appendChild(renderer.domElement);
 
-      //  Skills
       const skills = [
-        { name: "React", color: "#61DAFB", icon: "⚛️" },
-        { name: "JavaScript", color: "#F7DF1E", icon: "🟨" },
-        { name: "CSS", color: "#1572B6", icon: "🎨" },
-        { name: "HTML", color: "#E34F26", icon: "📄" },
-        { name: "Node.js", color: "#339933", icon: "🟢" },
-        { name: "Git", color: "#F05032", icon: "📦" },
+        { name: "React", iconUrl: "/assets/textures/react-icon.png" },
+        { name: "JavaScript", iconUrl: "/assets/textures/js-icon.png" },
+        { name: "CSS", iconUrl: "/assets/textures/css-icon.png" },
+        { name: "HTML", iconUrl: "/assets/textures/html-icon.png" },
+        { name: "Node.js", iconUrl: "/assets/textures/node-icon.png" },
+        { name: "Git", iconUrl: "/assets/textures/git-icon.png" },
       ];
 
-      //  Cubo de color rosa translúcido
       const cubeSize = 2;
       const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
-      const baseColor = new THREE.Color("#FF8FD6");
+      
       const materials = Array(6)
         .fill()
         .map(
           () =>
-            new THREE.MeshPhongMaterial({
-              color: baseColor,
-              emissive: baseColor.clone().multiplyScalar(0.25),
-              shininess: 90,
+            new THREE.MeshBasicMaterial({
+              color: 0xA64149, // === CAMBIO AQUÍ: Ahora las caras son del color de las aristas ===
               transparent: true,
-              opacity: 0.7,
+              opacity: 0.9, 
             })
         );
 
       cube = new THREE.Mesh(geometry, materials);
       scene.add(cube);
 
-      //  Wireframe
       const edges = new THREE.EdgesGeometry(geometry);
       const line = new THREE.LineSegments(
         edges,
         new THREE.LineBasicMaterial({
-          color: 0xffffff,
+          color: 0xA64149, 
           transparent: true,
-          opacity: 0.6,
+          linewidth: 4, 
+          opacity: 1, 
         })
       );
       cube.add(line);
 
-      //  Etiquetas
       const createLabel = (skill) => {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return null;
+        if (!skill.iconUrl) return null;
+        
+        const texture = new THREE.TextureLoader().load(skill.iconUrl);
+        texture.minFilter = THREE.LinearFilter;
+        
+        const mat = new THREE.MeshBasicMaterial({ 
+            map: texture, 
+            transparent: true,
+            opacity: 0, 
+            depthWrite: false 
+        });
 
-        canvas.width = 512;
-        canvas.height = 256;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const planeGeo = new THREE.PlaneGeometry(1.2, 1.2);
+        const mesh = new THREE.Mesh(planeGeo, mat);
 
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-
-        const iconSize = 52;
-        const textSize = 38;
-
-        // Icono
-        ctx.font = `bold ${iconSize}px sans-serif`;
-        ctx.fillStyle = skill.color || "#F2138E";
-        const iconWidth = skill.icon ? ctx.measureText(skill.icon).width : 0;
-
-        // Nombre
-        ctx.font = `bold ${textSize}px 'Poppins', sans-serif`;
-        const nameWidth = ctx.measureText(skill.name).width;
-        const totalWidth = iconWidth + (skill.icon ? 30 : 0) + nameWidth;
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-
-        if (skill.icon) {
-          ctx.font = `bold ${iconSize}px sans-serif`;
-          ctx.fillStyle = skill.color || "#F2138E";
-          ctx.fillText(skill.icon, centerX - totalWidth / 2 + iconWidth / 2, centerY);
-        }
-
-        ctx.font = `bold ${textSize}px 'Poppins', sans-serif`;
-        ctx.fillStyle = "#000000";
-        ctx.fillText(
-          skill.name,
-          centerX + (skill.icon ? totalWidth / 2 - nameWidth / 2 : 0),
-          centerY
-        );
-
-        const texture = new THREE.CanvasTexture(canvas);
-        texture.needsUpdate = true;
-
-        const mat = new THREE.SpriteMaterial({ map: texture, transparent: true });
-        const sprite = new THREE.Sprite(mat);
-        sprite.scale.set(2.6, 1.2, 1);
-
-        return sprite;
+        return mesh;
       };
 
-      //  Etiquetas para las 6 caras
-      const labels = skills.map(createLabel);
-      const offset = cubeSize / 2 + 0.05;
+      const labels = skills.map(createLabel).filter(Boolean);
+      const offset = cubeSize / 2 + 0.01;
+
       const placements = [
-        [0, 0, offset, 0, 0, 0], // Frente
-        [0, 0, -offset, 0, Math.PI, 0], // Atrás
-        [-offset, 0, 0, 0, Math.PI / 2, 0], // Izquierda
-        [offset, 0, 0, 0, -Math.PI / 2, 0], // Derecha
-        [0, offset, 0, -Math.PI / 3, 0, 0], // Arriba
-        [0, -offset, 0, Math.PI / 3, 0, 0], // Abajo
+        [0, 0, offset, 0, 0, 0],                            
+        [0, 0, -offset, 0, Math.PI, 0],                     
+        [-offset, 0, 0, 0, -Math.PI / 2, 0],                
+        [offset, 0, 0, 0, Math.PI / 2, 0],                  
+        [0, offset, 0, -Math.PI / 2, 0, 0],                 
+        [0, -offset, 0, Math.PI / 2, 0, 0],                 
       ];
+
       placements.forEach((placement, i) => {
         const [x, y, z, rx, ry, rz] = placement;
-        const sprite = labels[i % labels.length];
-        sprite.position.set(x, y, z);
-        sprite.rotation.set(rx, ry, rz);
-        cube.add(sprite);
+        const mesh = labels[i % labels.length];
+        mesh.position.set(x, y, z);
+        mesh.rotation.set(rx, ry, rz);
+        cube.add(mesh);
       });
 
-      // ✨ Partículas flotantes
       const pGeo = new THREE.BufferGeometry();
       const count = 100;
       const pos = new Float32Array(count * 3);
@@ -168,7 +132,7 @@ function SkillsCube3D() {
       }
       pGeo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
       const pMat = new THREE.PointsMaterial({
-        color: 0xffb3e6,
+        color: 0xd9525e,
         size: 0.05,
         transparent: true,
         opacity: 0.6,
@@ -177,19 +141,30 @@ function SkillsCube3D() {
       particles = new THREE.Points(pGeo, pMat);
       scene.add(particles);
 
-      // 🎞️ Animación
       let ry = 0;
       const animate = () => {
         animationFrameId = requestAnimationFrame(animate);
         if (autoRotate) ry += 0.004;
+        
         cube.rotation.y = ry + targetRotation.y;
         cube.rotation.x += (targetRotation.x - cube.rotation.x) * 0.1;
         particles.rotation.y += 0.0008;
+
+        labels.forEach((label) => {
+          if (!label) return;
+          const worldPos = new THREE.Vector3();
+          label.getWorldPosition(worldPos);
+
+          let opacity = (worldPos.z - 0.4) / 0.8; 
+          opacity = Math.max(0, Math.min(1, opacity)); 
+          
+          label.material.opacity = opacity;
+        });
+
         renderer.render(scene, camera);
       };
       animate();
 
-      // 🖱️ / 📱 Interacción
       const getClientPos = (e) => {
         if (e.touches && e.touches.length > 0) {
           return { x: e.touches[0].clientX, y: e.touches[0].clientY };
@@ -205,7 +180,6 @@ function SkillsCube3D() {
         const pos = getClientPos(e);
         previousMousePosition = { x: pos.x, y: pos.y };
 
-        // 📱 Detectar inicio de gesto de zoom
         if (e.touches && e.touches.length === 2) {
           const dx = e.touches[0].clientX - e.touches[1].clientX;
           const dy = e.touches[0].clientY - e.touches[1].clientY;
@@ -216,7 +190,6 @@ function SkillsCube3D() {
       const onPointerMove = (e) => {
         if (!isDragging) return;
 
-        //  Zoom multitáctil
         if (e.touches && e.touches.length === 2) {
           const dx = e.touches[0].clientX - e.touches[1].clientX;
           const dy = e.touches[0].clientY - e.touches[1].clientY;
@@ -229,46 +202,46 @@ function SkillsCube3D() {
           return;
         }
 
-        //   Rotación
         const pos = getClientPos(e);
         const deltaX = pos.x - previousMousePosition.x;
         const deltaY = pos.y - previousMousePosition.y;
-        targetRotation.y += deltaX * 0.005;
-        targetRotation.x += deltaY * 0.005;
+        targetRotation.y += deltaX * 0.008;
+        targetRotation.x += deltaY * 0.008;
         previousMousePosition = pos;
       };
 
       const onPointerUp = () => {
         isDragging = false;
         initialDistance = null;
-        setTimeout(() => (autoRotate = true), 3000);
+        setTimeout(() => (autoRotate = true), 2000);
       };
 
-      //  Escuchar mouse + touch
       container.addEventListener("mousedown", onPointerDown);
       container.addEventListener("mousemove", onPointerMove);
       container.addEventListener("mouseup", onPointerUp);
+      container.addEventListener("mouseleave", onPointerUp); 
 
       container.addEventListener("touchstart", onPointerDown, { passive: true });
       container.addEventListener("touchmove", onPointerMove, { passive: true });
       container.addEventListener("touchend", onPointerUp);
 
-      //  Resize
       const handleResize = () => {
         if (!container) return;
-        camera.aspect = container.clientWidth / container.clientHeight;
+        const newWidth = container.clientWidth || 520;
+        const newHeight = container.clientHeight || 420;
+        camera.aspect = newWidth / newHeight;
         camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setSize(newWidth, newHeight);
       };
       window.addEventListener("resize", handleResize);
 
-      //  Cleanup
       return () => {
         cancelAnimationFrame(animationFrameId);
         window.removeEventListener("resize", handleResize);
         container.removeEventListener("mousedown", onPointerDown);
         container.removeEventListener("mousemove", onPointerMove);
         container.removeEventListener("mouseup", onPointerUp);
+        container.removeEventListener("mouseleave", onPointerUp);
         container.removeEventListener("touchstart", onPointerDown);
         container.removeEventListener("touchmove", onPointerMove);
         container.removeEventListener("touchend", onPointerUp);
@@ -278,26 +251,12 @@ function SkillsCube3D() {
         renderer.dispose();
       };
     } catch (err) {
-      console.error("❌ Error en SkillsCube3D:", err);
+      console.error(err);
     }
   }, []);
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
-      <h2
-        className="text-3xl font-bold mb-8 relative inline-block"
-        style={{ color: "var(--texto-principal)" }}
-      >
-        Mis Habilidades
-        <div
-          className="absolute -bottom-1 left-0 w-20 h-0.5"
-          style={{
-            backgroundColor: "#FF8FD6",
-            boxShadow: "0 0 15px rgba(255, 143, 214, 0.6)",
-          }}
-        />
-      </h2>
-
+    <div className="w-full flex items-center justify-center">
       <div
         ref={mountRef}
         style={{
@@ -306,7 +265,7 @@ function SkillsCube3D() {
           height: "420px",
           background: "transparent",
           cursor: "grab",
-          touchAction: "none", //  evita conflicto con scroll en móvil
+          touchAction: "none",
         }}
       />
     </div>

@@ -10,8 +10,8 @@ const BackgroundEffects = ({ showCursor = true }) => {
     };
 
     const generateParticles = () => {
-      // Tu paleta vibrante personal
-      const colors = ['#F2138E', '#D91494', '#3703A6', '#2C04BF', '#FF4DB3'];
+     
+      const colors = ['#D99923', '#A65E1F', '#732002', '#D9A491', '#F28379'];
       const newParticles = Array.from({ length: 14 }, (_, i) => ({
         id: i,
         x: Math.random() * window.innerWidth,

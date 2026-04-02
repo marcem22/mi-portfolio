@@ -1,24 +1,22 @@
 :root {
-  --bg-dark: #0b0b0f;
-  --secondary: #ff1b6d;
-  --cursor: #ffb3e6;
+  --sp-bg: #0D0D0D; 
+  --sp-pink: #D9525E;
+  --sp-pink-dark: #A64149;
+  --sp-gray-light: #D9D9D9;
+  --sp-gray-med: #A4A5A6;
+  --sp-surface: #1A1A1A;
 }
 
-/* Contenedor principal */
 #splash {
   position: fixed;
   inset: 0;
-  background-color: var(--bg-dark);
-  color: #ffe6f7;
-  font-family: 'Courier New', monospace;
+  background-color: var(--sp-bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   z-index: 9999;
   overflow: hidden;
-  box-shadow: inset 0 0 100px var(--secondary);
-  transition: opacity 1s ease;
+  transition: opacity 0.5s ease;
   min-height: 100dvh;
   width: 100vw;
 }
@@ -28,71 +26,129 @@
   pointer-events: none;
 }
 
-/* 💫 Halo ambiental */
-#splash::before {
-  content: "";
+.splash-header {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 77, 148, 0.15), transparent 70%);
-  animation: glow 6s ease-in-out infinite alternate;
-}
-@keyframes glow {
-  from { opacity: 0.3; }
-  to { opacity: 0.7; }
+  top: 32px;
+  left: 32px;
+  color: var(--sp-gray-med);
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1.5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.7;
 }
 
-/* ✨ Brillo neón del texto */
-.terminal {
-  text-shadow:
-    0 0 10px #ffb3e6,
-    0 0 20px #ff80c1,
-    0 0 40px #ff4d94,
-    0 0 80px #ff1b6d;
-  padding: 0 16px;
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--sp-pink);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(217, 82, 94, 0.6); }
+  70% { box-shadow: 0 0 0 6px rgba(217, 82, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(217, 82, 94, 0); }
+}
+
+.modern-intro-container {
+  font-family: 'Inter', system-ui, sans-serif;
+  padding: 0 24px;
   max-width: 95vw;
 }
 
-/* 🖋️ Efecto de tipeo */
-.terminal p {
+.intro-line {
   opacity: 0;
-  font-size: clamp(0.9rem, 4vw, 1.3rem);
-  margin: 6px 0;
+  font-size: clamp(1rem, 4.5vw, 1.4rem);
+  margin: 10px 0;
   white-space: nowrap;
-  border-right: 2px solid var(--cursor);
+  color: var(--sp-gray-med); 
+  border-right: 2px solid var(--sp-pink); 
   width: 0;
   overflow: hidden;
+  letter-spacing: 0.5px;
 }
 
-/* 🔤 Animaciones */
+.intro-line .prefix, .intro-line .highlight {
+  color: var(--sp-pink); 
+}
+
+.intro-line .prefix {
+  margin-right: 8px;
+}
+
 @keyframes typing {
   from { width: 0; opacity: 1; }
   to { width: 100%; opacity: 1; }
 }
+
 @keyframes blink {
   50% { border-color: transparent; }
 }
 
-/* ⏱️ Secuencia de tipeo */
-#line1 { animation: typing 1.5s steps(30, end) 0.3s forwards, blink 0.7s step-end infinite alternate; }
-#line2 { animation: typing 1.5s steps(30, end) 2s forwards, blink 0.7s step-end infinite alternate; }
-#line3 { animation: typing 1.5s steps(30, end) 3.7s forwards, blink 0.7s step-end infinite alternate; }
-#line4 { animation: typing 1.8s steps(30, end) 5.4s forwards, blink 0.7s step-end infinite alternate; }
-#line5 { animation: typing 2s steps(30, end) 7.6s forwards, blink 0.7s step-end infinite alternate; }
+#line1 { animation: typing 0.6s steps(30, end) 0.2s forwards, blink 0.5s step-end infinite alternate; color: var(--sp-gray-light); }
+#line2 { animation: typing 0.6s steps(30, end) 1s forwards, blink 0.5s step-end infinite alternate; }
+#line3 { animation: typing 0.6s steps(30, end) 1.8s forwards, blink 0.5s step-end infinite alternate; }
+#line4 { animation: typing 0.6s steps(30, end) 2.6s forwards, blink 0.5s step-end infinite alternate; color: var(--sp-gray-light); }
+#line5 { animation: typing 0.8s steps(30, end) 3.5s forwards, blink 0.5s step-end infinite alternate; }
 
-/* 💻 Línea final */
-.terminal .final {
-  font-size: clamp(1rem, 4.5vw, 1.4rem);
+.modern-intro-container .final {
+  font-size: clamp(1.1rem, 5vw, 1.5rem);
+  font-weight: 700;
   letter-spacing: 0.2px;
-  margin-top: 10px;
+  margin-top: 15px;
+  color: #FFFFFF; 
 }
 
-/* 🔧 Ajustes responsive (sin quitar efecto) */
+.loading-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.loading-text {
+  text-align: right;
+  padding-right: 24px;
+  padding-bottom: 8px;
+  color: var(--sp-pink);
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.loading-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: var(--sp-surface);
+}
+
+.loading-bar {
+  height: 100%;
+  width: 0;
+  background-color: var(--sp-pink);
+  animation: loadProgress 4s linear forwards;
+}
+
+@keyframes loadProgress {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
 @media (max-width: 480px) {
-  .terminal p {
-    font-size: clamp(0.7rem, 3.2vw, 1rem); 
-    white-space: nowrap;  
-  }
-  .terminal .final {
+  .intro-line {
     font-size: clamp(0.8rem, 3.6vw, 1.1rem); 
+  }
+  .modern-intro-container .final {
+    font-size: clamp(0.9rem, 4vw, 1.2rem); 
+  }
+  .splash-header {
+    top: 20px;
+    left: 20px;
+    font-size: 0.65rem;
   }
 }
