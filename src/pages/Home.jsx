@@ -5,9 +5,22 @@ import SplashScreen from "../components/SplashScreen";
 import avatarImg from '../assets/avatar.png';
 import nuevoAvatar from "../assets/nuevoAvatar.png";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import '../pages/Home.css';
 
 function Home() {
+  const { t, i18n } = useTranslation();
+  
+  // Configuraciones del idioma y banderas
+  const languages = ['es', 'en', 'fr', 'pt', 'it'];
+  const flags = { es: "🇪🇸", en: "🇬🇧", fr: "🇫🇷", pt: "🇧🇷", it: "🇮🇹" }; // Podés cambiar 🇬🇧 por 🇺🇸 o 🇧🇷 por 🇵🇹 si preferís
+  
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setIsLangOpen(false); // Cierra el menú al elegir
+  };
+  
+  const [isLangOpen, setIsLangOpen] = useState(false); // Estado para abrir/cerrar las banderas
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(0); 
   const [avatarKey, setAvatarKey] = useState(0);
@@ -17,61 +30,62 @@ function Home() {
   const [showNewAvatar, setShowNewAvatar] = useState(false);
   const [phraseIndex, setPhraseIndex] = useState(0);
 
+  // Arrays mapeados con el traductor
   const carouselPhrases = [
-    "— Desarrolladora Web",
-    "— Diseñadora Creativa",
-    "— Creadora de Experiencias",
-    "— Técnica en Programación Web"
+    t('home.carousel.dev'),
+    t('home.carousel.creative'),
+    t('home.carousel.creator'),
+    t('home.carousel.tech')
   ];
 
   const funFacts = [
-    { icon: "💖", text: "Obsesionada con el código", color: "#D9525E" },
-    { icon: "⚽", text: "Hincha de River Plate", color: "#A64149" },
-    { icon: "🐕", text: "Mamá de Buddy", color: "#A4A5A6" },
-    { icon: "✈️", text: "Adicta a viajar", color: "#D9D9D9" },
-    { icon: "👩‍🍳", text: "Amante de la cocina", color: "#D9525E" },
-    { icon: "🍺", text: "Team cerveza", color: "#A64149" },
-    { icon: "🎨", text: "Odio dibujar", color: "#A4A5A6" },
-    { icon: "🌙", text: "Nunca descanso", color: "#D9D9D9" },
+    { id: "code", icon: "💖", text: t('home.aboutMe.fact1'), desc: t('home.aboutMe.fact1Desc'), color: "#D9525E" },
+    { id: "river", icon: "⚽", text: t('home.aboutMe.fact2'), desc: t('home.aboutMe.fact2Desc'), color: "#A64149" },
+    { id: "dog", icon: "🐕", text: t('home.aboutMe.fact3'), desc: t('home.aboutMe.fact3Desc'), color: "#A4A5A6" },
+    { id: "travel", icon: "✈️", text: t('home.aboutMe.fact4'), desc: t('home.aboutMe.fact4Desc'), color: "#D9D9D9" },
+    { id: "cook", icon: "👩‍🍳", text: t('home.aboutMe.fact5'), desc: t('home.aboutMe.fact5Desc'), color: "#D9525E" },
+    { id: "beer", icon: "🍺", text: t('home.aboutMe.fact6'), desc: t('home.aboutMe.fact6Desc'), color: "#A64149" },
+    { id: "draw", icon: "🎨", text: t('home.aboutMe.fact7'), desc: t('home.aboutMe.fact7Desc'), color: "#A4A5A6" },
+    { id: "rest", icon: "🌙", text: t('home.aboutMe.fact8'), desc: t('home.aboutMe.fact8Desc'), color: "#D9D9D9" },
   ];
 
   const timeline = [
     {
       year: "2022",
-      title: "Inicio en la Tecnicatura",
+      title: t('home.timeline.step1.title'),
       iconUrl: "/startAvatar.png",
-      description: "Comienzo mis estudios en Desarrollo de Software y escribo mi primera línea de código.",
+      description: t('home.timeline.step1.desc'),
     },
     {
       year: "2023",
-      title: "Primer proyecto web",
+      title: t('home.timeline.step2.title'),
       iconUrl: "/codeando.png",
-      description: "Desarrollo del front-end para un sitio de una entidad gubernamental como parte de una materia.",
+      description: t('home.timeline.step2.desc'),
     },
     {
       year: "2024",
-      title: "Backend y Bases de Datos",
+      title: t('home.timeline.step3.title'),
       iconUrl: "/haciendophp.png",
-      description: "Implementación de sitios dinámicos con PHP, MySQL y buenas prácticas de desarrollo.",
+      description: t('home.timeline.step3.desc'),
     },
     {
       year: "2025",
-      title: "Realidad Aumentada",
+      title: t('home.timeline.step4.title'),
       iconUrl: "/haciendorealidadAumentada.png",
-      description: "Primer empleo como desarrolladora, aplicando AR.js y tecnologías 3D en proyectos educativos.",
+      description: t('home.timeline.step4.desc'),
     },
     {
       year: "2026",
-      title: "¡Me recibí!",
+      title: t('home.timeline.step5.title'),
       iconUrl: "/graduadaBitch.png", 
-      description: "Fin de la carrera y título en mano. Lista para empezar a trabajar al 100% como desarrolladora.",
+      description: t('home.timeline.step5.desc'),
     },
   ];
 
   const menuItems = [
-    { to: "/proyectos", icon: "⚡", text: "Proyectos", description: "Mis creaciones" },
-    { to: "/cv", icon: "📋", text: "CV", description: "Mi experiencia" },
-    { to: "/contacto", icon: "💬", text: "Contacto", description: "Hablemos" }
+    { to: "/proyectos", icon: "⚡", text: t('home.explore.projects'), description: t('home.explore.projDesc') },
+    { to: "/cv", icon: "📋", text: t('home.explore.cv'), description: t('home.explore.cvDesc') },
+    { to: "/contacto", icon: "💬", text: t('home.explore.contact'), description: t('home.explore.contactDesc') }
   ];
 
   const nextStep = () => setCurrentStep((prev) => (prev === timeline.length - 1 ? 0 : prev + 1));
@@ -117,7 +131,7 @@ function Home() {
       setPhraseIndex((prev) => (prev + 1) % carouselPhrases.length);
     }, 2500);
     return () => clearInterval(interval);
-  }, []);
+  }, [t]); 
 
   return (
     <>
@@ -125,7 +139,7 @@ function Home() {
         <SplashScreen onFinish={() => setShowSplash(false)} />
       ) : (
         <div
-          className="relative overflow-hidden font-sans"
+          className="relative overflow-hidden font-sans min-h-screen"
           style={{
             backgroundColor: "var(--fondo-principal)",
             color: "var(--texto-principal)",
@@ -148,44 +162,96 @@ function Home() {
             }
           `}</style>
 
+          {/* SELECTOR DE IDIOMAS (MICRO Y PRO) */}
+          <div className="absolute top-6 left-4 md:top-8 md:left-8 z-[100]">
+            <div className="relative">
+              <button
+                onClick={() => setIsLangOpen(!isLangOpen)}
+                className="group flex items-center gap-2 px-3 py-2 bg-[#121212]/80 backdrop-blur-sm border border-[var(--primary)] rounded-full shadow-[0_0_15px_rgba(217,82,94,0.3)] hover:shadow-[0_0_20px_rgba(217,82,94,0.6)] transition-all duration-300"
+                title="Cambiar idioma / Change language"
+              >
+                {/* Ícono universal de traducción */}
+                <svg className="w-4 h-4 text-[var(--primary)] group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+                </svg>
+                {/* Bandera activa */}
+                <span className="text-sm leading-none drop-shadow-md">
+                  {flags[i18n.language?.substring(0, 2)] || "🇪🇸"}
+                </span>
+              </button>
+
+              <AnimatePresence>
+                {isLangOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.9 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-12 left-0 flex flex-col gap-1 bg-[#1A1A1A]/95 backdrop-blur-md border border-[var(--border)] p-2 rounded-2xl shadow-[4px_4px_0px_rgba(0,0,0,0.5)] min-w-[110px]"
+                  >
+                    {languages.map((lng) => (
+                      <button
+                        key={lng}
+                        onClick={() => changeLanguage(lng)}
+                        className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 hover:bg-[#2A2A2A] hover:translate-x-1 ${
+                          i18n.language?.startsWith(lng) 
+                            ? 'bg-[var(--primary)]/20 border border-[var(--primary)]' 
+                            : 'border border-transparent'
+                        }`}
+                      >
+                        <span className="text-xl leading-none drop-shadow-md">{flags[lng]}</span>
+                        <span className="text-xs font-black uppercase text-white tracking-widest">{lng}</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+          {/* FIN SELECTOR DE IDIOMAS */}
+
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-20 left-10 w-64 h-64 rounded-full opacity-5" 
               style={{ background: 'radial-gradient(circle, var(--primary) 0%, transparent 70%)' }} />
             <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full opacity-5" 
               style={{ background: 'radial-gradient(circle, var(--secondary) 0%, transparent 70%)' }} />
           </div>
-
+          
           <div className="relative z-10 px-4 md:px-8 pt-20 pb-12">
             <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               
               <div className="w-full max-w-6xl mx-auto">
                 
-                <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-16 mb-16 w-full">
+                <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-16 mb-16 w-full mt-4 md:mt-0">
                   <div className="flex-1 text-center lg:text-left min-w-0 flex flex-col items-center lg:items-start">
                     <h1 
-                      className="font-black uppercase mb-8 flex flex-col items-center lg:items-start w-full" 
+                      className="font-black uppercase mb-8 flex justify-center lg:justify-start w-full" 
                       style={{ lineHeight: "0.8" }}
                     >
-                      <span
-                        style={{
-                          fontSize: "clamp(1.2rem, 3vw, 2rem)",
-                          color: "#FFFFFF",
-                          letterSpacing: "0.3em",
-                          marginLeft: "0",
-                          opacity: "0.9"
-                        }}
-                      >
-                        Hola, soy
-                      </span>
-                      <span
-                        style={{
-                          fontSize: "clamp(5rem, 14vw, 9rem)",
-                          color: "var(--primary)",
-                          letterSpacing: "-0.06em",
-                        }}
-                      >
-                        Marce
-                      </span>
+                      <div className="flex flex-col items-start">
+                        <span
+                          style={{
+                            fontSize: "clamp(1.2rem, 3vw, 2rem)",
+                            color: "#FFFFFF",
+                            letterSpacing: "0.3em",
+                            marginLeft: "0",
+                            opacity: "0.9"
+                          }}
+                        >
+                          {t('home.greeting')}
+                        </span>
+                        <span
+                          translate="no"
+                          className="notranslate"
+                          style={{
+                            fontSize: "clamp(5rem, 14vw, 9rem)",
+                            color: "var(--primary)",
+                            letterSpacing: "-0.06em",
+                          }}
+                        >
+                          Marce
+                        </span>
+                      </div>
                     </h1>
 
                     <div className="relative h-16 sm:h-20 lg:h-24 flex items-center justify-center lg:justify-start w-full mb-12 max-w-4xl px-4 lg:px-0 overflow-hidden">
@@ -219,7 +285,7 @@ function Home() {
                           boxShadow: "-4px 4px 0px #FFFFFF",
                         }}
                       >
-                        Ver CV
+                        {t('home.buttons.cv')}
                       </Link>
                       
                       <Link
@@ -232,7 +298,7 @@ function Home() {
                           boxShadow: "-4px 4px 0px var(--primary)",
                         }}
                       >
-                        Proyectos
+                        {t('home.buttons.projects')}
                       </Link>
 
                       <Link
@@ -245,7 +311,7 @@ function Home() {
                           boxShadow: "-4px 4px 0px var(--primary)",
                         }}
                       >
-                        Contacto
+                        {t('home.buttons.contact')}
                       </Link>
                     </div>
                   </div>
@@ -305,11 +371,10 @@ function Home() {
                 <div className="mb-16 md:mb-24 mt-12 md:mt-20 w-full">
                   <div className="flex items-center justify-center w-full mb-8 md:mb-12">
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-black uppercase text-center tracking-tight text-[var(--text-secondary)]">
-                      Trabajando en
+                      {t('home.workingOn.title')}
                     </h2>
                   </div>
 
-                  {/* Arreglo de centrado y sombra: calc(100%-16px) y mx-auto para móvil */}
                   <div
                     className="group relative rounded-none overflow-hidden transition-all duration-500 w-[calc(100%-16px)] mx-auto md:w-full"
                     style={{
@@ -367,7 +432,7 @@ function Home() {
                               border: '1px solid var(--primary)',
                             }}
                           >
-                            🚀 Proyecto Actual
+                            {t('home.workingOn.badge1')}
                           </span>
                           <span
                             className="px-2 py-1 md:px-3 md:py-1 rounded-none text-[10px] md:text-xs font-bold uppercase tracking-wider text-center"
@@ -377,7 +442,7 @@ function Home() {
                               border: '1px solid var(--secondary)',
                             }}
                           >
-                            💼 Desarrollo Web 3D
+                            {t('home.workingOn.badge2')}
                           </span>
                         </div>
 
@@ -385,16 +450,14 @@ function Home() {
                           className="text-xl md:text-2xl lg:text-4xl font-black uppercase mb-2 lg:mb-3"
                           style={{ color: 'var(--texto-principal)' }}
                         >
-                          App de Realidad Aumentada
+                          {t('home.workingOn.projectTitle')}
                         </h3>
 
                         <p
                           className="text-sm md:text-base lg:text-lg leading-snug lg:leading-relaxed mb-6 lg:mb-16 font-medium"
                           style={{ color: 'var(--text-secondary)' }}
                         >
-                          Creación de una experiencia web inmersiva con AR.js, donde la
-                          interacción 3D y el aprendizaje se fusionan para explorar nuevas
-                          formas de enseñar y descubrir.
+                          {t('home.workingOn.projectDesc')}
                         </p>
 
                         <div className="flex flex-wrap justify-center lg:justify-start gap-2 md:gap-3">
@@ -422,7 +485,7 @@ function Home() {
                     <div className="w-1/2 flex justify-center">
                       <div className="w-full max-w-[340px] text-center lg:text-left">
                         <h2 className="text-3xl lg:text-4xl font-black uppercase tracking-tight text-[var(--text-secondary)]">
-                          Mis Habilidades
+                          {t('home.skillsTitle')}
                         </h2>
                       </div>
                     </div>
@@ -430,7 +493,7 @@ function Home() {
                     <div className="w-1/2 flex justify-center">
                       <div className="w-full max-w-[460px] text-center lg:text-left">
                         <h2 className="text-3xl lg:text-4xl font-black uppercase tracking-tight text-[var(--text-secondary)]">
-                          Mi Recorrido
+                          {t('home.journeyTitle')}
                         </h2>
                       </div>
                     </div>
@@ -439,7 +502,7 @@ function Home() {
                   <div className="flex flex-col lg:flex-row gap-12 lg:gap-10 items-center justify-center">
                     <div className="w-full lg:w-1/2 flex flex-col items-center justify-center min-h-[300px] md:min-h-[420px]">
                       <h2 className="lg:hidden text-2xl md:text-3xl font-black uppercase tracking-tight mb-8 md:mb-12 text-center text-[var(--primary)]">
-                        Mis Habilidades
+                        {t('home.skillsTitle')}
                       </h2>
                       
                       <div className="w-full flex justify-center items-center">
@@ -449,10 +512,9 @@ function Home() {
 
                     <div className="w-full lg:w-1/2 flex flex-col items-center">
                       <h2 className="lg:hidden text-2xl md:text-3xl font-black uppercase tracking-tight mb-8 md:mb-12 mt-4 md:mt-10 text-center text-[var(--primary)]">
-                        Mi Recorrido
+                        {t('home.journeyTitle')}
                       </h2>
 
-                      {/* Arreglo de centrado: w-[90%] sm:w-full mx-auto para móvil */}
                       <div 
                         className="w-[90%] sm:w-full max-w-[460px] mx-auto min-h-[250px] bg-[#121212] rounded-none border-none relative overflow-hidden flex flex-col justify-between p-4 sm:p-6"
                         style={{
@@ -500,7 +562,7 @@ function Home() {
 
                             <div className="w-full mt-2 px-2">
                               <div className="flex items-center gap-2 sm:gap-3">
-                                <span className="text-[var(--primary)] font-black italic tracking-widest text-xs sm:text-sm drop-shadow-[0_0_5px_var(--primary)]">XP</span>
+                                <span className="text-[var(--primary)] font-black italic tracking-widest text-xs sm:text-sm drop-shadow-[0_0_5px_var(--primary)]">{t('home.xp')}</span>
                                 <div className="flex-1 h-2 sm:h-3 bg-black border border-gray-700 p-[2px] rounded-none overflow-hidden">
                                   <div 
                                     className="h-full bg-[var(--primary)] rounded-none transition-all duration-700 ease-out shadow-[0_0_15px_var(--primary)]"
@@ -534,11 +596,10 @@ function Home() {
                 <div className="mb-24 mt-20 w-full">
                   <div className="flex items-center justify-center w-full mb-12">
                     <h2 className="text-3xl md:text-4xl font-black uppercase text-center tracking-tight text-[var(--text-secondary)]">
-                      Un poco sobre mí
+                      {t('home.aboutMe.title')}
                     </h2>
                   </div>
 
-                  {/* Arreglo de centrado: agregamos px-4 md:px-0 al contenedor de la grilla para separar sombras */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-6 px-4 md:px-0">
                     {funFacts.map((fact, index) => (
                       <div
@@ -580,9 +641,10 @@ function Home() {
                             whiteSpace: "normal",
                           }}
                         >
-                          {fact.text === "Hincha de River Plate" && (
+                          {/* El tooltip con lógica arreglada por ID */}
+                          {fact.id === "river" ? (
                             <span className="flex flex-col items-center justify-center gap-2 font-bold uppercase tracking-wider text-xs">
-                              Llevo una banda roja en el alma
+                              {fact.desc}
                               <img
                                 src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Logo_River_Plate.png"
                                 alt="Escudo River Plate"
@@ -590,14 +652,9 @@ function Home() {
                                 style={{ filter: "drop-shadow(0 0 4px rgba(255,27,109,0.5))" }}
                               />
                             </span>
+                          ) : (
+                            <span className="font-bold uppercase text-xs">{fact.desc}</span>
                           )}
-                          {fact.text === "Obsesionada con el código" && <span className="font-bold uppercase text-xs">Literal, hasta mis sueños tienen bugs 💖</span>}
-                          {fact.text === "Mamá de Buddy" && <span className="font-bold uppercase text-xs">Mi perro cree que soy una diosa del teclado 🐶</span>}
-                          {fact.text === "Adicta a viajar" && <span className="font-bold uppercase text-xs">El mundo también se explora en HTML ✈️</span>}
-                          {fact.text === "Amante de la cocina" && <span className="font-bold uppercase text-xs">Me encanta cocinar tanto como programar 👩‍🍳</span>}
-                          {fact.text === "Team cerveza" && <span className="font-bold uppercase text-xs">🍺 + código = a veces buena idea</span>}
-                          {fact.text === "Odio dibujar" && <span className="font-bold uppercase text-xs">Pero amo diseñar interfaces 🎨</span>}
-                          {fact.text === "Nunca descanso" && <span className="font-bold uppercase text-xs">Compilando sueños a medianoche 🌙</span>}
 
                           <div
                             className={`absolute top-full w-0 h-0
@@ -631,11 +688,10 @@ function Home() {
                 <div className="max-w-4xl mx-auto mt-24 w-full">
                   <div className="flex items-center justify-center w-full mb-12">
                     <h2 className="text-3xl md:text-4xl font-black uppercase text-center tracking-tight text-[var(--text-secondary)]">
-                      Explorá mi trabajo
+                      {t('home.explore.title')}
                     </h2>
                   </div>
                   
-                  {/* Arreglo de centrado: agregamos px-4 md:px-0 al contenedor de los botones grandes */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-0">
                     {menuItems.map((item, index) => (
                       <Link
@@ -681,7 +737,7 @@ function Home() {
 
                             <div className="mt-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
                               <span className="text-sm font-black uppercase tracking-widest" style={{ color: 'var(--primary)' }}>
-                                Ver más →
+                                {t('home.explore.viewMore')}
                               </span>
                             </div>
                           </div>
@@ -694,7 +750,7 @@ function Home() {
                 <div className="text-center mt-20">
                   <p className="text-lg font-black uppercase tracking-widest" 
                     style={{ color: 'var(--text-muted)' }}>
-                    "El diseño no es solo cómo se ve, sino cómo hace sentir."
+                    {t('home.quote')}
                   </p>
                 </div>
               </div>

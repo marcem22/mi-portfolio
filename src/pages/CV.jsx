@@ -4,8 +4,10 @@ import { doc, getDoc } from "firebase/firestore";
 import SideNavbar from "../components/SideNavbar";
 import { Link } from "react-router-dom";
 import marcelaPhoto from "../assets/marcelaphoto.png";
+import { useTranslation } from "react-i18next"; // <-- ¡Importamos el traductor!
 
 function CV() {
+  const { t } = useTranslation(); // <-- ¡Activamos el traductor!
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -52,7 +54,8 @@ function CV() {
             <div style={{ marginLeft: "-550px" }} className="hero-name-container">
               <h1 className="font-impact uppercase tracking-tight print:text-black flex flex-row items-end gap-x-0 whitespace-nowrap orig-bot hero-title">
                 <span 
-                  className="text-[var(--text-primary)] hero-first-name" 
+                  translate="no"
+                  className="text-[var(--text-primary)] hero-first-name notranslate" 
                   style={{ 
                     fontSize: "clamp(3rem, 9vw, 5.5rem)",         
                     WebkitTextStroke: "4px var(--text-primary)",           
@@ -68,7 +71,8 @@ function CV() {
                   MARCELA
                 </span>
                 <span 
-                  className="text-white hero-last-name" 
+                  translate="no"
+                  className="text-white hero-last-name notranslate" 
                   style={{ 
                     fontSize: "clamp(3rem, 9vw, 5.5rem)", 
                     transform: "scale(0.75, 4)",
@@ -91,7 +95,7 @@ function CV() {
             </div>
 
             <p className="text-xl md:text-2xl text-[var(--text-secondary)] mt-0 print:text-black/80 text-center md:text-left leading-tight hero-subtitle" style={{ marginLeft: "-550px" }}>
-              Desarrolladora Web &amp; Diseñadora de experiencias digitales
+              {t('cv.subtitle')}
             </p>
 
             <div className="hidden print:flex flex-col gap-1 mt-6 text-black text-sm font-medium w-full text-left">
@@ -162,7 +166,7 @@ function CV() {
             download="CV_Marcela_Mancini.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            title="Descargar CV en PDF"
+            title={t('cv.downloadTitle')}
             className="flex items-center justify-center w-14 h-14 rounded-none transition-transform duration-200 hover:-translate-y-1 hover:-translate-x-1 border-2 border-[var(--primary)] bg-[var(--primary)] text-[#121212] shadow-[4px_4px_0px_#FFFFFF]"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -174,36 +178,31 @@ function CV() {
         <div className="max-w-6xl mx-auto px-6 md:px-12 py-12 md:py-16 space-y-20">
           
           <section>
-            {/* Margen aumentado a mb-24 */}
             <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-24 flex items-center gap-3 w-3/4">
               <span className="text-[var(--primary)] text-3xl animate-pulse">▌</span>
-              <span className="text-[var(--text-primary)] print:text-black">Perfil profesional</span>
+              <span className="text-[var(--text-primary)] print:text-black">{t('cv.profileTitle')}</span>
             </h2>
 
             <div className="px-8 md:px-0">
               <div className="bg-[var(--bg-surface)] border-2 border-[var(--border)] rounded-none p-8 shadow-[6px_6px_0px_rgba(0,0,0,0.5)] transition-all duration-300 hover:-translate-y-1 hover:translate-x-1 hover:border-[var(--primary)] hover:shadow-[6px_6px_0px_var(--primary)] print:bg-white print:text-black print:shadow-none print:border">
                 <p className="text-[var(--text-secondary)] leading-relaxed font-medium text-lg print:text-black/80">
-                  {profile?.summary ||
-                    "Desarrolladora Web graduada de la UNSJ, especializada en Full Stack y Tecnologías Inmersivas (WebAR). Mi perfil une la lógica del código con el diseño creativo para construir experiencias digitales que realmente conectan con las personas. Soy de aprendizaje ágil y me encanta trabajar en equipo. Busco una oportunidad como desarrolladora Junior para sumar mi visión, adaptabilidad y ganas de crear productos que marquen la diferencia."}
+                  {profile?.summary || t('cv.defaultSummary')}
                 </p>
               </div>
             </div>
           </section>
 
           <section>
-            {/* Margen aumentado a mb-24 */}
             <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-24 flex items-center gap-3">
               <span className="text-[var(--primary)] text-3xl animate-pulse">▌</span>
-              <span className="text-[var(--text-primary)] print:text-black">Habilidades</span>
+              <span className="text-[var(--text-primary)] print:text-black">{t('cv.skillsTitle')}</span>
             </h2>
 
-            {/* Agregamos px-8 md:px-0 para separar de los bordes */}
             <div className="space-y-12 px-8 md:px-0">
               <div className="flex flex-col items-center md:items-start">
                 <h3 className="text-xl md:text-2xl font-black uppercase tracking-wide text-[var(--text-secondary)] mb-8 print:text-black flex items-center gap-3 text-center md:text-left w-full justify-center md:justify-start">
-                  Lenguajes
+                  {t('cv.languages')}
                 </h3>
-                {/* justify-center md:justify-start para centrar los botones en celular */}
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start w-full">
                   {myLanguages.map((s, i) => (
                     <span
@@ -218,7 +217,7 @@ function CV() {
 
               <div className="flex flex-col items-center md:items-start">
                 <h3 className="text-xl md:text-2xl font-black uppercase tracking-wide text-[var(--text-secondary)] mb-8 print:text-black flex items-center gap-3 text-center md:text-left w-full justify-center md:justify-start">
-                  Frameworks / Librerías
+                  {t('cv.frameworks')}
                 </h3>
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start w-full">
                   {myFrameworks.map((s, i) => (
@@ -234,7 +233,7 @@ function CV() {
 
               <div className="flex flex-col items-center md:items-start">
                 <h3 className="text-xl md:text-2xl font-black uppercase tracking-wide text-[var(--text-secondary)] mb-8 print:text-black flex items-center gap-3 text-center md:text-left w-full justify-center md:justify-start">
-                  Herramientas y Tecnologías
+                  {t('cv.tools')}
                 </h3>
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start w-full">
                   {myTools.map((s, i) => (
@@ -251,10 +250,9 @@ function CV() {
           </section>
 
           <section>
-            {/* Margen aumentado a mb-24 */}
             <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-24 flex items-center gap-3">
               <span className="text-[var(--primary)] text-3xl animate-pulse">▌</span>
-              <span className="text-[var(--text-primary)] print:text-black">Experiencia</span>
+              <span className="text-[var(--text-primary)] print:text-black">{t('cv.experienceTitle')}</span>
             </h2>
 
             <div className="relative border-l-4 border-[var(--primary)] pl-8 pr-8 md:pr-0 space-y-10 print:border-black">
@@ -287,10 +285,9 @@ function CV() {
           </section>
 
           <section>
-            {/* Margen aumentado a mb-24 */}
             <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-24 flex items-center gap-3">
               <span className="text-[var(--primary)] text-3xl animate-pulse">▌</span>
-              <span className="text-[var(--text-primary)] print:text-black">Formación</span>
+              <span className="text-[var(--text-primary)] print:text-black">{t('cv.educationTitle')}</span>
             </h2>
 
             <div className="relative border-l-4 border-[var(--primary)] pl-8 pr-8 md:pr-0 space-y-10 print:border-black">
@@ -322,10 +319,9 @@ function CV() {
           </section>
 
           <section>
-            {/* Margen aumentado a mb-24 */}
             <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-24 flex items-center gap-3">
               <span className="text-[var(--primary)] text-3xl animate-pulse">▌</span>
-              <span className="text-[var(--text-primary)] print:text-black">Proyectos destacados</span>
+              <span className="text-[var(--text-primary)] print:text-black">{t('cv.featuredProjectsTitle')}</span>
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-8 md:px-0">
@@ -359,7 +355,7 @@ function CV() {
             {(!profile?.projects ||
               profile.projects.filter((p) => p.featured === true).length === 0) && (
               <p className="text-[var(--text-secondary)] font-bold uppercase text-center mt-4 print:text-black/70">
-                Aún no hay proyectos destacados.
+                {t('cv.noProjects')}
               </p>
             )}
           </section>
@@ -367,10 +363,10 @@ function CV() {
           <section className="mt-20 mb-12 pt-16 border-t-4 border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-10 print:hidden">
             <div className="text-center md:text-left flex-1">
               <h2 className="text-4xl md:text-5xl font-black uppercase text-[var(--text-primary)] mb-4 tracking-tight">
-                Creamos algo <span className="text-[var(--primary)]" style={{ textShadow: "4px 4px 0px rgba(0,0,0,0.5)" }}>increíble?</span>
+                {t('cv.ctaTitle1')} <span className="text-[var(--primary)]" style={{ textShadow: "4px 4px 0px rgba(0,0,0,0.5)" }}>{t('cv.ctaTitle2')}</span>
               </h2>
               <p className="text-lg font-medium text-[var(--text-secondary)] max-w-xl mx-auto md:mx-0 mt-6">
-                Ya sea para un nuevo proyecto, sumar a alguien a tu equipo o charlar sobre tecnología, me encantaría escucharte.
+                {t('cv.ctaDesc')}
               </p>
             </div>
             
@@ -379,7 +375,7 @@ function CV() {
                 to="/contacto"
                 className="inline-flex items-center gap-3 px-8 py-4 text-lg font-black uppercase tracking-widest text-[#121212] bg-[var(--primary)] border-2 border-[var(--primary)] rounded-none transition-all duration-300 hover:-translate-y-1 hover:translate-x-1 shadow-[6px_6px_0px_#FFFFFF] hover:shadow-[8px_8px_0px_#FFFFFF] group"
               >
-                Hablemos ahora
+                {t('cv.ctaButton')}
                 <svg className="w-6 h-6 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>

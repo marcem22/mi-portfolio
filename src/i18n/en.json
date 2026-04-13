@@ -1,18 +1,128 @@
 {
   "home": {
-    "greeting": "Hi, I'm Marcela",
-    "intro": "Full stack web developer with a focus on frontend and UI design"
+    "greeting": "Hi, I'm",
+    "carousel": {
+      "dev": "— Web Developer",
+      "creative": "— Creative Designer",
+      "creator": "— Experience Creator",
+      "tech": "— Web Programming Tech"
+    },
+    "buttons": {
+      "cv": "View CV",
+      "projects": "Projects",
+      "contact": "Contact"
+    },
+    "workingOn": {
+      "title": "Working on",
+      "badge1": "🚀 Current Project",
+      "badge2": "💼 3D Web Dev",
+      "projectTitle": "Augmented Reality App",
+      "projectDesc": "Creating an immersive web experience with AR.js, where 3D interaction and learning merge to explore new ways of teaching and discovering."
+    },
+    "skillsTitle": "My Skills",
+    "journeyTitle": "My Journey",
+    "xp": "XP",
+    "aboutMe": {
+      "title": "A bit about me",
+      "fact1": "Obsessed with code",
+      "fact1Desc": "Literally, even my dreams have bugs 💖",
+      "fact2": "River Plate Fan",
+      "fact2Desc": "I carry a red band in my soul",
+      "fact3": "Buddy's Mom",
+      "fact3Desc": "My dog thinks I'm a keyboard goddess 🐶",
+      "fact4": "Travel Addict",
+      "fact4Desc": "The world is also explored in HTML ✈️",
+      "fact5": "Cooking Lover",
+      "fact5Desc": "I love cooking as much as coding 👩‍🍳",
+      "fact6": "Team Beer",
+      "fact6Desc": "🍺 + code = sometimes a good idea",
+      "fact7": "I hate drawing",
+      "fact7Desc": "But I love designing interfaces 🎨",
+      "fact8": "I never rest",
+      "fact8Desc": "Compiling dreams at midnight 🌙"
+    },
+    "timeline": {
+      "step1": {
+        "title": "Started the Degree",
+        "desc": "Started my Software Development studies and wrote my first line of code."
+      },
+      "step2": {
+        "title": "First web project",
+        "desc": "Front-end development for a government website as part of a class."
+      },
+      "step3": {
+        "title": "Backend and Databases",
+        "desc": "Implementation of dynamic sites with PHP, MySQL, and best practices."
+      },
+      "step4": {
+        "title": "Augmented Reality",
+        "desc": "First job as a developer, applying AR.js and 3D technologies in educational projects."
+      },
+      "step5": {
+        "title": "I graduated!",
+        "desc": "Finished my degree and degree in hand. Ready to start working 100% as a developer."
+      }
+    },
+    "explore": {
+      "title": "Explore my work",
+      "viewMore": "View more →",
+      "projects": "Projects",
+      "projDesc": "My creations",
+      "cv": "CV",
+      "cvDesc": "My experience",
+      "contact": "Contact",
+      "contactDesc": "Let's talk"
+    },
+    "quote": "\"Design is not just what it looks like, but how it makes you feel.\""
   },
   "projects": {
+    "my": "My",
     "title": "Projects",
-    "viewProject": "View project",
-    "viewCode": "Code"
+    "noProjects": "No projects uploaded yet.",
+    "featured": "Featured",
+    "theProject": "The Project:",
+    "theChallenge": "The Challenge:",
+    "viewDemo": "View Demo",
+    "web": "Web",
+    "viewCode": "Code",
+    "privateCode": "Private Code"
   },
   "contact": {
-    "title": "Contact",
-    "email": "Email"
+    "createSomething": "Let's create something",
+    "together": "TOGETHER",
+    "writeMeA": "Write me a ",
+    "message": "message",
+    "form": {
+      "name": "Your name",
+      "email": "Your email",
+      "subject": "Subject",
+      "projectTypeDefault": "Select project type",
+      "projectWeb": "🌐 Web Development",
+      "projectMobile": "📱 Mobile App",
+      "projectDesign": "🎨 UI/UX Design",
+      "projectBranding": "✨ Branding",
+      "projectConsulting": "💡 Consulting",
+      "projectOther": "🚀 Other",
+      "messagePlaceholder": "Your message...",
+      "submit": "Send Message"
+    }
   },
   "cv": {
-    "title": "Curriculum"
+    "subtitle": "Web Developer & Digital Experiences Designer",
+    "downloadTitle": "Download PDF CV",
+    "profileTitle": "Professional Profile",
+    "defaultSummary": "Web Developer graduated from UNSJ, specialized in Full Stack and Immersive Technologies (WebAR). My profile unites code logic with creative design to build digital experiences that truly connect with people. I am an agile learner and love working in a team. I'm looking for an opportunity as a Junior developer to bring my vision, adaptability, and desire to create products that make a difference.",
+    "skillsTitle": "Skills",
+    "languages": "Languages",
+    "frameworks": "Frameworks / Libraries",
+    "tools": "Tools & Technologies",
+    "experienceTitle": "Experience",
+    "educationTitle": "Education",
+    "featuredProjectsTitle": "Featured Projects",
+    "noProjects": "No featured projects yet.",
+    "ctaTitle1": "Shall we create something",
+    "ctaTitle2": "incredible?",
+    "ctaDesc": "Whether it's for a new project, adding someone to your team, or chatting about technology, I'd love to hear from you.",
+    "ctaButton": "Let's talk now"
   }
 }

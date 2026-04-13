@@ -1,0 +1,134 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "cv": "CV",
+    "projects": "Projets",
+    "contact": "Contact"
+  },
+  "home": {
+    "greeting": "Salut, je suis",
+    "carousel": {
+      "dev": "— Développeuse Web",
+      "creative": "— Designer Créative",
+      "creator": "— Créatrice d'Expériences",
+      "tech": "— Technicienne en Prog Web"
+    },
+    "buttons": {
+      "cv": "Voir CV",
+      "projects": "Projets",
+      "contact": "Contact"
+    },
+    "workingOn": {
+      "title": "En train de créer",
+      "badge1": "🚀 Projet Actuel",
+      "badge2": "💼 Dév Web 3D",
+      "projectTitle": "App de Réalité Augmentée",
+      "projectDesc": "Création d'une expérience web immersive avec AR.js, où l'interaction 3D et l'apprentissage se fondent pour explorer de nouvelles façons d'enseigner et de découvrir."
+    },
+    "skillsTitle": "Mes Compétences",
+    "journeyTitle": "Mon Parcours",
+    "xp": "XP",
+    "aboutMe": {
+      "title": "Un peu sur moi",
+      "fact1": "Obsédée par le code",
+      "fact1Desc": "Même mes rêves ont des bugs 💖",
+      "fact2": "Supportrice de River Plate",
+      "fact2Desc": "Je porte une bande rouge dans l'âme",
+      "fact3": "Maman de Buddy",
+      "fact3Desc": "Mon chien pense que je suis une déesse du clavier 🐶",
+      "fact4": "Accro aux voyages",
+      "fact4Desc": "Le monde s'explore aussi en HTML ✈️",
+      "fact5": "Amoureuse de la cuisine",
+      "fact5Desc": "J'aime cuisiner autant que coder 👩‍🍳",
+      "fact6": "Team bière",
+      "fact6Desc": "🍺 + code = parfois une bonne idée",
+      "fact7": "Je déteste dessiner",
+      "fact7Desc": "Mais j'adore concevoir des interfaces 🎨",
+      "fact8": "Je ne me repose jamais",
+      "fact8Desc": "Je compile des rêves à minuit 🌙"
+    },
+    "timeline": {
+      "step1": {
+        "title": "Début de la formation",
+        "desc": "Début de mes études en développement logiciel et première ligne de code."
+      },
+      "step2": {
+        "title": "Premier projet web",
+        "desc": "Développement front-end pour un site gouvernemental dans le cadre de mes études."
+      },
+      "step3": {
+        "title": "Backend et Bases de données",
+        "desc": "Création de sites dynamiques avec PHP, MySQL et bonnes pratiques de développement."
+      },
+      "step4": {
+        "title": "Réalité Augmentée",
+        "desc": "Premier emploi en tant que développeuse, utilisant AR.js et la 3D pour des projets éducatifs."
+      },
+      "step5": {
+        "title": "Diplômée !",
+        "desc": "Fin des études et diplôme en poche. Prête à travailler à 100% comme développeuse."
+      }
+    },
+    "explore": {
+      "title": "Explorez mon travail",
+      "viewMore": "Voir plus →",
+      "projects": "Projets",
+      "projDesc": "Mes créations",
+      "cv": "CV",
+      "cvDesc": "Mon expérience",
+      "contact": "Contact",
+      "contactDesc": "Parlons-en"
+    },
+    "quote": "\"Le design n'est pas seulement l'apparence, mais ce qu'il fait ressentir.\""
+  },
+  "projects": {
+    "my": "Mes",
+    "title": "Projets",
+    "noProjects": "Aucun projet téléchargé pour le moment.",
+    "featured": "En vedette",
+    "theProject": "Le Projet :",
+    "theChallenge": "Le Défi :",
+    "viewDemo": "Voir Démo",
+    "web": "Web",
+    "viewCode": "Code",
+    "privateCode": "Code Privé"
+  },
+  "cv": {
+    "subtitle": "Développeuse Web & Designer d'expériences numériques",
+    "downloadTitle": "Télécharger le CV PDF",
+    "profileTitle": "Profil professionnel",
+    "defaultSummary": "Développeuse Web diplômée de l'UNSJ, spécialisée en Full Stack et Technologies Immersives (WebAR). Mon profil allie la logique du code au design créatif pour construire des expériences numériques qui connectent vraiment avec les gens. J'apprends vite et j'adore travailler en équipe. Je cherche une opportunité en tant que développeuse Junior pour apporter ma vision, mon adaptabilité et mon envie de créer des produits qui font la différence.",
+    "skillsTitle": "Compétences",
+    "languages": "Langages",
+    "frameworks": "Frameworks / Bibliothèques",
+    "tools": "Outils et Technologies",
+    "experienceTitle": "Expérience",
+    "educationTitle": "Formation",
+    "featuredProjectsTitle": "Projets en vedette",
+    "noProjects": "Aucun projet en vedette pour le moment.",
+    "ctaTitle1": "Créons-nous quelque chose",
+    "ctaTitle2": "d'incroyable ?",
+    "ctaDesc": "Que ce soit pour un nouveau projet, ajouter quelqu'un à votre équipe ou discuter de technologie, j'adorerais vous entendre.",
+    "ctaButton": "Parlons-en maintenant"
+  },
+  "contact": {
+    "createSomething": "Créons quelque chose",
+    "together": "ENSEMBLE",
+    "writeMeA": "Écris-moi un ",
+    "message": "message",
+    "form": {
+      "name": "Ton nom",
+      "email": "Ton email",
+      "subject": "Sujet",
+      "projectTypeDefault": "Sélectionnez le type de projet",
+      "projectWeb": "🌐 Développement Web",
+      "projectMobile": "📱 App Mobile",
+      "projectDesign": "🎨 Design UI/UX",
+      "projectBranding": "✨ Branding",
+      "projectConsulting": "💡 Conseil",
+      "projectOther": "🚀 Autre",
+      "messagePlaceholder": "Ton message...",
+      "submit": "Envoyer le message"
+    }
+  }
+}

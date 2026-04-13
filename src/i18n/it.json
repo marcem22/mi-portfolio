@@ -1,0 +1,134 @@
+{
+  "nav": {
+    "home": "Home",
+    "cv": "CV",
+    "projects": "Progetti",
+    "contact": "Contatto"
+  },
+  "home": {
+    "greeting": "Ciao, sono",
+    "carousel": {
+      "dev": "— Sviluppatrice Web",
+      "creative": "— Designer Creativa",
+      "creator": "— Creatrice di Esperienze",
+      "tech": "— Tecnico in Prog Web"
+    },
+    "buttons": {
+      "cv": "Vedi CV",
+      "projects": "Progetti",
+      "contact": "Contatto"
+    },
+    "workingOn": {
+      "title": "Sto lavorando a",
+      "badge1": "🚀 Progetto Attuale",
+      "badge2": "💼 Sviluppo Web 3D",
+      "projectTitle": "App di Realtà Aumentata",
+      "projectDesc": "Creazione di un'esperienza web immersiva con AR.js, dove l'interazione 3D e l'apprendimento si fondono per esplorare nuovi modi di insegnare e scoprire."
+    },
+    "skillsTitle": "Le mie Competenze",
+    "journeyTitle": "Il mio Percorso",
+    "xp": "XP",
+    "aboutMe": {
+      "title": "Un po' di me",
+      "fact1": "Ossessionata dal codice",
+      "fact1Desc": "Anche i miei sogni hanno dei bug 💖",
+      "fact2": "Tifosa del River Plate",
+      "fact2Desc": "Porto una banda rossa nell'anima",
+      "fact3": "Mamma di Buddy",
+      "fact3Desc": "Il mio cane pensa che io sia la dea della tastiera 🐶",
+      "fact4": "Dipendente dai viaggi",
+      "fact4Desc": "Il mondo si esplora anche in HTML ✈️",
+      "fact5": "Amante della cucina",
+      "fact5Desc": "Amo cucinare quanto programmare 👩‍🍳",
+      "fact6": "Team birra",
+      "fact6Desc": "🍺 + codice = a volte una buona idea",
+      "fact7": "Odio disegnare",
+      "fact7Desc": "Ma amo progettare interfacce 🎨",
+      "fact8": "Non riposo mai",
+      "fact8Desc": "Compilo sogni a mezzanotte 🌙"
+    },
+    "timeline": {
+      "step1": {
+        "title": "Inizio degli studi",
+        "desc": "Inizio i miei studi in Sviluppo Software e scrivo la mia prima riga di codice."
+      },
+      "step2": {
+        "title": "Primo progetto web",
+        "desc": "Sviluppo del front-end per un sito governativo come progetto accademico."
+      },
+      "step3": {
+        "title": "Backend e Database",
+        "desc": "Implementazione di siti dinamici con PHP, MySQL e buone pratiche."
+      },
+      "step4": {
+        "title": "Realtà Aumentata",
+        "desc": "Primo lavoro come sviluppatrice, applicando AR.js e tecnologie 3D in progetti educativi."
+      },
+      "step5": {
+        "title": "Mi sono laureata!",
+        "desc": "Fine degli studi e diploma in mano. Pronta a lavorare al 100% come sviluppatrice."
+      }
+    },
+    "explore": {
+      "title": "Esplora il mio lavoro",
+      "viewMore": "Vedi di più →",
+      "projects": "Progetti",
+      "projDesc": "Le mie creazioni",
+      "cv": "CV",
+      "cvDesc": "La mia esperienza",
+      "contact": "Contatto",
+      "contactDesc": "Parliamo"
+    },
+    "quote": "\"Il design non è solo l'aspetto, ma come ti fa sentire.\""
+  },
+  "projects": {
+    "my": "I miei",
+    "title": "Progetti",
+    "noProjects": "Nessun progetto caricato al momento.",
+    "featured": "In evidenza",
+    "theProject": "Il Progetto:",
+    "theChallenge": "La Sfida:",
+    "viewDemo": "Vedi Demo",
+    "web": "Web",
+    "viewCode": "Codice",
+    "privateCode": "Codice Privato"
+  },
+  "cv": {
+    "subtitle": "Sviluppatrice Web & Designer di esperienze digitali",
+    "downloadTitle": "Scarica CV in PDF",
+    "profileTitle": "Profilo professionale",
+    "defaultSummary": "Sviluppatrice Web laureata all'UNSJ, specializzata in Full Stack e Tecnologie Immersive (WebAR). Il mio profilo unisce la logica del codice con il design creativo per costruire esperienze digitali che si connettono davvero con le persone. Imparo in fretta e adoro lavorare in squadra. Cerco un'opportunità come sviluppatrice Junior per portare la mia visione, la mia adattabilità e la voglia di creare prodotti che facciano la differenza.",
+    "skillsTitle": "Competenze",
+    "languages": "Linguaggi",
+    "frameworks": "Framework / Librerie",
+    "tools": "Strumenti e Tecnologie",
+    "experienceTitle": "Esperienza",
+    "educationTitle": "Formazione",
+    "featuredProjectsTitle": "Progetti in evidenza",
+    "noProjects": "Nessun progetto in evidenza al momento.",
+    "ctaTitle1": "Creiamo qualcosa",
+    "ctaTitle2": "di incredibile?",
+    "ctaDesc": "Che sia per un nuovo progetto, per aggiungere qualcuno al tuo team o per parlare di tecnologia, mi farebbe piacere sentirti.",
+    "ctaButton": "Parliamo ora"
+  },
+  "contact": {
+    "createSomething": "Creiamo qualcosa",
+    "together": "INSIEME",
+    "writeMeA": "Scrivimi un ",
+    "message": "messaggio",
+    "form": {
+      "name": "Il tuo nome",
+      "email": "La tua email",
+      "subject": "Oggetto",
+      "projectTypeDefault": "Seleziona il tipo di progetto",
+      "projectWeb": "🌐 Sviluppo Web",
+      "projectMobile": "📱 App Mobile",
+      "projectDesign": "🎨 Design UI/UX",
+      "projectBranding": "✨ Branding",
+      "projectConsulting": "💡 Consulenza",
+      "projectOther": "🚀 Altro",
+      "messagePlaceholder": "Il tuo messaggio...",
+      "submit": "Invia Messaggio"
+    }
+  }
+}

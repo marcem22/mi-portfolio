@@ -5,10 +5,17 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FaExternalLinkAlt, FaGithub, FaPlayCircle, FaLock } from "react-icons/fa";
 import SideNavbar from "../components/SideNavbar";
+import { useTranslation } from "react-i18next";
 
 function TypewriterText({ text, speed = 60 }) {
   const [displayText, setDisplayText] = useState("");
   const [index, setIndex] = useState(0);
+
+  // ARREGLO: Reseteamos la máquina de escribir si cambia el idioma
+  useEffect(() => {
+    setDisplayText("");
+    setIndex(0);
+  }, [text]);
 
   useEffect(() => {
     if (index < text.length) {
@@ -30,6 +37,7 @@ function TypewriterText({ text, speed = 60 }) {
 }
 
 function Proyectos() {
+  const { t } = useTranslation();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -85,7 +93,7 @@ function Proyectos() {
                 opacity: "0.9",
               }}
             >
-              Mis
+              {t('projects.my')}
             </span>
             <span
               style={{
@@ -94,7 +102,7 @@ function Proyectos() {
                 letterSpacing: "-0.06em",
               }}
             >
-              <TypewriterText text="Proyectos" speed={55} />
+              <TypewriterText text={t('projects.title')} speed={55} />
             </span>
           </motion.h1>
         </div>
@@ -103,7 +111,7 @@ function Proyectos() {
       <section className="relative z-10 max-w-5xl mx-auto px-6 pt-14 pb-24">
         {projects.length === 0 ? (
           <p className="text-center text-[var(--text-muted)] text-lg mt-10">
-            No hay proyectos cargados aún.
+            {t('projects.noProjects')}
           </p>
         ) : (
           <motion.div
@@ -166,15 +174,16 @@ function Proyectos() {
                   <div className="absolute top-55 right-3 flex flex-col items-end gap-2">
                     {project.featured && (
                       <span className="bg-[#FFC2C7] text-[#121212] text-[11px] uppercase font-bold tracking-wider px-3 py-1 rounded-full shadow-[0_0_15px_rgba(255,194,199,0.5)]">
-                         Destacado
+                         {t('projects.featured')}
                       </span>
                     )}
                   </div>
                   
                   <div className="text-[var(--text-secondary)] text-sm leading-relaxed mb-6 space-y-3 flex-grow transition-colors duration-300 group-hover:text-white">
-                    <p className="line-clamp-4"><strong className="text-[var(--text-primary)] transition-colors duration-300 group-hover:text-white">El Proyecto:</strong> {project.summary}</p>
+                    {/* Recordá que summary y challenges vienen de la DB, por ahora no se traducen solos */}
+                    <p className="line-clamp-4"><strong className="text-[var(--text-primary)] transition-colors duration-300 group-hover:text-white">{t('projects.theProject')}</strong> {project.summary}</p>
                     {project.challenges && (
-                      <p className="line-clamp-4"><strong className="text-[var(--text-primary)] transition-colors duration-300 group-hover:text-white">El Desafío:</strong> <span className="text-[var(--text-secondary)] transition-colors duration-300 group-hover:text-white/80">{project.challenges}</span></p>
+                      <p className="line-clamp-4"><strong className="text-[var(--text-primary)] transition-colors duration-300 group-hover:text-white">{t('projects.theChallenge')}</strong> <span className="text-[var(--text-secondary)] transition-colors duration-300 group-hover:text-white/80">{project.challenges}</span></p>
                     )}
                   </div>
 
@@ -187,7 +196,7 @@ function Proyectos() {
                         className="flex-1 flex justify-center items-center gap-2 px-4 py-3 rounded-xl text-sm font-bold bg-[#FFC2C7] !text-black hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(255,194,199,0.5)] transition-all duration-300"
                       >
                         <FaPlayCircle className="text-lg" />
-                        Ver Demo
+                        {t('projects.viewDemo')}
                       </a>
                     )}
 
@@ -198,7 +207,7 @@ function Proyectos() {
                         rel="noopener noreferrer"
                         className="flex-1 flex justify-center items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium border border-[#FFC2C7] !text-[#FFC2C7] hover:bg-[#FFC2C7] hover:!text-black transition-all duration-300"
                       >
-                        <FaExternalLinkAlt /> Web
+                        <FaExternalLinkAlt /> {t('projects.web')}
                       </a>
                     )}
 
@@ -209,11 +218,11 @@ function Proyectos() {
                         rel="noopener noreferrer"
                         className="flex-1 flex justify-center items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium border border-[#444] !text-gray-300 hover:border-[#FFC2C7] hover:!text-[#FFC2C7] hover:bg-[rgba(255,194,199,0.1)] transition-all duration-300"
                       >
-                        <FaGithub className="text-lg" /> Código
+                        <FaGithub className="text-lg" /> {t('projects.viewCode')}
                       </a>
                     ) : (
                       <span className="flex-1 flex justify-center items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium border border-[#2A2A2A] bg-gray-900/50 text-gray-500 cursor-not-allowed">
-                        <FaLock className="text-sm" /> Código Privado
+                        <FaLock className="text-sm" /> {t('projects.privateCode')}
                       </span>
                     )}
                   </div>

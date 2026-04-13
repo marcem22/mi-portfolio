@@ -3,13 +3,19 @@ import { initReactI18next } from 'react-i18next';
 
 import en from './en.json';
 import es from './es.json';
+import fr from './fr.json';
+import it from './it.json';
+import pt from './pt.json';
 
 i18n.use(initReactI18next).init({
   resources: {
     en: { translation: en },
-    es: { translation: es }
+    es: { translation: es },
+    fr: { translation: fr },
+    it: { translation: it },
+    pt: { translation: pt }
   },
-  lng: 'es', // idioma inicial
+  lng: 'es', 
   fallbackLng: 'es',
   interpolation: {
     escapeValue: false

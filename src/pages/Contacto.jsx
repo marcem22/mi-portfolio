@@ -9,17 +9,29 @@ import {
   FaInstagram,
   FaEnvelope,
 } from "react-icons/fa";
+import { useTranslation } from "react-i18next"; // <-- ¡Importamos el traductor!
 
 function Contacto() {
+  const { t } = useTranslation(); // <-- ¡Activamos el traductor!
   const [showForm, setShowForm] = useState(false);
   const [displayText, setDisplayText] = useState("");
-  const text = "JUNTOS";
+  
+  // Guardamos la palabra traducida en una variable
+  const text = t('contact.together'); 
+  
   const [index, setIndex] = useState(0);
   const containerRef = useRef(null);
   const mainEnvelopeRef = useRef(null);
   const socialRefs = useRef([]);
   const [lineCoords, setLineCoords] = useState([]);
 
+  // Este useEffect reinicia la animación si el usuario cambia el idioma
+  useEffect(() => {
+    setDisplayText("");
+    setIndex(0);
+  }, [text]);
+
+  // Efecto de máquina de escribir
   useEffect(() => {
     if (index < text.length) {
       const timeout = setTimeout(() => {
@@ -122,7 +134,7 @@ function Contacto() {
                 marginBottom: "0.2em"
               }}
             >
-              Creemos algo
+              {t('contact.createSomething')}
             </span>
             <span
               style={{
@@ -202,7 +214,7 @@ function Contacto() {
             </button>
 
             <h2 className="text-3xl font-extrabold mb-6 text-[var(--text-primary)]">
-              Escribime un <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)]">mensaje</span>
+              {t('contact.writeMeA')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)]">{t('contact.message')}</span>
             </h2>
 
             <form
@@ -214,21 +226,21 @@ function Contacto() {
               <input
                 type="text"
                 name="nombre"
-                placeholder="Tu nombre"
+                placeholder={t('contact.form.name')}
                 required
                 className="w-full p-4 rounded-xl bg-[var(--bg-dark)] border border-[var(--border)] focus:border-[var(--primary)] text-[var(--text-primary)] outline-none transition-all shadow-inner"
               />
               <input
                 type="email"
                 name="email"
-                placeholder="Tu email"
+                placeholder={t('contact.form.email')}
                 required
                 className="w-full p-4 rounded-xl bg-[var(--bg-dark)] border border-[var(--border)] focus:border-[var(--primary)] text-[var(--text-primary)] outline-none transition-all shadow-inner"
               />
               <input
                 type="text"
                 name="asunto"
-                placeholder="Asunto"
+                placeholder={t('contact.form.subject')}
                 required
                 className="w-full p-4 rounded-xl bg-[var(--bg-dark)] border border-[var(--border)] focus:border-[var(--primary)] text-[var(--text-primary)] outline-none transition-all shadow-inner"
               />
@@ -237,18 +249,18 @@ function Contacto() {
                 required
                 className="w-full p-4 rounded-xl bg-[var(--bg-dark)] border border-[var(--border)] text-[var(--text-secondary)] focus:border-[var(--primary)] outline-none transition-all shadow-inner"
               >
-                <option value="">Seleccioná el tipo de proyecto</option>
-                <option value="Desarrollo Web">🌐 Desarrollo Web</option>
-                <option value="App Mobile">📱 App Mobile</option>
-                <option value="Diseño UI/UX">🎨 Diseño UI/UX</option>
-                <option value="Branding">✨ Branding</option>
-                <option value="Consultoría">💡 Consultoría</option>
-                <option value="Otro">🚀 Otro</option>
+                <option value="">{t('contact.form.projectTypeDefault')}</option>
+                <option value="Desarrollo Web">{t('contact.form.projectWeb')}</option>
+                <option value="App Mobile">{t('contact.form.projectMobile')}</option>
+                <option value="Diseño UI/UX">{t('contact.form.projectDesign')}</option>
+                <option value="Branding">{t('contact.form.projectBranding')}</option>
+                <option value="Consultoría">{t('contact.form.projectConsulting')}</option>
+                <option value="Otro">{t('contact.form.projectOther')}</option>
               </select>
 
               <textarea
                 name="mensaje"
-                placeholder="Tu mensaje..."
+                placeholder={t('contact.form.messagePlaceholder')}
                 rows={4}
                 required
                 className="w-full p-4 rounded-xl bg-[var(--bg-dark)] border border-[var(--border)] text-[var(--text-primary)] resize-none focus:border-[var(--primary)] outline-none transition-all shadow-inner"
@@ -268,7 +280,7 @@ function Contacto() {
                 data-callback="onSubmit"
                 data-action="submit"
               >
-                Enviar Mensaje
+                {t('contact.form.submit')}
               </button>
             </form>
           </motion.div>

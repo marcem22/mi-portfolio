@@ -1,18 +1,128 @@
 {
   "home": {
-    "greeting": "Hola, soy Marcela",
-    "intro": "Desarrolladora web full stack con foco en frontend y diseño UI"
+    "greeting": "Hola, soy",
+    "carousel": {
+      "dev": "— Desarrolladora Web",
+      "creative": "— Diseñadora Creativa",
+      "creator": "— Creadora de Experiencias",
+      "tech": "— Técnica en Programación Web"
+    },
+    "buttons": {
+      "cv": "Ver CV",
+      "projects": "Proyectos",
+      "contact": "Contacto"
+    },
+    "workingOn": {
+      "title": "Trabajando en",
+      "badge1": "🚀 Proyecto Actual",
+      "badge2": "💼 Desarrollo Web 3D",
+      "projectTitle": "App de Realidad Aumentada",
+      "projectDesc": "Creación de una experiencia web inmersiva con AR.js, donde la interacción 3D y el aprendizaje se fusionan para explorar nuevas formas de enseñar y descubrir."
+    },
+    "skillsTitle": "Mis Habilidades",
+    "journeyTitle": "Mi Recorrido",
+    "xp": "XP",
+    "aboutMe": {
+      "title": "Un poco sobre mí",
+      "fact1": "Obsesionada con el código",
+      "fact1Desc": "Literal, hasta mis sueños tienen bugs 💖",
+      "fact2": "Hincha de River Plate",
+      "fact2Desc": "Llevo una banda roja en el alma",
+      "fact3": "Mamá de Buddy",
+      "fact3Desc": "Mi perro cree que soy una diosa del teclado 🐶",
+      "fact4": "Adicta a viajar",
+      "fact4Desc": "El mundo también se explora en HTML ✈️",
+      "fact5": "Amante de la cocina",
+      "fact5Desc": "Me encanta cocinar tanto como programar 👩‍🍳",
+      "fact6": "Team cerveza",
+      "fact6Desc": "🍺 + código = a veces buena idea",
+      "fact7": "Odio dibujar",
+      "fact7Desc": "Pero amo diseñar interfaces 🎨",
+      "fact8": "Nunca descanso",
+      "fact8Desc": "Compilando sueños a medianoche 🌙"
+    },
+    "timeline": {
+      "step1": {
+        "title": "Inicio en la Tecnicatura",
+        "desc": "Comienzo mis estudios en Desarrollo de Software y escribo mi primera línea de código."
+      },
+      "step2": {
+        "title": "Primer proyecto web",
+        "desc": "Desarrollo del front-end para un sitio de una entidad gubernamental como parte de una materia."
+      },
+      "step3": {
+        "title": "Backend y Bases de Datos",
+        "desc": "Implementación de sitios dinámicos con PHP, MySQL y buenas prácticas de desarrollo."
+      },
+      "step4": {
+        "title": "Realidad Aumentada",
+        "desc": "Primer empleo como desarrolladora, aplicando AR.js y tecnologías 3D en proyectos educativos."
+      },
+      "step5": {
+        "title": "¡Me recibí!",
+        "desc": "Fin de la carrera y título en mano. Lista para empezar a trabajar al 100% como desarrolladora."
+      }
+    },
+    "explore": {
+      "title": "Explorá mi trabajo",
+      "viewMore": "Ver más →",
+      "projects": "Proyectos",
+      "projDesc": "Mis creaciones",
+      "cv": "CV",
+      "cvDesc": "Mi experiencia",
+      "contact": "Contacto",
+      "contactDesc": "Hablemos"
+    },
+    "quote": "\"El diseño no es solo cómo se ve, sino cómo hace sentir.\""
   },
   "projects": {
+    "my": "Mis",
     "title": "Proyectos",
-    "viewProject": "Ver proyecto",
-    "viewCode": "Código"
+    "noProjects": "No hay proyectos cargados aún.",
+    "featured": "Destacado",
+    "theProject": "El Proyecto:",
+    "theChallenge": "El Desafío:",
+    "viewDemo": "Ver Demo",
+    "web": "Web",
+    "viewCode": "Código",
+    "privateCode": "Código Privado"
   },
   "contact": {
-    "title": "Contacto",
-    "email": "Correo electrónico"
+    "createSomething": "Creemos algo",
+    "together": "JUNTOS",
+    "writeMeA": "Escribime un ",
+    "message": "mensaje",
+    "form": {
+      "name": "Tu nombre",
+      "email": "Tu email",
+      "subject": "Asunto",
+      "projectTypeDefault": "Seleccioná el tipo de proyecto",
+      "projectWeb": "🌐 Desarrollo Web",
+      "projectMobile": "📱 App Mobile",
+      "projectDesign": "🎨 Diseño UI/UX",
+      "projectBranding": "✨ Branding",
+      "projectConsulting": "💡 Consultoría",
+      "projectOther": "🚀 Otro",
+      "messagePlaceholder": "Tu mensaje...",
+      "submit": "Enviar Mensaje"
+    }
   },
   "cv": {
-    "title": "Currículum"
+    "subtitle": "Desarrolladora Web & Diseñadora de experiencias digitales",
+    "downloadTitle": "Descargar CV en PDF",
+    "profileTitle": "Perfil profesional",
+    "defaultSummary": "Desarrolladora Web graduada de la UNSJ, especializada en Full Stack y Tecnologías Inmersivas (WebAR). Mi perfil une la lógica del código con el diseño creativo para construir experiencias digitales que realmente conectan con las personas. Soy de aprendizaje ágil y me encanta trabajar en equipo. Busco una oportunidad como desarrolladora Junior para sumar mi visión, adaptabilidad y ganas de crear productos que marquen la diferencia.",
+    "skillsTitle": "Habilidades",
+    "languages": "Lenguajes",
+    "frameworks": "Frameworks / Librerías",
+    "tools": "Herramientas y Tecnologías",
+    "experienceTitle": "Experiencia",
+    "educationTitle": "Formación",
+    "featuredProjectsTitle": "Proyectos destacados",
+    "noProjects": "Aún no hay proyectos destacados.",
+    "ctaTitle1": "¿Creamos algo",
+    "ctaTitle2": "increíble?",
+    "ctaDesc": "Ya sea para un nuevo proyecto, sumar a alguien a tu equipo o charlar sobre tecnología, me encantaría escucharte.",
+    "ctaButton": "Hablemos ahora"
   }
 }
