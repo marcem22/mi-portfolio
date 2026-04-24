@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { db } from "../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { FaExternalLinkAlt, FaGithub, FaPlayCircle, FaLock } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import SideNavbar from "../components/SideNavbar";
 import { useTranslation } from "react-i18next";
 
@@ -11,7 +11,6 @@ function TypewriterText({ text, speed = 60 }) {
   const [displayText, setDisplayText] = useState("");
   const [index, setIndex] = useState(0);
 
-  // ARREGLO: Reseteamos la máquina de escribir si cambia el idioma
   useEffect(() => {
     setDisplayText("");
     setIndex(0);
@@ -31,13 +30,12 @@ function TypewriterText({ text, speed = 60 }) {
     <>
       {displayText}
       <span style={{ marginLeft: "2px", animation: "blink 1s infinite" }}>|</span>
-      <style>{`@keyframes blink { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0; } }`}</style>
     </>
   );
 }
 
 function Proyectos() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation(); 
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -47,19 +45,7 @@ function Proyectos() {
         const snap = await getDoc(doc(db, "profile", "main"));
         if (snap.exists()) {
           const data = snap.data();
-          setProjects(
-            data.projects?.length
-              ? data.projects
-              : [
-                  {
-                    name: "TEAssist",
-                    summary: "Plataforma integral de seguimiento y asistencia para pacientes con autismo.",
-                    stack: ["Laravel", "Tailwind CSS", "MySQL"],
-                    link: "#",
-                    github: "https://github.com/eormeno/teassist",
-                  }
-                ]
-          );
+          setProjects(data.projects || []);
         }
       } catch (err) {
         console.error("Error al cargar proyectos:", err);
@@ -76,8 +62,9 @@ function Proyectos() {
     <div className="relative min-h-screen w-full bg-[var(--bg-dark)] text-white overflow-x-hidden">
       <SideNavbar />
 
+      {/* HERO SECTION */}
       <section className="relative z-[30] bg-[var(--bg-dark)] text-[var(--text-primary)] py-10">
-        <div className="relative z-10 max-w-5xl mx-auto px-6 flex justify-center">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 flex justify-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -85,163 +72,154 @@ function Proyectos() {
             className="font-black uppercase flex flex-col items-center w-full text-center"
             style={{ lineHeight: "0.8" }}
           >
-            <span
-              style={{
-                fontSize: "clamp(1.2rem, 3vw, 2rem)",
-                color: "#FFFFFF",
-                letterSpacing: "0.3em",
-                opacity: "0.9",
-              }}
-            >
-              {t('projects.my')}
+            <span className="text-[clamp(1.2rem,3vw,1.8rem)] text-white tracking-[0.3em] opacity-90 mb-2">
+              {t('projects.my', 'MIS')}
             </span>
-            <span
-              style={{
-                fontSize: "clamp(4rem, 12vw, 8rem)",
-                color: "var(--primary)",
-                letterSpacing: "-0.06em",
-              }}
-            >
-              <TypewriterText text={t('projects.title')} speed={55} />
+            <span className="text-[clamp(3rem,10vw,6.5rem)] text-[var(--primary)] tracking-[-0.06em]">
+              <TypewriterText text={t('projects.title', 'PROYECTOS')} speed={55} />
             </span>
           </motion.h1>
         </div>
       </section>
 
-      <section className="relative z-10 max-w-5xl mx-auto px-6 pt-14 pb-24">
+      {/* LISTA DE PROYECTOS */}
+      <section className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 pt-4 pb-12">
         {projects.length === 0 ? (
           <p className="text-center text-[var(--text-muted)] text-lg mt-10">
-            {t('projects.noProjects')}
+            {t('projects.noProjects', 'No hay proyectos cargados aún.')}
           </p>
         ) : (
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch"
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.15 } },
-            }}
-          >
-            {[...projects].reverse().map((project, i) => (
-              <motion.div
-                key={i} 
-                className="relative w-[calc(100%-16px)] mx-auto md:w-full bg-[#121212] border border-[#2A2A2A] rounded-2xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] flex flex-col h-full group"
-                variants={{
-                  hidden: { opacity: 0, y: 30 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                whileHover={{
-                  y: -5,
-                  scale: 1.01,
-                  borderColor: "#FFC2C7",
-                  boxShadow: "0 0 50px rgba(255,194,199,0.25)",
-                  transition: { duration: 0.4, ease: "easeOut" },
-                }}
-              >
-                <div className="relative h-48 bg-gradient-to-br from-gray-900 to-black overflow-hidden group">
-                  {project.image ? (
-                    <img 
-                      src={project.image} 
-                      alt={project.name} 
-                      className="w-full h-full object-cover object-[center_0%] opacity-80 group-hover:opacity-100 transition-all duration-700"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-[#FFC2C7] font-mono text-lg opacity-50 bg-gray-900 border-b border-[#2A2A2A]">
-                      &lt; {project.name} /&gt;
-                    </div>
-                  )}
+          <div className="flex flex-col gap-12 lg:gap-16">
+            {[...projects].reverse().map((project, i) => {
+              const isEven = i % 2 === 0;
 
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shine pointer-events-none" />
-                </div>
-
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-2xl font-bold mb-3 text-[var(--text-primary)] transition-colors duration-300 group-hover:text-[#FFC2C7]">
-                    {project.name}
-                  </h3>
-
-                  <div className="flex flex-wrap gap-2 mt-2 mb-4">
-                    {(project.stack || []).map((t, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2.5 py-1 text-[11px] font-medium rounded-md border border-[#FFC2C7]/30 text-[#FFC2C7] bg-[#FFC2C7]/10"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <div className="absolute top-55 right-3 flex flex-col items-end gap-2">
-                    {project.featured && (
-                      <span className="bg-[#FFC2C7] text-[#121212] text-[11px] uppercase font-bold tracking-wider px-3 py-1 rounded-full shadow-[0_0_15px_rgba(255,194,199,0.5)]">
-                         {t('projects.featured')}
-                      </span>
-                    )}
-                  </div>
-                  
-                  <div className="text-[var(--text-secondary)] text-sm leading-relaxed mb-6 space-y-3 flex-grow transition-colors duration-300 group-hover:text-white">
-                    {/* Recordá que summary y challenges vienen de la DB, por ahora no se traducen solos */}
-                    <p className="line-clamp-4"><strong className="text-[var(--text-primary)] transition-colors duration-300 group-hover:text-white">{t('projects.theProject')}</strong> {project.summary}</p>
-                    {project.challenges && (
-                      <p className="line-clamp-4"><strong className="text-[var(--text-primary)] transition-colors duration-300 group-hover:text-white">{t('projects.theChallenge')}</strong> <span className="text-[var(--text-secondary)] transition-colors duration-300 group-hover:text-white/80">{project.challenges}</span></p>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row flex-wrap gap-3 mt-auto pt-5 border-t border-[#2A2A2A]">
-                    {project.demoLink && (
-                      <a
-                        href={project.demoLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 flex justify-center items-center gap-2 px-4 py-3 rounded-xl text-sm font-bold bg-[#FFC2C7] !text-black hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(255,194,199,0.5)] transition-all duration-300"
-                      >
-                        <FaPlayCircle className="text-lg" />
-                        {t('projects.viewDemo')}
-                      </a>
-                    )}
-
-                    {project.link && project.link !== "#" && (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 flex justify-center items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium border border-[#FFC2C7] !text-[#FFC2C7] hover:bg-[#FFC2C7] hover:!text-black transition-all duration-300"
-                      >
-                        <FaExternalLinkAlt /> {t('projects.web')}
-                      </a>
-                    )}
-
-                    {project.github ? (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 flex justify-center items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium border border-[#444] !text-gray-300 hover:border-[#FFC2C7] hover:!text-[#FFC2C7] hover:bg-[rgba(255,194,199,0.1)] transition-all duration-300"
-                      >
-                        <FaGithub className="text-lg" /> {t('projects.viewCode')}
-                      </a>
+              return (
+                <motion.article
+                  key={i} 
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="group relative bg-[#121212] border border-[#2A2A2A] rounded-2xl overflow-hidden flex flex-col lg:flex-row transition-all duration-500 hover:border-[var(--primary)] shadow-xl"
+                >
+                  {/* IMAGEN */}
+                 <div className={`relative w-full lg:w-5/12 h-56 lg:h-[320px] overflow-hidden bg-gray-900 shrink-0 ${!isEven ? 'lg:order-last' : ''}`}>
+                    {project.image ? (
+                      <img 
+                        src={project.image} 
+                        alt={project.name} 
+                        className="w-full h-full object-cover grayscale-[40%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                      />
                     ) : (
-                      <span className="flex-1 flex justify-center items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium border border-[#2A2A2A] bg-gray-900/50 text-gray-500 cursor-not-allowed">
-                        <FaLock className="text-sm" /> {t('projects.privateCode')}
-                      </span>
+                      <div className="w-full h-full flex items-center justify-center text-[var(--primary)] opacity-20 text-4xl">
+                        &lt; /&gt;
+                      </div>
+                    )}
+                    
+                    {project.featured && (
+                      <div className={`absolute top-4 z-20 ${!isEven ? 'left-4' : 'right-4'}`}>
+                        <span className="bg-[var(--primary)] text-black text-[9px] font-black uppercase tracking-widest px-2.5 py-1 shadow-[4px_4px_0px_rgba(0,0,0,0.8)]">
+                          {t('projects.featured', 'Destacado')}
+                        </span>
+                      </div>
                     )}
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+
+                  {/* CONTENIDO (Ajustado, sin Desafío y sin huecos) */}
+                  <div className="p-6 md:p-8 flex flex-col w-full lg:w-7/12 bg-[#121212]">
+                    <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white group-hover:text-[var(--primary)] transition-colors mb-3">
+                      {project.name}
+                    </h3>
+
+                    <div className="flex flex-wrap gap-2 mb-5">
+                      {(project.stack || []).map((tech, idx) => (
+                        <span key={idx} className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 bg-white/5 border border-white/10 text-[var(--text-secondary)]">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    
+                    <div className="text-gray-400 mb-6 flex-grow">
+                      <strong className="text-[var(--primary)] block text-[10px] uppercase tracking-[0.2em] mb-1.5">
+                        {t('projects.theProject', 'El Proyecto:')}
+                      </strong>
+                      <p className="text-sm leading-relaxed font-medium">
+                        {i18n.language?.startsWith('en') 
+                          ? (project.summary_en || project.summary) 
+                          : (project.summary_es || project.summary)}
+                      </p>
+                    </div>
+
+                    {/* BOTONES */}
+                    <div className="flex flex-wrap gap-3 pt-5 border-t border-white/5 mt-2">
+                      {project.demoLink && (
+                        <a href={project.demoLink} target="_blank" rel="noopener noreferrer" 
+                           className="flex-1 min-w-[100px] flex justify-center items-center gap-2 py-2.5 bg-[var(--primary)] text-black text-[10px] font-black uppercase tracking-widest hover:-translate-y-1 hover:translate-x-1 shadow-[4px_4px_0px_rgba(255,255,255,0.1)] hover:shadow-[4px_4px_0px_#FFFFFF] transition-all border border-[var(--primary)]">
+                          <FaPlayCircle className="text-sm" /> Demo
+                        </a>
+                      )}
+                      
+                      {project.link && project.link !== "#" && (
+                        <a href={project.link} target="_blank" rel="noopener noreferrer" 
+                           className="flex-1 min-w-[100px] flex justify-center items-center gap-2 py-2.5 border border-white/20 text-white text-[10px] font-black uppercase tracking-widest hover:border-white hover:bg-white/5 transition-all">
+                          <FaExternalLinkAlt className="text-sm" /> {t('projects.web', 'Web')}
+                        </a>
+                      )}
+
+                      {project.github ? (
+                        <a href={project.github} target="_blank" rel="noopener noreferrer"
+                           className="flex-1 min-w-[100px] flex justify-center items-center gap-2 py-2.5 border border-white/20 text-white text-[10px] font-black uppercase tracking-widest hover:border-white hover:bg-white/5 transition-all">
+                          <FaGithub className="text-sm" /> {t('projects.viewCode', 'Código')}
+                        </a>
+                      ) : (
+                        <div className="flex-1 min-w-[100px] flex justify-center items-center gap-2 py-2.5 border border-white/5 text-white/20 text-[10px] font-black uppercase tracking-widest cursor-not-allowed">
+                          <FaLock className="text-sm" /> {t('projects.privateCode', 'Privado')}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
         )}
       </section>
 
+      {/* CTA SECTION ELEGANTE */}
+      <section className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 pt-8 pb-32">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="relative border-t border-white/10 py-16 flex flex-col md:flex-row items-center justify-between gap-8"
+        >
+          <div className="text-center md:text-left">
+            <span className="block text-[var(--primary)] text-[9px] font-black uppercase tracking-[0.4em] mb-3">
+              {t('cta.badge', 'CONTACTO')}
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white leading-[0.9]">
+              {t('cta.title', '¿CREAMOS ALGO')} <br />
+              <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.5)' }}>
+                {t('cta.subtitle', 'INCREÍBLE?')}
+              </span>
+            </h2>
+          </div>
+
+          <Link
+            to="/contacto"
+            className="group inline-flex items-center gap-4 px-8 py-4 border border-white/20 text-white font-black uppercase tracking-widest text-[10px] hover:border-[var(--primary)] hover:bg-[var(--primary)] hover:text-black transition-all duration-500"
+          >
+            {t('cta.button', 'Hablemos hoy')}
+            <svg className="w-3 h-3 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </Link>
+        </motion.div>
+      </section>
+
       <style>{`
-        @keyframes shine {
-          100% {
-            transform: translateX(100%);
-          }
-        }
-        .animate-shine {
-          animation: shine 0.7s;
-        }
+        @keyframes blink { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0; } }
       `}</style>
     </div>
   );

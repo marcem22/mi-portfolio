@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SkillsCube3D from '../components/SkillsCube3D'; 
 import SplashScreen from "../components/SplashScreen";
+import Icon from "../components/Icon";
 import avatarImg from '../assets/avatar.png';
 import nuevoAvatar from "../assets/nuevoAvatar.png";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,16 +12,16 @@ import '../pages/Home.css';
 function Home() {
   const { t, i18n } = useTranslation();
   
-  // Configuraciones del idioma y banderas
+
   const languages = ['es', 'en', 'fr', 'pt', 'it'];
-  const flags = { es: "🇪🇸", en: "🇬🇧", fr: "🇫🇷", pt: "🇧🇷", it: "🇮🇹" }; // Podés cambiar 🇬🇧 por 🇺🇸 o 🇧🇷 por 🇵🇹 si preferís
+  const flags = { es: "🇪🇸", en: "🇬🇧", fr: "🇫🇷", pt: "🇧🇷", it: "🇮🇹" };
   
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-    setIsLangOpen(false); // Cierra el menú al elegir
+    setIsLangOpen(false);
   };
   
-  const [isLangOpen, setIsLangOpen] = useState(false); // Estado para abrir/cerrar las banderas
+  const [isLangOpen, setIsLangOpen] = useState(false); 
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(0); 
   const [avatarKey, setAvatarKey] = useState(0);
@@ -30,7 +31,7 @@ function Home() {
   const [showNewAvatar, setShowNewAvatar] = useState(false);
   const [phraseIndex, setPhraseIndex] = useState(0);
 
-  // Arrays mapeados con el traductor
+
   const carouselPhrases = [
     t('home.carousel.dev'),
     t('home.carousel.creative'),
@@ -83,10 +84,10 @@ function Home() {
   ];
 
   const menuItems = [
-    { to: "/proyectos", icon: "⚡", text: t('home.explore.projects'), description: t('home.explore.projDesc') },
-    { to: "/cv", icon: "📋", text: t('home.explore.cv'), description: t('home.explore.cvDesc') },
-    { to: "/contacto", icon: "💬", text: t('home.explore.contact'), description: t('home.explore.contactDesc') }
-  ];
+  { to: "/proyectos", icon: "cube", text: t('home.explore.projects') },
+  { to: "/cv", icon: "layout", text: t('home.explore.cv') },
+  { to: "/contacto", icon: "nodes", text: t('home.explore.contact') }
+];
 
   const nextStep = () => setCurrentStep((prev) => (prev === timeline.length - 1 ? 0 : prev + 1));
 
@@ -162,7 +163,6 @@ function Home() {
             }
           `}</style>
 
-          {/* SELECTOR DE IDIOMAS (MICRO Y PRO) */}
           <div className="absolute top-6 left-4 md:top-8 md:left-8 z-[100]">
             <div className="relative">
               <button
@@ -208,7 +208,7 @@ function Home() {
               </AnimatePresence>
             </div>
           </div>
-          {/* FIN SELECTOR DE IDIOMAS */}
+
 
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-20 left-10 w-64 h-64 rounded-full opacity-5" 
@@ -641,7 +641,7 @@ function Home() {
                             whiteSpace: "normal",
                           }}
                         >
-                          {/* El tooltip con lógica arreglada por ID */}
+
                           {fact.id === "river" ? (
                             <span className="flex flex-col items-center justify-center gap-2 font-bold uppercase tracking-wider text-xs">
                               {fact.desc}
@@ -715,13 +715,9 @@ function Home() {
                       >
                         <div className="relative p-6 h-full z-10 flex flex-col items-center text-center"> 
                           <div className="relative flex-shrink-0 mb-4">
-                            <div className="text-5xl transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 ease-out" 
-                                style={{
-                                  color: 'var(--primary)', 
-                                  filter: 'drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.8))'
-                                }}>
-                              {item.icon}
-                            </div>
+                            <div className="relative flex-shrink-0 mb-4">
+  <Icon name={item.icon} />
+</div>
                           </div>
                           
                           <div>
@@ -746,7 +742,7 @@ function Home() {
                     ))}
                   </div>
                 </div>
-
+                  
                 <div className="text-center mt-20">
                   <p className="text-lg font-black uppercase tracking-widest" 
                     style={{ color: 'var(--text-muted)' }}>

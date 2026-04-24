@@ -34,9 +34,9 @@
       "fact4Desc": "The world is also explored in HTML ✈️",
       "fact5": "Cooking Lover",
       "fact5Desc": "I love cooking as much as coding 👩‍🍳",
-      "fact6": "Team Beer",
-      "fact6Desc": "🍺 + code = sometimes a good idea",
-      "fact7": "I hate drawing",
+      "fact6": "Team coffee",
+      "fact6Desc": "☕ + code = better ideas",
+      "fact7": "Drawing isn’t my thing",
       "fact7Desc": "But I love designing interfaces 🎨",
       "fact8": "I never rest",
       "fact8Desc": "Compiling dreams at midnight 🌙"
@@ -85,7 +85,13 @@
     "viewDemo": "View Demo",
     "web": "Web",
     "viewCode": "Code",
-    "privateCode": "Private Code"
+    "privateCode": "Private Code",
+    "cta": {
+  "title": "Let's create something",
+  "subtitle": "amazing?",
+  "description": "If you have an idea in mind or are looking to add someone to your team, my inbox is always open.",
+  "button": "Let's talk"
+}
   },
   "contact": {
     "createSomething": "Let's create something",
@@ -125,4 +131,5 @@
     "ctaDesc": "Whether it's for a new project, adding someone to your team, or chatting about technology, I'd love to hear from you.",
     "ctaButton": "Let's talk now"
   }
+  
 }

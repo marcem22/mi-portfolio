@@ -13,12 +13,12 @@
       "contact": "Contacto"
     },
     "workingOn": {
-      "title": "Trabajando en",
-      "badge1": "🚀 Proyecto Actual",
-      "badge2": "💼 Desarrollo Web 3D",
-      "projectTitle": "App de Realidad Aumentada",
-      "projectDesc": "Creación de una experiencia web inmersiva con AR.js, donde la interacción 3D y el aprendizaje se fusionan para explorar nuevas formas de enseñar y descubrir."
-    },
+  "title": "Proyecto actual",
+  "badge1": "En desarrollo",
+  "badge2": "WebAR · 3D interactivo",
+  "projectTitle": "Aplicación Web de Realidad Aumentada",
+  "projectDesc": "Desarrollo de una aplicación WebAR con visualización 3D interactiva, orientada a experiencias educativas. Permite explorar contenido en tiempo real desde el navegador, sin necesidad de instalación."
+},
     "skillsTitle": "Mis Habilidades",
     "journeyTitle": "Mi Recorrido",
     "xp": "XP",
@@ -34,9 +34,9 @@
       "fact4Desc": "El mundo también se explora en HTML ✈️",
       "fact5": "Amante de la cocina",
       "fact5Desc": "Me encanta cocinar tanto como programar 👩‍🍳",
-      "fact6": "Team cerveza",
-      "fact6Desc": "🍺 + código = a veces buena idea",
-      "fact7": "Odio dibujar",
+      "fact6": "Team café",
+      "fact6Desc": "☕ + código = mejores ideas",
+      "fact7": "El dibujo no es lo mío",
       "fact7Desc": "Pero amo diseñar interfaces 🎨",
       "fact8": "Nunca descanso",
       "fact8Desc": "Compilando sueños a medianoche 🌙"
@@ -85,7 +85,13 @@
     "viewDemo": "Ver Demo",
     "web": "Web",
     "viewCode": "Código",
-    "privateCode": "Código Privado"
+    "privateCode": "Código Privado",
+    "cta": {
+  "title": "¿Creamos algo",
+  "subtitle": "increíble?",
+  "description": "Si tenés una idea en mente o buscás sumar a alguien a tu equipo, mi casilla de mensajes está siempre abierta.",
+  "button": "Hablemos ahora"
+}
   },
   "contact": {
     "createSomething": "Creemos algo",

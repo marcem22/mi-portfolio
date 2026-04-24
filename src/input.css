@@ -52,6 +52,17 @@ body {
   font-family: 'Righteous', sans-serif;
   letter-spacing: 0.02em;
 }
+.icon {
+  width: 48px;
+  height: 48px;
+  color: var(--primary);
+  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.8));
+  transition: transform 0.3s ease;
+}
+
+.group:hover .icon {
+  transform: scale(1.1) rotate(8deg);
+}
 
 @media (min-width: 768px) {
   .mobile-nav {

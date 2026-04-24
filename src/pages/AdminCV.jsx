@@ -1,260 +1,224 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../lib/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { signOut } from "firebase/auth";
-import { auth } from "../lib/firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import SideNavbar from "../components/SideNavbar";
 
 function AdminCV() {
-  const [profile, setProfile] = useState({
-    summary: "",
-    experience: [],
-    education: [],
-    projects: [],
-    skillsLanguages: [],
-    skillsFrameworks: [],
-    skillsTools: [],
-  });
+  const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState("");
-  const [saving, setSaving] = useState(false);
+  const [editingIndex, setEditingIndex] = useState(null);
+  
+
+  const initialForm = {
+    name: "",
+    image: "",
+    summary_es: "",
+    summary_en: "",
+    stack: "", 
+    link: "",
+    github: "",
+    demoLink: "",
+    featured: false
+  };
+  
+  const [formData, setFormData] = useState(initialForm);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const snap = await getDoc(doc(db, "profile", "main"));
-        if (snap.exists()) {
-          const data = snap.data();
-          setProfile({
-            summary: data.summary || "",
-            experience: data.experience || [],
-            education: data.education || [],
-            projects: data.projects || [],
-            skillsLanguages: data.skillsLanguages || [],
-            skillsFrameworks: data.skillsFrameworks || [],
-            skillsTools: data.skillsTools || [],
-          });
-        }
-      } catch (err) {
-        console.error("Error al cargar perfil:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchData();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProfile((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const updateExperienceField = (index, field, value) => {
-    setProfile((prev) => {
-      const newExp = [...prev.experience];
-      newExp[index] = { ...newExp[index], [field]: value };
-      return { ...prev, experience: newExp };
-    });
-  };
-
-  const handleSave = async () => {
-    setSaving(true);
+  const fetchData = async () => {
     try {
-      const newProfile = {
-        ...profile,
-        experience: profile.experience.filter(
-          (exp) => exp.role || exp.company || exp.summary
-        ),
-      };
-      await setDoc(doc(db, "profile", "main"), newProfile, { merge: true });
-      setMessage("✅ Cambios guardados correctamente");
-      setTimeout(() => setMessage(""), 3000);
+      const snap = await getDoc(doc(db, "profile", "main"));
+      if (snap.exists()) {
+        const data = snap.data();
+        setProjects(data.projects || []);
+      }
     } catch (err) {
-      console.error("Error al guardar:", err);
-      setMessage("❌ Error al guardar");
+      console.error("Error al cargar datos:", err);
     } finally {
-      setSaving(false);
+      setLoading(false);
     }
   };
 
-  if (loading) return <p className="text-center text-white mt-20">Cargando...</p>;
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value
+    });
+  };
+
+  const handleEdit = (index) => {
+    const proj = projects[index];
+    setFormData({
+      ...proj,
+      stack: proj.stack ? proj.stack.join(", ") : "", 
+      summary_es: proj.summary_es || proj.summary || "", 
+      summary_en: proj.summary_en || "",
+     
+    });
+    setEditingIndex(index);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleDelete = async (index) => {
+    if (!window.confirm("¿Seguro que querés borrar este proyecto?")) return;
+    
+    const updatedProjects = projects.filter((_, i) => i !== index);
+    try {
+      await updateDoc(doc(db, "profile", "main"), { projects: updatedProjects });
+      setProjects(updatedProjects);
+    } catch (err) {
+      console.error("Error al borrar:", err);
+      alert("Hubo un error al borrar el proyecto.");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+
+    const projectToSave = {
+      ...formData,
+      stack: formData.stack.split(",").map(s => s.trim()).filter(s => s !== "")
+    };
+
+    let updatedProjects = [...projects];
+    if (editingIndex !== null) {
+      updatedProjects[editingIndex] = projectToSave;
+    } else {
+      updatedProjects.push(projectToSave);
+    }
+
+    try {
+      await updateDoc(doc(db, "profile", "main"), { projects: updatedProjects });
+      setProjects(updatedProjects);
+      setFormData(initialForm);
+      setEditingIndex(null);
+      alert("¡Proyecto guardado con éxito!");
+    } catch (err) {
+      console.error("Error al guardar:", err);
+      alert("Hubo un error al guardar el proyecto.");
+    }
+  };
+
+  const cancelEdit = () => {
+    setFormData(initialForm);
+    setEditingIndex(null);
+  };
+
+  if (loading) return <div className="text-white text-center mt-20">Cargando panel...</div>;
 
   return (
-    <div className="min-h-screen bg-[var(--bg-dark)] text-white p-8">
-      <h1 className="text-4xl font-bold mb-8 text-[var(--accent)]">
-        Panel de administración del CV
-      </h1>
-      <button
-        onClick={() => signOut(auth)}
-        className="absolute top-6 right-6 px-4 py-2 bg-[var(--accent)] text-white rounded-lg hover:bg-[var(--secondary)] transition-all"
-      >
-        Cerrar sesión
-      </button>
+    <div className="relative min-h-screen bg-[var(--bg-dark)] text-white p-6 md:p-12 ml-0 md:ml-20">
+      <SideNavbar />
+      
+      <div className="max-w-4xl mx-auto mt-10">
+        <h1 className="text-3xl font-black uppercase text-[var(--primary)] mb-8 tracking-widest">
+          Panel de Control - Proyectos
+        </h1>
 
-      {message && (
-        <div className="mb-4 text-center text-lg font-semibold text-[var(--accent)]">
-          {message}
-        </div>
-      )}
-
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Perfil profesional</h2>
-        <textarea
-          name="summary"
-          value={profile.summary}
-          onChange={handleChange}
-          rows={5}
-          className="w-full p-4 bg-[var(--bg-surface)] border border-[var(--border-light)] rounded-xl"
-          placeholder="Describe tu perfil profesional..."
-        />
-      </section>
-
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Proyectos</h2>
-
-        {profile.projects && profile.projects.length > 0 ? (
-            profile.projects.map((proj, i) => (
-            <div key={i} className="mb-6 p-4 border border-[var(--border-light)] rounded-xl bg-[var(--bg-surface)]/60">
-                
-                <input
-                  type="text"
-                  placeholder="Nombre del proyecto (ej: TEAssist)"
-                  value={proj.name || ""}
-                  onChange={(e) => {
-                      const newProjects = [...profile.projects];
-                      newProjects[i].name = e.target.value;
-                      setProfile({ ...profile, projects: newProjects });
-                  }}
-                  className="w-full mb-2 px-3 py-2 rounded bg-[var(--bg-hover)] text-white font-bold"
-                />
-
-                <input
-                  type="text"
-                  placeholder="URL de la imagen de portada (ej: https://... o /imagen.png)"
-                  value={proj.image || ""}
-                  onChange={(e) => {
-                      const newProjects = [...profile.projects];
-                      newProjects[i].image = e.target.value;
-                      setProfile({ ...profile, projects: newProjects });
-                  }}
-                  className="w-full mb-2 px-3 py-2 rounded border border-[var(--accent)] bg-[var(--bg-hover)] text-white"
-                />
-
-                <textarea
-                  placeholder="Descripción general del proyecto"
-                  value={proj.summary || ""}
-                  onChange={(e) => {
-                      const newProjects = [...profile.projects];
-                      newProjects[i].summary = e.target.value;
-                      setProfile({ ...profile, projects: newProjects });
-                  }}
-                  rows={2}
-                  className="w-full mb-2 px-3 py-2 rounded bg-[var(--bg-hover)] text-white"
-                />
-
-                <textarea
-                  placeholder="Desafíos Técnicos (Ideal para destacar la arquitectura, seguridad, etc.)"
-                  value={proj.challenges || ""}
-                  onChange={(e) => {
-                      const newProjects = [...profile.projects];
-                      newProjects[i].challenges = e.target.value;
-                      setProfile({ ...profile, projects: newProjects });
-                  }}
-                  rows={4}
-                  className="w-full mb-2 px-3 py-2 rounded border border-[var(--primary)] bg-[var(--bg-hover)] text-white"
-                />
-
-                <input
-                  type="text"
-                  placeholder="Tecnologías (separadas por coma)"
-                  value={proj.stack ? proj.stack.join(", ") : ""}
-                  onChange={(e) => {
-                      const newProjects = [...profile.projects];
-                      newProjects[i].stack = e.target.value.split(",").map((s) => s.trim());
-                      setProfile({ ...profile, projects: newProjects });
-                  }}
-                  className="w-full mb-2 px-3 py-2 rounded bg-[var(--bg-hover)] text-white"
-                />
-
-                <div className="flex flex-col md:flex-row gap-4 mb-2">
-                  <input
-                      type="text"
-                      placeholder="Link web (ej: https://...)"
-                      value={proj.link || ""}
-                      onChange={(e) => {
-                      const newProjects = [...profile.projects];
-                      newProjects[i].link = e.target.value;
-                      setProfile({ ...profile, projects: newProjects });
-                      }}
-                      className="flex-1 px-3 py-2 rounded bg-[var(--bg-hover)] text-white"
-                  />
-                  
-                  <input
-                      type="text"
-                      placeholder="Link de Video/Demo en YouTube"
-                      value={proj.demoLink || ""}
-                      onChange={(e) => {
-                      const newProjects = [...profile.projects];
-                      newProjects[i].demoLink = e.target.value;
-                      setProfile({ ...profile, projects: newProjects });
-                      }}
-                      className="flex-1 px-3 py-2 rounded bg-[var(--bg-hover)] text-white border border-[var(--accent)]"
-                  />
-                  <input
-                      type="text"
-                      placeholder="Repositorio (Dejar vacío si es privado)"
-                      value={proj.github || ""}
-                      onChange={(e) => {
-                      const newProjects = [...profile.projects];
-                      newProjects[i].github = e.target.value;
-                      setProfile({ ...profile, projects: newProjects });
-                      }}
-                      className="flex-1 px-3 py-2 rounded bg-[var(--bg-hover)] text-white"
-                  />
-                </div>
-
-                <label className="flex items-center gap-2 mt-2 text-sm text-[var(--text-muted)]">
-                  <input
-                      type="checkbox"
-                      checked={proj.featured || false}
-                      onChange={(e) => {
-                      const newProjects = [...profile.projects];
-                      newProjects[i].featured = e.target.checked;
-                      setProfile({ ...profile, projects: newProjects });
-                      }}
-                      className="accent-[var(--accent)] w-4 h-4"
-                  />
-                  Destacar este proyecto
-                </label>
-
-                <button
-                  onClick={() => {
-                      const updated = profile.projects.filter((_, idx) => idx !== i);
-                      setProfile({ ...profile, projects: updated });
-                  }}
-                  className="text-sm text-red-400 hover:text-red-300 mt-3"
-                >
-                  🗑️ Eliminar proyecto
-                </button>
+        {/* FORMULARIO DE CARGA/EDICIÓN */}
+        <div className="bg-[#121212] p-6 border border-white/10 shadow-xl mb-12">
+          <h2 className="text-xl font-bold mb-6 border-b border-white/10 pb-2">
+            {editingIndex !== null ? "✏️ Editar Proyecto" : "➕ Nuevo Proyecto"}
+          </h2>
+          
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Nombre del Proyecto</label>
+                <input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full p-2 bg-[#1A1A1A] border border-gray-700 text-white outline-none focus:border-[var(--primary)]" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold uppercase text-gray-400 mb-1">URL de la Imagen</label>
+                <input type="text" name="image" value={formData.image} onChange={handleInputChange} className="w-full p-2 bg-[#1A1A1A] border border-gray-700 text-white outline-none focus:border-[var(--primary)]" placeholder="https://..." />
+              </div>
             </div>
-            ))
-        ) : (
-            <p className="text-gray-400 mb-4">No hay proyectos agregados.</p>
-        )}
 
-        <button
-            onClick={() => {
-            const nuevo = { name: "", summary: "", challenges: "", image: "", demoLink: "", stack: [], link: "", github: "", featured: false };
-            setProfile({ ...profile, projects: [...(profile.projects || []), nuevo] });
-            }}
-            className="px-5 py-2 bg-[var(--primary)] text-white rounded-xl hover:bg-[var(--secondary)] transition-all duration-300"
-        >
-            ➕ Agregar proyecto
-        </button>
-      </section>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold uppercase text-[var(--primary)] mb-1">Resumen (ESPAÑOL)</label>
+                <textarea name="summary_es" value={formData.summary_es} onChange={handleInputChange} rows="3" required className="w-full p-2 bg-[#1A1A1A] border border-gray-700 text-white outline-none focus:border-[var(--primary)] resize-none" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold uppercase text-blue-400 mb-1">Resumen (INGLÉS)</label>
+                <textarea name="summary_en" value={formData.summary_en} onChange={handleInputChange} rows="3" className="w-full p-2 bg-[#1A1A1A] border border-gray-700 text-white outline-none focus:border-blue-400 resize-none" />
+              </div>
+            </div>
 
-      <button onClick={handleSave} disabled={saving} className={`mt-4 px-6 py-3 font-semibold rounded-xl transition-all duration-300 ${saving ? "bg-[var(--bg-hover)] cursor-not-allowed text-[var(--text-muted)]" : "bg-[var(--primary)] hover:bg-[var(--secondary)] text-white"}`}>
-            {saving ? "Guardando..." : "Guardar cambios"}
-      </button>
+           
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Stack (Separado por comas)</label>
+              <input type="text" name="stack" value={formData.stack} onChange={handleInputChange} className="w-full p-2 bg-[#1A1A1A] border border-gray-700 text-white outline-none focus:border-[var(--primary)]" placeholder="React, Node.js, Tailwind..." />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Link Web</label>
+                <input type="text" name="link" value={formData.link} onChange={handleInputChange} className="w-full p-2 bg-[#1A1A1A] border border-gray-700 text-white outline-none focus:border-[var(--primary)]" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Link GitHub</label>
+                <input type="text" name="github" value={formData.github} onChange={handleInputChange} className="w-full p-2 bg-[#1A1A1A] border border-gray-700 text-white outline-none focus:border-[var(--primary)]" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Link Demo (Video)</label>
+                <input type="text" name="demoLink" value={formData.demoLink} onChange={handleInputChange} className="w-full p-2 bg-[#1A1A1A] border border-gray-700 text-white outline-none focus:border-[var(--primary)]" />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 pt-2">
+              <input type="checkbox" id="featured" name="featured" checked={formData.featured} onChange={handleInputChange} className="w-4 h-4 accent-[var(--primary)]" />
+              <label htmlFor="featured" className="text-sm font-bold uppercase tracking-widest text-[var(--primary)] cursor-pointer">Destacar en Portfolio</label>
+            </div>
+
+            <div className="flex gap-4 pt-6">
+              <button type="submit" className="px-6 py-2 bg-[var(--primary)] text-black font-bold uppercase tracking-widest hover:brightness-110">
+                {editingIndex !== null ? "Guardar Cambios" : "Agregar Proyecto"}
+              </button>
+              {editingIndex !== null && (
+                <button type="button" onClick={cancelEdit} className="px-6 py-2 border border-gray-500 text-gray-400 font-bold uppercase tracking-widest hover:bg-gray-800">
+                  Cancelar
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
+
+
+        <div>
+          <h2 className="text-xl font-bold mb-6 border-b border-white/10 pb-2">📂 Proyectos Cargados ({projects.length})</h2>
+          <div className="space-y-4">
+            {projects.map((proj, i) => (
+              <div key={i} className="flex flex-col md:flex-row items-center justify-between p-4 bg-[#121212] border border-white/5 hover:border-white/20 transition-colors">
+                <div className="flex items-center gap-4 w-full md:w-auto mb-4 md:mb-0">
+                  <div className="w-16 h-16 bg-[#1A1A1A] flex items-center justify-center overflow-hidden border border-gray-700">
+                    {proj.image ? <img src={proj.image} alt={proj.name} className="w-full h-full object-cover" /> : <span className="text-xs text-gray-600">&lt;/&gt;</span>}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg flex items-center gap-2">
+                      {proj.name} {proj.featured && <span className="text-[10px] bg-[var(--primary)] text-black px-2 py-0.5 rounded-full">Destacado</span>}
+                    </h3>
+                    <p className="text-xs text-gray-400 truncate max-w-xs">{proj.summary_es || proj.summary}</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-2">
+                  <button onClick={() => handleEdit(i)} className="px-4 py-2 border border-blue-500/50 text-blue-400 hover:bg-blue-500/10 text-xs font-bold uppercase transition-colors">
+                    Editar
+                  </button>
+                  <button onClick={() => handleDelete(i)} className="px-4 py-2 border border-red-500/50 text-red-400 hover:bg-red-500/10 text-xs font-bold uppercase transition-colors">
+                    Borrar
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }
