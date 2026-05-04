@@ -5,7 +5,7 @@ import SplashScreen from "../components/SplashScreen";
 import Icon from "../components/Icon";
 import avatarImg from '../assets/avatar.png';
 import nuevoAvatar from "../assets/nuevoAvatar.png";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import '../pages/Home.css';
 
@@ -31,7 +31,9 @@ function Home() {
   const [showNewAvatar, setShowNewAvatar] = useState(false);
   const [phraseIndex, setPhraseIndex] = useState(0);
 
-
+  const { scrollY } = useScroll();
+  const heroY = useTransform(scrollY, [0, 500], [0, 100]); 
+  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
   const carouselPhrases = [
     t('home.carousel.dev'),
     t('home.carousel.creative'),
@@ -170,7 +172,7 @@ function Home() {
                 className="group flex items-center gap-2 px-3 py-2 bg-[#121212]/80 backdrop-blur-sm border border-[var(--primary)] rounded-full shadow-[0_0_15px_rgba(217,82,94,0.3)] hover:shadow-[0_0_20px_rgba(217,82,94,0.6)] transition-all duration-300"
                 title="Cambiar idioma / Change language"
               >
-                {/* Ícono universal de traducción */}
+  
                 <svg className="w-4 h-4 text-[var(--primary)] group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
                 </svg>
@@ -222,155 +224,144 @@ function Home() {
               
               <div className="w-full max-w-6xl mx-auto">
                 
-                <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-16 mb-16 w-full mt-4 md:mt-0">
-                  <div className="flex-1 text-center lg:text-left min-w-0 flex flex-col items-center lg:items-start">
-                    <h1 
-                      className="font-black uppercase mb-8 flex justify-center lg:justify-start w-full" 
-                      style={{ lineHeight: "0.8" }}
-                    >
-                      <div className="flex flex-col items-start">
-                        <span
-                          style={{
-                            fontSize: "clamp(1.2rem, 3vw, 2rem)",
-                            color: "#FFFFFF",
-                            letterSpacing: "0.3em",
-                            marginLeft: "0",
-                            opacity: "0.9"
-                          }}
-                        >
-                          {t('home.greeting')}
-                        </span>
-                        <span
-                          translate="no"
-                          className="notranslate"
-                          style={{
-                            fontSize: "clamp(5rem, 14vw, 9rem)",
-                            color: "var(--primary)",
-                            letterSpacing: "-0.06em",
-                          }}
-                        >
-                          Marce
-                        </span>
-                      </div>
-                    </h1>
+                {/* Agregamos motion.div y los estilos de scroll al contenedor principal */}
+<motion.div 
+  className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-16 mb-24 w-full mt-8 md:mt-12"
+  style={{ y: heroY, opacity: heroOpacity }} 
+>
+  <div className="flex-1 text-center lg:text-left min-w-0 flex flex-col items-center lg:items-start relative z-10">
+    <h1 
+      className="font-black uppercase mb-6 flex justify-center lg:justify-start w-full" 
+      style={{ lineHeight: "0.8" }}
+    >
+      <div className="flex flex-col items-center lg:items-start">
+        {/* 1. Saludo: Más sutil y pequeño */}
+        <span
+          style={{
+            fontSize: "clamp(0.9rem, 2vw, 1.2rem)", 
+            color: "rgba(255, 255, 255, 0.5)", 
+            letterSpacing: "0.5em", 
+            marginLeft: "0",
+            marginBottom: "1rem",
+            fontWeight: "500" 
+          }}
+        >
+          {t('home.greeting')}
+        </span>
+        {/* 2. Nombre: El Rey, más contraste */}
+        <span
+          translate="no"
+          className="notranslate"
+          style={{
+            fontSize: "clamp(6rem, 16vw, 11rem)", 
+            color: "var(--primary)",
+            letterSpacing: "-0.04em",
+            textShadow: "4px 4px 0px rgba(0,0,0,0.8)" 
+          }}
+        >
+          Marce
+        </span>
+      </div>
+    </h1>
 
-                    <div className="relative h-16 sm:h-20 lg:h-24 flex items-center justify-center lg:justify-start w-full mb-12 max-w-4xl px-4 lg:px-0 overflow-hidden">
-                        <AnimatePresence mode="popLayout">
-                            <motion.p
-                            key={phraseIndex}
-                            initial={{ opacity: 0, x: 100 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -100 }}
-                            transition={{ duration: 0.3 }}
-                            className="font-black uppercase absolute w-full text-center lg:text-left whitespace-nowrap"
-                            style={{ 
-                                fontSize: "clamp(1.2rem, 3.5vw, 2.0rem)",
-                                color: '#FFFFFF',
-                                textShadow: "2px 2px 0px var(--primary)",
-                            }}
-                            >
-                            {carouselPhrases[phraseIndex]}
-                            </motion.p>
-                        </AnimatePresence>
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-6 md:gap-8 justify-center lg:justify-start w-full mt-2 px-4 lg:px-0">
-                      <Link
-                        to="/cv"
-                        className="px-8 py-3 rounded-none text-sm font-bold uppercase tracking-widest transition-transform duration-200 hover:-translate-y-1 hover:translate-x-1"
-                        style={{
-                          backgroundColor: "var(--primary)",
-                          color: "#121212",
-                          border: "2px solid var(--primary)",
-                          boxShadow: "-4px 4px 0px #FFFFFF",
-                        }}
-                      >
-                        {t('home.buttons.cv')}
-                      </Link>
-                      
-                      <Link
-                        to="/proyectos"
-                        className="px-8 py-3 rounded-none text-sm font-bold uppercase tracking-widest transition-transform duration-200 hover:-translate-y-1 hover:translate-x-1"
-                        style={{
-                          backgroundColor: "transparent",
-                          color: "#FFFFFF",
-                          border: "2px solid #FFFFFF",
-                          boxShadow: "-4px 4px 0px var(--primary)",
-                        }}
-                      >
-                        {t('home.buttons.projects')}
-                      </Link>
+    {/* 3. Subtítulo: Reducido drásticamente y con estilo terminal sutil */}
+    <div className="relative h-8 flex items-center justify-center lg:justify-start w-full mb-8 max-w-4xl px-4 lg:px-0 overflow-hidden">
+        <AnimatePresence mode="popLayout">
+            <motion.p
+            key={phraseIndex}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.4 }}
+            className="font-normal uppercase absolute w-full text-center lg:text-left whitespace-nowrap"
+            style={{ 
+                fontSize: "clamp(0.7rem, 1.5vw, 0.9rem)", 
+                color: 'rgba(255, 255, 255, 0.4)', 
+                letterSpacing: "0.2em",
+                textShadow: "none" // Quitamos la sombra roja que lo hacía resaltar demasiado
+            }}
+            >
+            -- {carouselPhrases[phraseIndex]} --
+            </motion.p>
+        </AnimatePresence>
+    </div>
+  
+    
+  </div>
 
-                      <Link
-                        to="/contacto"
-                        className="px-8 py-3 rounded-none text-sm font-bold uppercase tracking-widest transition-transform duration-200 hover:-translate-y-1 hover:translate-x-1"
-                        style={{
-                          backgroundColor: "#121212",
-                          color: "var(--primary)",
-                          border: "2px solid var(--primary)",
-                          boxShadow: "-4px 4px 0px var(--primary)",
-                        }}
-                      >
-                        {t('home.buttons.contact')}
-                      </Link>
-                    </div>
-                  </div>
+  {/* 4. Avatar: Más grande y con sombra sólida */}
+  <div className="flex-shrink-0 lg:-mt-8 relative z-20">
+    <div className="relative group" key={avatarKey}>
+      <div
+        className="absolute inset-0 rounded-full animate-pulse"
+        style={{
+          background: 'radial-gradient(circle, rgba(217, 82, 94, 0.4) 0%, transparent 60%)',
+          filter: 'blur(20px)',
+          transform: 'scale(1.1)',
+        }}
+      />
 
-                  <div className="flex-shrink-0 lg:-mt-18">
-                    <div className="relative group" key={avatarKey}>
-                      <div
-                        className="absolute inset-0 rounded-full animate-pulse"
-                        style={{
-                          background: 'radial-gradient(circle, rgba(217, 82, 94, 0.2) 0%, transparent 70%)',
-                          filter: 'blur(30px)',
-                          transform: 'scale(1.2)',
-                        }}
-                      />
+      <div
+        className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-[3px] transition-all duration-300"
+        style={{
+            backgroundColor: "#1A1A1A",
+            borderColor: "var(--primary)",
+            boxShadow: "20px 20px 0px rgba(0, 0, 0, 0.3)", 
+            animation: "scaleIn 1s ease-out",
+            perspective: "1000px",
+            transformStyle: "preserve-3d",
+        }}
+        onMouseMove={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
 
-                      <div
-                        className="relative w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden border-4 transition-all duration-500 hover:scale-105"
-                        style={{
-                          backgroundColor: "#1A1A1A",
-                          borderColor: "var(--primary)",
-                          boxShadow: "0 0 40px rgba(217, 82, 94, 0.4)",
-                          animation: "scaleIn 1s ease-out",
-                          perspective: "1000px",
-                        }}
-                      >
-                        <img
-                          src={avatarImg}
-                          alt="Avatar anterior"
-                          className="absolute w-full h-full object-cover object-center"
-                          style={{
-                            zIndex: showNewAvatar ? 1 : 3,
-                            opacity: showNewAvatar ? 0 : 1,
-                            transform: showNewAvatar
-                              ? "scale(0.95) rotateY(10deg)"
-                              : "scale(1) rotateY(0deg)",
-                            transition: "opacity 1.5s ease-in-out, transform 1.5s cubic-bezier(0.45, 0.05, 0.55, 0.95)",
-                          }}
-                        />
-                        <img
-                          src={nuevoAvatar}
-                          alt="Nuevo avatar"
-                          className="absolute w-full h-full object-cover object-center"
-                          style={{
-                            zIndex: 2,
-                            opacity: showNewAvatar ? 1 : 0,
-                            transform: showNewAvatar
-                              ? "scale(1) rotateY(0deg)"
-                              : "scale(1.05) rotateY(-10deg)",
-                            transition: "opacity 1.8s ease-in-out, transform 1.8s cubic-bezier(0.45, 0.05, 0.55, 0.95)",
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            const rotateX = -(y / rect.height - 0.5) * 20;
+            const rotateY = (x / rect.width - 0.5) * 20;
+
+            e.currentTarget.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        }}
+        onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+        }}
+      >
+        <img
+            src={avatarImg}
+            alt="Avatar anterior"
+            className="absolute w-full h-full object-cover object-center"
+            style={{
+            zIndex: showNewAvatar ? 1 : 3,
+            opacity: showNewAvatar ? 0 : 1,
+            transform: showNewAvatar
+                ? "scale(0.95)"
+                : "scale(1)",
+            transition:
+                "opacity 1.5s ease-in-out, transform 1.5s ease",
+            }}
+        />
+
+        <img
+            src={nuevoAvatar}
+            alt="Nuevo avatar"
+            className="absolute w-full h-full object-cover object-center"
+            style={{
+            zIndex: 2,
+            opacity: showNewAvatar ? 1 : 0,
+            transform: showNewAvatar
+                ? "scale(1)"
+                : "scale(1.05)",
+            transition:
+                "opacity 1.8s ease-in-out, transform 1.8s ease",
+            }}
+        />
+      </div>
+    </div>
+  </div>
+</motion.div>
               
                 <div className="mb-16 md:mb-24 mt-12 md:mt-20 w-full">
                   <div className="flex items-center justify-center w-full mb-8 md:mb-12">
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-black uppercase text-center tracking-tight text-[var(--text-secondary)]">
+                    <h2 className="text-3xl md:text-4xl font-black uppercase text-center tracking-tight text-[var(--text-secondary)]">
                       {t('home.workingOn.title')}
                     </h2>
                   </div>
@@ -394,31 +385,25 @@ function Home() {
 
                     <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 p-5 md:p-8 lg:p-10">
                       <div className="lg:w-2/5 flex-shrink-0 flex items-center justify-center">
+                        
                         <div
-                          className="relative w-28 h-28 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded-none flex items-center justify-center border-2 border-[var(--primary)]"
-                          style={{
-                            background: 'radial-gradient(circle at 40% 40%, var(--primary) 0%, var(--secondary) 40%, #1A1A1A 100%)',
-                            boxShadow: '0 12px 40px rgba(217, 82, 94, 0.3)',
-                            transformStyle: 'preserve-3d',
-                            animation: 'float 4s ease-in-out infinite',
-                          }}
+                        className="relative w-28 h-28 md:w-48 md:h-48 lg:w-64 lg:h-64 flex items-center justify-center"
+                        style={{
+                            backgroundColor: "transparent",
+                            
+                        }}
                         >
-                          <div
-                            className="absolute inset-0"
+                        <model-viewer
+                            src="/models/abstract.glb"  
+                            auto-rotate
+                            camera-controls
+                            disable-zoom
                             style={{
-                              background: 'linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2))',
-                              mixBlendMode: 'overlay',
+                            width: "100%",
+                            height: "100%",
+                            background: "transparent",
                             }}
-                          />
-                          <div
-                            className="text-5xl md:text-6xl lg:text-7xl"
-                            style={{
-                              transform: 'translateZ(25px)',
-                              textShadow: '0 0 35px rgba(255,255,255,0.8)',
-                            }}
-                          >
-                            💡
-                          </div>
+                        />
                         </div>
                       </div>
 
