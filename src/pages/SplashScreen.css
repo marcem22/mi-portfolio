@@ -89,11 +89,24 @@
   50% { border-color: transparent; }
 }
 
-#line1 { animation: typing 0.6s steps(30, end) 0.2s forwards, blink 0.5s step-end infinite alternate; color: var(--sp-gray-light); }
-#line2 { animation: typing 0.6s steps(30, end) 1s forwards, blink 0.5s step-end infinite alternate; }
-#line3 { animation: typing 0.6s steps(30, end) 1.8s forwards, blink 0.5s step-end infinite alternate; }
-#line4 { animation: typing 0.6s steps(30, end) 2.6s forwards, blink 0.5s step-end infinite alternate; color: var(--sp-gray-light); }
-#line5 { animation: typing 0.8s steps(30, end) 3.5s forwards, blink 0.5s step-end infinite alternate; }
+/* ==================== NUEVA LÍNEA DE TIEMPO SINCRONIZADA ==================== */
+#line1 { 
+  animation: typing 0.8s steps(30, end) 0.3s forwards, blink 0.5s step-end infinite alternate; 
+  color: var(--sp-gray-light); 
+}
+#line2 { 
+  animation: typing 0.8s steps(30, end) 1.5s forwards, blink 0.5s step-end infinite alternate; 
+}
+#line3 { 
+  animation: typing 0.8s steps(30, end) 2.7s forwards, blink 0.5s step-end infinite alternate; 
+}
+#line4 { 
+  animation: typing 0.8s steps(30, end) 3.9s forwards, blink 0.5s step-end infinite alternate; 
+  color: var(--sp-gray-light); 
+}
+#line5 { 
+  animation: typing 1.0s steps(30, end) 5.1s forwards, blink 0.5s step-end infinite alternate; 
+}
 
 .modern-intro-container .final {
   font-size: clamp(1.1rem, 5vw, 1.5rem);

@@ -15,8 +15,10 @@ function SplashScreen({ onFinish }) {
   }, [onFinish]);
 
   useEffect(() => {
-    const fadeTimer = setTimeout(() => setFadeOut(true), 4500);
-    const finishTimer = setTimeout(() => onFinishRef.current?.(), 5000);
+
+    const fadeTimer = setTimeout(() => setFadeOut(true), 6500);
+    const finishTimer = setTimeout(() => onFinishRef.current?.(), 7000);
+
 
     const interval = setInterval(() => {
       setProgress((prev) => {
@@ -26,7 +28,7 @@ function SplashScreen({ onFinish }) {
         }
         return prev + 1;
       });
-    }, 40); 
+    }, 60); 
 
     return () => {
       clearTimeout(fadeTimer);
@@ -38,13 +40,13 @@ function SplashScreen({ onFinish }) {
   return (
     <div id="splash" className={fadeOut ? "fadeout" : ""} style={{ position: "relative" }}>
       
-      {/* 1. EL TOQUECITO: Brillo ambiental de fondo con pulso sutil */}
+
       <div 
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#D9525E]/10 blur-[140px] rounded-full pointer-events-none select-none"
         style={{ animation: "pulse 4s ease-in-out infinite" }}
       />
 
-      {/* CABECERA CON PUNTO LUMINOSO */}
+
       <div className="splash-header">
         <span 
           className="status-dot" 
@@ -53,7 +55,7 @@ function SplashScreen({ onFinish }) {
         {isEn ? "MARCELA_OS // CORE_SYSTEM_v2.6" : "MARCELA_OS // SISTEMA_CORE_v2.6"}
       </div>
 
-      {/* CONTENIDO CENTRAL */}
+
       <div className="modern-intro-container">
         
         <p className="intro-line" id="line1">
@@ -87,7 +89,6 @@ function SplashScreen({ onFinish }) {
 
       </div>
 
-      {/* 2. EL TOQUECITO: Contador y Barra de carga con destello de Neón */}
       <div className="loading-wrapper">
         <div 
           className="loading-text"
