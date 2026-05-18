@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-function SkillsCube3D() {
+function SkillsCube3D({ onFaceHover }) { // 1. Recibimos la prop aquí
   const mountRef = useRef(null);
+  const currentFaceRef = useRef(null); // 2. Referencia para evitar llamados innecesarios a onFaceHover
 
   useEffect(() => {
     const container = mountRef.current;
@@ -17,8 +18,6 @@ function SkillsCube3D() {
 
     try {
       scene = new THREE.Scene();
-
-      // Las luces ahora solo afectarán a las partículas
       scene.add(new THREE.AmbientLight(0xffffff, 0.8)); 
       
       const frontLight = new THREE.PointLight(0xffffff, 2.5, 10);
@@ -29,7 +28,6 @@ function SkillsCube3D() {
       accentLight.position.set(2, 3, -2);
       scene.add(accentLight);
 
-      // === LA CLAVE AQUÍ: Si el div no cargó el tamaño, forzamos 420px ===
       const width = container.clientWidth || 520;
       const height = container.clientHeight || 420;
 
@@ -42,14 +40,15 @@ function SkillsCube3D() {
       renderer.setClearColor(0x000000, 0);
       container.appendChild(renderer.domElement);
 
+
       const skills = [
-        { name: "React", iconUrl: "/assets/textures/react-icon.png" },
-        { name: "JavaScript", iconUrl: "/assets/textures/js-icon.png" },
-        { name: "CSS", iconUrl: "/assets/textures/css-icon.png" },
-        { name: "HTML", iconUrl: "/assets/textures/html-icon.png" },
-        { name: "Node.js", iconUrl: "/assets/textures/node-icon.png" },
-        { name: "Git", iconUrl: "/assets/textures/git-icon.png" },
-      ];
+        { name: "React", iconUrl: "/assets/textures/react-icon.png", category_id: "frontend" },
+        { name: "JavaScript", iconUrl: "/assets/textures/js-icon.png", category_id: "frontend" },
+        { name: "CSS", iconUrl: "/assets/textures/css-icon.png", category_id: "layout" },
+        { name: "HTML", iconUrl: "/assets/textures/html-icon.png", category_id: "layout" },
+        { name: "Node.js", iconUrl: "/assets/textures/node-icon.png", category_id: "backend" },
+        { name: "Git", iconUrl: "/assets/textures/git-icon.png", category_id: "backend" },
+        ];
 
       const cubeSize = 2;
       const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
@@ -59,7 +58,7 @@ function SkillsCube3D() {
         .map(
           () =>
             new THREE.MeshBasicMaterial({
-              color: 0xA64149, // === CAMBIO AQUÍ: Ahora las caras son del color de las aristas ===
+              color: 0xA64149, 
               transparent: true,
               opacity: 0.9, 
             })
@@ -95,6 +94,8 @@ function SkillsCube3D() {
 
         const planeGeo = new THREE.PlaneGeometry(1.2, 1.2);
         const mesh = new THREE.Mesh(planeGeo, mat);
+        
+        mesh.userData = { category_id: skill.category_id };
 
         return mesh;
       };
@@ -150,6 +151,9 @@ function SkillsCube3D() {
         cube.rotation.x += (targetRotation.x - cube.rotation.x) * 0.1;
         particles.rotation.y += 0.0008;
 
+        let maxZ = -Infinity;
+        let closestFaceId = null;
+
         labels.forEach((label) => {
           if (!label) return;
           const worldPos = new THREE.Vector3();
@@ -159,7 +163,17 @@ function SkillsCube3D() {
           opacity = Math.max(0, Math.min(1, opacity)); 
           
           label.material.opacity = opacity;
+
+          if (worldPos.z > maxZ) {
+            maxZ = worldPos.z;
+            closestFaceId = label.userData.category_id;
+          }
         });
+
+        if (closestFaceId && closestFaceId !== currentFaceRef.current && onFaceHover) {
+            currentFaceRef.current = closestFaceId;
+            onFaceHover(closestFaceId);
+        }
 
         renderer.render(scene, camera);
       };
@@ -253,7 +267,7 @@ function SkillsCube3D() {
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  }, [onFaceHover]); 
 
   return (
     <div className="w-full flex items-center justify-center">

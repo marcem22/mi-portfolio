@@ -83,7 +83,7 @@ function Proyectos() {
       </section>
 
       {/* LISTA DE PROYECTOS */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 pt-4 pb-12">
+      <section className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 pt-14 md:pt-20 pb-12">
         {projects.length === 0 ? (
           <p className="text-center text-[var(--text-muted)] text-lg mt-10">
             {t('projects.noProjects', 'No hay proyectos cargados aún.')}
@@ -125,7 +125,6 @@ function Proyectos() {
                     )}
                   </div>
 
-                  {/* CONTENIDO (Ajustado, sin Desafío y sin huecos) */}
                   <div className="p-6 md:p-8 flex flex-col w-full lg:w-7/12 bg-[#121212]">
                     <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white group-hover:text-[var(--primary)] transition-colors mb-3">
                       {project.name}
@@ -150,7 +149,6 @@ function Proyectos() {
                       </p>
                     </div>
 
-                    {/* BOTONES */}
                     <div className="flex flex-wrap gap-3 pt-5 border-t border-white/5 mt-2">
                       {project.demoLink && (
                         <a href={project.demoLink} target="_blank" rel="noopener noreferrer" 
@@ -185,8 +183,8 @@ function Proyectos() {
         )}
       </section>
 
-      {/* CTA SECTION ELEGANTE */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 pt-8 pb-32">
+
+      <section className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 pt-8 pb-12">
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

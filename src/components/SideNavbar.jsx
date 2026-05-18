@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaHome, FaUser, FaProjectDiagram, FaEnvelope } from "react-icons/fa";
+import HackerConsole from "./HackerConsole";
 
 function SideNavbar() {
   const location = useLocation();
@@ -95,10 +96,7 @@ function SideNavbar() {
       </motion.nav>
 
       <nav
-        className="mobile-nav fixed bottom-0 left-0 right-0 z-[9999] md:hidden flex items-center justify-around
-                   bg-[var(--bg-dark)]/95 backdrop-blur-md border-t border-[var(--border-light)]
-                   shadow-[0_-2px_15px_rgba(255,255,255,0.1)]
-                   px-4 py-3 text-sm"
+        className="fixed bottom-0 left-0 right-0 z-[9999] flex md:!hidden items-center justify-around bg-[var(--bg-dark)]/95 backdrop-blur-md border-t border-[var(--border-light)] shadow-[0_-2px_15px_rgba(255,255,255,0.1)] px-4 py-3 text-sm"
       >
         {navLinks.map((link) => (
           <Link
@@ -110,11 +108,16 @@ function SideNavbar() {
                 : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
             }`}
           >
-            <div className="text-lg mb-1">{link.icon}</div>
+            <div className="text-xl mb-1">
+              {link.to === "/" && <FaHome />}
+              {link.to === "/proyectos" && <FaProjectDiagram />}
+              {link.to === "/contacto" && <FaEnvelope />}
+            </div>
             <span>{link.label}</span>
           </Link>
         ))}
       </nav>
+      <HackerConsole />
     </>
   );
 }

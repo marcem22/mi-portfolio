@@ -20,7 +20,7 @@
   "projectDesc": "Desarrollo de una aplicación WebAR con visualización 3D interactiva, orientada a experiencias educativas. Permite explorar contenido en tiempo real desde el navegador, sin necesidad de instalación."
 },
     "skillsTitle": "Mis Habilidades",
-    "journeyTitle": "Mi Recorrido",
+    "journeyTitle": "Mi Stack técnico",
     "xp": "XP",
     "aboutMe": {
       "title": "Un poco sobre mí",
@@ -41,28 +41,7 @@
       "fact8": "Nunca descanso",
       "fact8Desc": "Compilando sueños a medianoche 🌙"
     },
-    "timeline": {
-      "step1": {
-        "title": "Inicio en la Tecnicatura",
-        "desc": "Comienzo mis estudios en Desarrollo de Software y escribo mi primera línea de código."
-      },
-      "step2": {
-        "title": "Primer proyecto web",
-        "desc": "Desarrollo del front-end para un sitio de una entidad gubernamental como parte de una materia."
-      },
-      "step3": {
-        "title": "Backend y Bases de Datos",
-        "desc": "Implementación de sitios dinámicos con PHP, MySQL y buenas prácticas de desarrollo."
-      },
-      "step4": {
-        "title": "Realidad Aumentada",
-        "desc": "Primer empleo como desarrolladora, aplicando AR.js y tecnologías 3D en proyectos educativos."
-      },
-      "step5": {
-        "title": "¡Me recibí!",
-        "desc": "Fin de la carrera y título en mano. Lista para empezar a trabajar al 100% como desarrolladora."
-      }
-    },
+   
     "explore": {
       "title": "Explorá mi trabajo",
       "viewMore": "Ver más →",
