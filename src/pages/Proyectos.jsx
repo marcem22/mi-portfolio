@@ -62,7 +62,6 @@ function Proyectos() {
     <div className="relative min-h-screen w-full bg-[var(--bg-dark)] text-white overflow-x-hidden">
       <SideNavbar />
 
-      {/* HERO SECTION */}
       <section className="relative z-[30] bg-[var(--bg-dark)] text-[var(--text-primary)] py-10">
         <div className="relative z-10 max-w-6xl mx-auto px-6 flex justify-center">
           <motion.h1
@@ -82,7 +81,6 @@ function Proyectos() {
         </div>
       </section>
 
-      {/* LISTA DE PROYECTOS */}
       <section className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 pt-14 md:pt-20 pb-12">
         {projects.length === 0 ? (
           <p className="text-center text-[var(--text-muted)] text-lg mt-10">
@@ -102,8 +100,7 @@ function Proyectos() {
                   transition={{ duration: 0.6, ease: "easeOut" }}
                   className="group relative bg-[#121212] border border-[#2A2A2A] rounded-2xl overflow-hidden flex flex-col lg:flex-row transition-all duration-500 hover:border-[var(--primary)] shadow-xl"
                 >
-                  {/* IMAGEN */}
-                 <div className={`relative w-full lg:w-5/12 h-56 lg:h-[320px] overflow-hidden bg-gray-900 shrink-0 ${!isEven ? 'lg:order-last' : ''}`}>
+                  <div className={`relative w-full lg:w-5/12 h-56 lg:h-[320px] overflow-hidden bg-gray-900 shrink-0 ${!isEven ? 'lg:order-last' : ''}`}>
                     {project.image ? (
                       <img 
                         src={project.image} 
@@ -149,28 +146,28 @@ function Proyectos() {
                       </p>
                     </div>
 
-                    <div className="flex flex-wrap gap-3 pt-5 border-t border-white/5 mt-2">
+                    <div className="flex flex-col sm:flex-row flex-wrap gap-3 pt-5 border-t border-white/5 mt-2 w-full">
                       {project.demoLink && (
                         <a href={project.demoLink} target="_blank" rel="noopener noreferrer" 
-                           className="flex-1 min-w-[100px] flex justify-center items-center gap-2 py-2.5 bg-[var(--primary)] text-black text-[10px] font-black uppercase tracking-widest hover:-translate-y-1 hover:translate-x-1 shadow-[4px_4px_0px_rgba(255,255,255,0.1)] hover:shadow-[4px_4px_0px_#FFFFFF] transition-all border border-[var(--primary)]">
+                           className="w-full sm:flex-1 flex justify-center items-center gap-2 py-2.5 bg-[var(--primary)] text-black text-[10px] font-black uppercase tracking-widest hover:-translate-y-1 hover:translate-x-1 shadow-[4px_4px_0px_rgba(255,255,255,0.1)] hover:shadow-[4px_4px_0px_#FFFFFF] transition-all border border-[var(--primary)]">
                           <FaPlayCircle className="text-sm" /> Demo
                         </a>
                       )}
                       
                       {project.link && project.link !== "#" && (
                         <a href={project.link} target="_blank" rel="noopener noreferrer" 
-                           className="flex-1 min-w-[100px] flex justify-center items-center gap-2 py-2.5 border border-white/20 text-white text-[10px] font-black uppercase tracking-widest hover:border-white hover:bg-white/5 transition-all">
+                           className="w-full sm:flex-1 flex justify-center items-center gap-2 py-2.5 border border-white/20 text-white text-[10px] font-black uppercase tracking-widest hover:border-white hover:bg-white/5 transition-all">
                           <FaExternalLinkAlt className="text-sm" /> {t('projects.web', 'Web')}
                         </a>
                       )}
 
                       {project.github ? (
                         <a href={project.github} target="_blank" rel="noopener noreferrer"
-                           className="flex-1 min-w-[100px] flex justify-center items-center gap-2 py-2.5 border border-white/20 text-white text-[10px] font-black uppercase tracking-widest hover:border-white hover:bg-white/5 transition-all">
+                           className="w-full sm:flex-1 flex justify-center items-center gap-2 py-2.5 border border-white/20 text-white text-[10px] font-black uppercase tracking-widest hover:border-white hover:bg-white/5 transition-all">
                           <FaGithub className="text-sm" /> {t('projects.viewCode', 'Código')}
                         </a>
                       ) : (
-                        <div className="flex-1 min-w-[100px] flex justify-center items-center gap-2 py-2.5 border border-white/5 text-white/20 text-[10px] font-black uppercase tracking-widest cursor-not-allowed">
+                        <div className="w-full sm:flex-1 flex justify-center items-center gap-2 py-2.5 border border-white/5 text-white/20 text-[10px] font-black uppercase tracking-widest cursor-not-allowed">
                           <FaLock className="text-sm" /> {t('projects.privateCode', 'Privado')}
                         </div>
                       )}
@@ -182,7 +179,6 @@ function Proyectos() {
           </div>
         )}
       </section>
-
 
       <section className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 pt-8 pb-12">
         <motion.div 

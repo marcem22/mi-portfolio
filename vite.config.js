@@ -9,7 +9,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      'three/build/three.module.js': path.resolve('node_modules/three/build/three.module.js'),
       'three': path.resolve('node_modules/three')
-    }
+    },
+    dedupe: ['three']
   }
 })
