@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './output.css';
 import './i18n';
+import '@google/model-viewer'
 import App from './App'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
