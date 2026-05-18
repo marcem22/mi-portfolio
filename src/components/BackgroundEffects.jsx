@@ -10,7 +10,6 @@ const BackgroundEffects = ({ showCursor = true }) => {
     };
 
     const generateParticles = () => {
-     
       const colors = ['#D99923', '#A65E1F', '#732002', '#D9A491', '#F28379'];
       const newParticles = Array.from({ length: 14 }, (_, i) => ({
         id: i,
@@ -35,16 +34,13 @@ const BackgroundEffects = ({ showCursor = true }) => {
 
   return (
     <>
-      {/* Fondo base */}
       <div className="absolute inset-0 -z-10" style={{ backgroundColor: 'var(--fondo-principal)' }}>
-
-        {/* Burbujas decorativas con tu paleta personal */}
         {[
-          { size: 'w-96 h-96', top: '-15%', left: '-15%', color: 'rgba(242, 19, 142, 0.12)' },
-          { size: 'w-80 h-80', bottom: '-10%', right: '-10%', color: 'rgba(217, 20, 148, 0.10)', delay: '2s' },
-          { size: 'w-64 h-64', top: '33%', left: '25%', color: 'rgba(55, 3, 166, 0.08)', delay: '1s' },
-          { size: 'w-48 h-48', top: '66%', right: '33%', color: 'rgba(44, 4, 191, 0.06)' },
-          { size: 'w-56 h-56', top: '25%', right: '25%', color: 'rgba(242, 19, 142, 0.08)' },
+          { size: 'hidden md:block w-96 h-96', top: '-15%', left: '-15%', color: 'rgba(242, 19, 142, 0.12)' },
+          { size: 'w-64 h-64 md:w-80 md:h-80', bottom: '-10%', right: '-10%', color: 'rgba(217, 20, 148, 0.10)', delay: '2s' },
+          { size: 'w-48 h-48 md:w-64 md:h-64', top: '33%', left: '25%', color: 'rgba(55, 3, 166, 0.08)', delay: '1s' },
+          { size: 'w-40 h-40 md:w-48 md:h-48', top: '66%', right: '33%', color: 'rgba(44, 4, 191, 0.06)' },
+          { size: 'hidden md:block w-56 h-56', top: '25%', right: '25%', color: 'rgba(242, 19, 142, 0.08)' },
           { size: 'w-32 h-32', top: '50%', left: '16%', color: 'rgba(217, 20, 148, 0.10)', delay: '1.5s' },
           { size: 'w-40 h-40', bottom: '25%', left: '66%', color: 'rgba(55, 3, 166, 0.07)', delay: '2.5s' },
         ].map((bubble, index) => (
@@ -64,7 +60,6 @@ const BackgroundEffects = ({ showCursor = true }) => {
         ))}
       </div>
 
-      {/* Partículas */}
       {particles.map((p) => (
         <div
           key={p.id}
@@ -85,7 +80,6 @@ const BackgroundEffects = ({ showCursor = true }) => {
         />
       ))}
 
-      {/* Cursor actualizado */}
       {showCursor && (
         <div
           className="fixed pointer-events-none z-50 transition-all duration-300 ease-out"
@@ -117,8 +111,7 @@ const BackgroundEffects = ({ showCursor = true }) => {
         </div>
       )}
 
-      {/* Keyframes */}
-      <style >{`
+      <style>{`
         @keyframes particleFloat {
           0%, 100% {
             transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);

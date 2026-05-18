@@ -1,11 +1,21 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 function Parallax3D() {
   const containerRef = useRef(null);
   const layersRef = useRef([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const handleMouseMove = (e) => {
+      if (window.innerWidth < 768) return; 
       const { clientX, clientY } = e;
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
@@ -13,16 +23,16 @@ function Parallax3D() {
       const moveX = (clientX - centerX) / centerX;
       const moveY = (clientY - centerY) / centerY;
 
-      layersRef.current.forEach((layer, index) => {
-        if (layer) {
-          const depth = (index + 1) * 50; 
-          const x = moveX * depth;
-          const y = moveY * depth;
-          
-          layer.style.transform = `translate(${x}px, ${y}px)`;
-        }
-      });
-    };
+          layersRef.current.forEach((layer, index) => {
+            if (layer) {
+              const depth = (index + 1) * 50; 
+              const x = moveX * depth;
+              const y = moveY * depth;
+              
+              layer.style.transform = `translate(${x}px, ${y}px)`;
+            }
+          });
+        };
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -39,6 +49,7 @@ function Parallax3D() {
     window.addEventListener('scroll', handleScroll);
 
     return () => {
+      window.removeEventListener('resize', checkMobile);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
     };
@@ -50,8 +61,8 @@ function Parallax3D() {
     
     { size: 350, color: 'rgba(164, 165, 166, 0.12)', blur: 55, top: '25%', right: '15%', shape: 'circle' },
     { size: 280, color: 'rgba(217, 82, 94, 0.1)', blur: 45, bottom: '15%', left: '20%', shape: 'circle' },
-    
-    { size: 500, color: 'rgba(61, 60, 64, 0.4)', blur: 70, top: '40%', left: '35%', shape: 'circle' },
+
+    { size: 500, color: 'rgba(61, 60, 64, 0.4)', blur: 70, top: '40%', left: '35%', shape: 'circle', hideOnMobile: true },
     { size: 250, color: 'rgba(166, 65, 73, 0.12)', blur: 40, top: '75%', right: '25%', shape: 'circle' },
     
     { size: 200, color: 'rgba(217, 82, 94, 0.15)', blur: 25, top: '10%', right: '35%', shape: 'square', rotate: 45 },
@@ -65,26 +76,34 @@ function Parallax3D() {
       className="fixed inset-0 pointer-events-none overflow-hidden"
       style={{ zIndex: 1 }}
     >
-      {shapes.map((shape, index) => (
-        <div
-          key={index}
-          ref={(el) => (layersRef.current[Math.floor(index / 3)] = el)}
-          className="absolute transition-transform duration-200 ease-out"
-          style={{
-            width: `${shape.size}px`,
-            height: `${shape.size}px`,
-            background: shape.color,
-            filter: `blur(${shape.blur}px)`,
-            borderRadius: shape.shape === 'circle' ? '50%' : '20%',
-            top: shape.top,
-            left: shape.left,
-            right: shape.right,
-            bottom: shape.bottom,
-            transform: shape.rotate ? `rotate(${shape.rotate}deg)` : 'none',
-            willChange: 'transform',
-          }}
-        />
-      ))}
+      {shapes.map((shape, index) => {
+        if (isMobile && shape.hideOnMobile) return null;
+
+
+        const currentSize = isMobile ? shape.size * 0.5 : shape.size;
+        const currentBlur = isMobile ? shape.blur * 0.5 : shape.blur;
+
+        return (
+          <div
+            key={index}
+            ref={(el) => (layersRef.current[Math.floor(index / 3)] = el)}
+            className="absolute transition-transform duration-200 ease-out"
+            style={{
+              width: `${currentSize}px`,
+              height: `${currentSize}px`,
+              background: shape.color,
+              filter: `blur(${currentBlur}px)`,
+              borderRadius: shape.shape === 'circle' ? '50%' : '20%',
+              top: shape.top,
+              left: shape.left,
+              right: shape.right,
+              bottom: shape.bottom,
+              transform: shape.rotate ? `rotate(${shape.rotate}deg)` : 'none',
+              willChange: 'transform',
+            }}
+          />
+        );
+      })}
 
       <svg className="absolute inset-0 w-full h-full opacity-30" style={{ zIndex: -1 }}>
         <defs>

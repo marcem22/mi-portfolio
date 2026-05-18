@@ -50,11 +50,10 @@ function CV() {
   };
 
   return (
-    /* CORRECCIÓN: Forzamos w-full max-w-full overflow-x-hidden en la raíz para liquidar el margen fantasma */
     <div className="w-full max-w-full overflow-x-hidden relative min-h-screen text-[var(--text-primary)] bg-[var(--bg-dark)] print:bg-white print:text-black">
       <SideNavbar />
 
-      {/* ==================== HERO SECTION ==================== */}
+
       <section id="hero-section" className="relative z-[30] overflow-hidden text-[var(--text-primary)] print:bg-white pt-20 md:pt-0 min-h-[100vh] flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <img
@@ -69,7 +68,6 @@ function CV() {
         <div className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 py-6 md:py-8 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16 w-full h-[80vh]">
           <div className="flex-1 text-left flex flex-col items-center w-full pt-20 md:pt-80 hero-wrapper-main">
             <div style={{ marginLeft: "-550px" }} className="hero-name-container">
-              {/* CORRECCIÓN: Cambiado whitespace-nowrap por whitespace-normal en móviles para que no rompa el viewport */}
               <h1 className="font-impact uppercase tracking-tight print:text-black flex flex-row items-end gap-x-0 whitespace-normal sm:whitespace-nowrap orig-bot hero-title">
                 <span 
                   translate="no"
@@ -115,13 +113,6 @@ function CV() {
             <p className="text-xl md:text-2xl text-[var(--text-secondary)] mt-0 print:text-black/80 text-center md:text-left leading-tight hero-subtitle" style={{ marginLeft: "-550px" }}>
               {t('cv.subtitle')}
             </p>
-
-            <div className="hidden print:flex flex-col gap-1 mt-6 text-black text-sm font-medium w-full text-left">
-              <p>📞 +54 9 264 4825831</p>
-              <p>✉️ marcelamancinidiaz@gmail.com</p>
-              <p>🌐 linkedin.com/in/marcela-mancini-dev</p>
-              <p>💻 github.com/marcem22</p>
-            </div>
           </div>
         </div>
 
@@ -175,7 +166,6 @@ function CV() {
         `}</style>
       </section>
 
-      {/* ==================== CONTENIDO CENTRAL INTERACTIVO ==================== */}
       <section id="cv-content" className="relative z-[30] pt-24 pb-20">
         
         <div className="fixed bottom-24 right-6 md:bottom-12 md:right-12 z-50 print:hidden">
@@ -195,22 +185,20 @@ function CV() {
         </div>
 
         <div className="max-w-6xl mx-auto px-6 space-y-40">
-          
-          {/* SECCIÓN PERFIL */}
-          <motion.section {...fadeInUp}>
-            <h2 className="text-5xl md:text-7xl font-black uppercase mb-12" style={crystallineTitle}>
+
+          <section>
+            <motion.h2 {...fadeInUp} className="text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-12" style={crystallineTitle}>
               {t('cv.profileTitle')}
-            </h2>
+            </motion.h2>
             <div className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[32px] shadow-2xl">
               <p className="text-gray-300 leading-relaxed font-medium text-lg md:text-xl italic break-words">
                 "{profile?.summary || t('cv.defaultSummary')}"
               </p>
             </div>
-          </motion.section>
+          </section>
 
-          {/* SECCIÓN SKILLS */}
           <section>
-            <motion.h2 {...fadeInUp} className="text-5xl md:text-7xl font-black uppercase mb-12" style={crystallineTitle}>
+            <motion.h2 {...fadeInUp} className="text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-12" style={crystallineTitle}>
               {t('cv.skillsTitle')}
             </motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -242,12 +230,11 @@ function CV() {
             </div>
           </section>
 
-          {/* SECCIÓN EXPERIENCIA Y EDUCACIÓN */}
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-            <motion.div {...fadeInUp}>
-              <h2 className="text-4xl md:text-6xl font-black uppercase mb-16" style={crystallineTitle}>
+            <div>
+              <motion.h2 {...fadeInUp} className="text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-16" style={crystallineTitle}>
                 {t('cv.experienceTitle')}
-              </h2>
+              </motion.h2>
               <div className="space-y-8 border-l-2 border-white/10 pl-6 md:pl-8">
                 {(profile?.experience || []).map((exp, i) => (
                   <motion.div 
@@ -273,12 +260,12 @@ function CV() {
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
-              <h2 className="text-4xl md:text-6xl font-black uppercase mb-16" style={crystallineTitle}>
+            <div>
+              <motion.h2 {...fadeInUp} transition={{ delay: 0.2 }} className="text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-16" style={crystallineTitle}>
                 {t('cv.educationTitle')}
-              </h2>
+              </motion.h2>
               <div className="space-y-8 border-l-2 border-white/10 pl-6 md:pl-8">
                 {(profile?.education || []).map((edu, i) => (
                   <motion.div 
@@ -304,12 +291,11 @@ function CV() {
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           </section>
 
-          {/* PROYECTOS DESTACADOS */}
           <section>
-            <motion.h2 {...fadeInUp} className="text-5xl md:text-7xl font-black uppercase mb-12" style={crystallineTitle}>
+            <motion.h2 {...fadeInUp} className="text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-12" style={crystallineTitle}>
               {t('cv.featuredProjectsTitle')}
             </motion.h2>
 
@@ -353,7 +339,6 @@ function CV() {
             )}
           </section>
 
-          {/* CTA FINAL */}
           <section className="pt-12 pb-4 flex flex-col items-center">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
