@@ -50,10 +50,11 @@ function CV() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden text-[var(--text-primary)] bg-[var(--bg-dark)] print:bg-white print:text-black">
+    /* CORRECCIÓN: Forzamos w-full max-w-full overflow-x-hidden en la raíz para liquidar el margen fantasma */
+    <div className="w-full max-w-full overflow-x-hidden relative min-h-screen text-[var(--text-primary)] bg-[var(--bg-dark)] print:bg-white print:text-black">
       <SideNavbar />
 
-      {/* ==================== HERO SECTION (TU ORIGINAL INTACTO) ==================== */}
+      {/* ==================== HERO SECTION ==================== */}
       <section id="hero-section" className="relative z-[30] overflow-hidden text-[var(--text-primary)] print:bg-white pt-20 md:pt-0 min-h-[100vh] flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <img
@@ -68,7 +69,8 @@ function CV() {
         <div className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 py-6 md:py-8 flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16 w-full h-[80vh]">
           <div className="flex-1 text-left flex flex-col items-center w-full pt-20 md:pt-80 hero-wrapper-main">
             <div style={{ marginLeft: "-550px" }} className="hero-name-container">
-              <h1 className="font-impact uppercase tracking-tight print:text-black flex flex-row items-end gap-x-0 whitespace-nowrap orig-bot hero-title">
+              {/* CORRECCIÓN: Cambiado whitespace-nowrap por whitespace-normal en móviles para que no rompa el viewport */}
+              <h1 className="font-impact uppercase tracking-tight print:text-black flex flex-row items-end gap-x-0 whitespace-normal sm:whitespace-nowrap orig-bot hero-title">
                 <span 
                   translate="no"
                   className="text-[var(--text-primary)] hero-first-name notranslate" 
@@ -206,7 +208,7 @@ function CV() {
             </div>
           </motion.section>
 
-          {/* SECCIÓN SKILLS CON CORRECCIÓN EN EL CLOSING TAG */}
+          {/* SECCIÓN SKILLS */}
           <section>
             <motion.h2 {...fadeInUp} className="text-5xl md:text-7xl font-black uppercase mb-12" style={crystallineTitle}>
               {t('cv.skillsTitle')}
@@ -364,7 +366,7 @@ function CV() {
               <div className="p-8 md:p-12 text-center relative z-10">
                 <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mb-4 text-white">
                   {t('cv.ctaTitle1')}{" "}
-                  <span className="text-[var(--primary)]">{t('cv.ctaTitle2')}</span>
+                  <span className="text-[var(--text-primary)]">{t('cv.ctaTitle2')}</span>
                 </h2>
                 
                 <p className="text-gray-400 text-sm md:text-base max-w-lg mx-auto mb-8 font-medium leading-relaxed">

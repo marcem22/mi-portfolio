@@ -36,7 +36,7 @@ function HackerConsole() {
       if (!isOpen) {
         setShowHint(true);
       }
-    }, 10000);
+    }, 15000);
 
     return () => clearTimeout(showTimer);
   }, [isOpen]);

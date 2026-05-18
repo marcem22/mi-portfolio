@@ -141,21 +141,21 @@ function HomeHero({ isVisible }) {
           <div className="relative h-8 flex items-center justify-center lg:justify-start w-full mb-8 max-w-4xl px-4 lg:px-0 overflow-hidden">
             <AnimatePresence mode="popLayout">
               <motion.p
-                key={phraseIndex}
-                initial={{ opacity: 0, y: 30, filter: "blur(12px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -30, filter: "blur(12px)" }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-                className="font-normal uppercase absolute w-full text-center lg:text-left whitespace-nowrap"
-                style={{ 
-                  fontSize: "clamp(0.9rem, 1.8vw, 1.1rem)", 
-                  color: 'rgba(255,255,255,0.58)', 
-                  letterSpacing: "0.38em",
-                }}
-              >
-                {carouselPhrases[phraseIndex]}
-              </motion.p>
-            </AnimatePresence>
+        key={phraseIndex}
+        initial={{ opacity: 0, y: 30, filter: "blur(12px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        exit={{ opacity: 0, y: -30, filter: "blur(12px)" }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        
+        className="font-normal uppercase absolute w-full text-center lg:text-left whitespace-normal sm:whitespace-nowrap tracking-[0.15em] sm:tracking-[0.38em] px-2"
+        style={{ 
+          fontSize: "clamp(0.75rem, 1.6vw, 1.1rem)",
+          color: 'rgba(255,255,255,0.58)', 
+        }}
+      >
+        {carouselPhrases[phraseIndex]}
+      </motion.p>
+      </AnimatePresence>
           </div>
         </div>
 
