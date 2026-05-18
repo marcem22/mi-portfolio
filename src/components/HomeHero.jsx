@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import avatarImg from '../assets/avatar.webp';
-import nuevoAvatar from "../assets/nuevoAvatar.webp";
+const avatarImg = "/avatar.webp";
+const nuevoAvatar = "/nuevoAvatar.webp";
 
 function HomeHero({ isVisible }) {
+
   const { t, i18n } = useTranslation();
 
   const languages = ['es', 'en', 'fr', 'pt', 'it'];
   const flags = { es: "🇪🇸", en: "🇬🇧", fr: "🇫🇷", pt: "🇧🇷", it: "🇮🇹" };
+  
   
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
