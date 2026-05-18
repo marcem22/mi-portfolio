@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import avatarImg from '../assets/avatar.png';
-import nuevoAvatar from "../assets/nuevoAvatar.png";
+import avatarImg from '../assets/avatar.webp';
+import nuevoAvatar from "../assets/nuevoAvatar.webp";
 
 function HomeHero({ isVisible }) {
   const { t, i18n } = useTranslation();
@@ -117,7 +117,6 @@ function HomeHero({ isVisible }) {
                   marginLeft: "0",
                   marginBottom: "1rem",
                   fontWeight: "500",
-                  // EL PARCHE RESONSIVE: Compensamos el espacio extra a la derecha que genera el letterSpacing
                   paddingRight: "0.5em" 
                 }}
               >
@@ -198,6 +197,7 @@ function HomeHero({ isVisible }) {
               <img
                 src={avatarImg}
                 alt="Avatar anterior"
+                loading="eager"
                 className="absolute w-full h-full object-cover object-center"
                 style={{
                   zIndex: showNewAvatar ? 1 : 3,
@@ -210,6 +210,7 @@ function HomeHero({ isVisible }) {
               <img
                 src={nuevoAvatar}
                 alt="Nuevo avatar"
+                loading="eager"
                 className="absolute w-full h-full object-cover object-center"
                 style={{
                   zIndex: 2,

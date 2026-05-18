@@ -147,13 +147,13 @@ function HackerConsole() {
         setGameState({ active: true, target: secretNum, attempts: 0 });
         if (isEn) {
           response.push(
-            "🎮 [MINI-GAME INITIALIZED] — GUESS THE NUMBER",
+            " [MINI-GAME INITIALIZED] — GUESS THE NUMBER",
             "I have generated a secret number between 1 and 50.",
             "Enter your first guess (or type 'abort' to stop playing):"
           );
         } else {
           response.push(
-            "🎮 [MINI-JUEGO INICIALIZADO] — ADIVINA EL NÚMERO",
+            "[MINI-JUEGO INICIALIZADO] — ADIVINA EL NÚMERO",
             "He generado un número secreto entre 1 y 50.",
             "Ingresa tu primer intento (o escribe 'abort' para salir):"
           );
@@ -213,15 +213,15 @@ function HackerConsole() {
       case "sudo hire":
         if (isEn) {
           response.push(
-            "📡 [ACCESS GRANTED] — ROOT EXECUTION PRIVILEGES TRIGGERED.",
-            "⚡ Initializing Marcela Mancini integration sequence into your workspace...",
-            "💼 Smart contract signed. Preparing onboarding environment. Welcome aboard!"
+            "[ACCESS GRANTED] — ROOT EXECUTION PRIVILEGES TRIGGERED.",
+            " Initializing Marcela Mancini integration sequence into your workspace...",
+            "Smart contract signed. Preparing onboarding environment. Welcome aboard!"
           );
         } else {
           response.push(
-            "📡 [ACCESO CONCEDIDO] — PRIVILEGIOS DE EJECUCIÓN ROOT ACTIVADOS.",
-            "⚡ Iniciando secuencia de integración de Marcela Mancini en tu espacio de trabajo...",
-            "💼 Contrato firmado. Preparando entorno de incorporación. ¡Bienvenido a bordo!"
+            " [ACCESO CONCEDIDO] — PRIVILEGIOS DE EJECUCIÓN ROOT ACTIVADOS.",
+            "Iniciando secuencia de integración de Marcela Mancini en tu espacio de trabajo...",
+            " Contrato firmado. Preparando entorno de incorporación. ¡Bienvenido a bordo!"
           );
         }
         break;
@@ -261,23 +261,23 @@ function HackerConsole() {
     if (guessNum === gameState.target) {
       if (isEn) {
         response.push(
-          `🎉 EXCELLENT! You guessed it. The number was indeed ${gameState.target}.`,
+          ` EXCELLENT! You guessed it. The number was indeed ${gameState.target}.`,
           `Total system cycles used: ${nextAttempts} attempts.`,
           "Returning to core terminal console..."
         );
       } else {
         response.push(
-          `🎉 ¡EXCELENTE! Lo adivinaste. El número era efectivamente el ${gameState.target}.`,
+          ` ¡EXCELENTE! Lo adivinaste. El número era efectivamente el ${gameState.target}.`,
           `Ciclos de sistema utilizados: ${nextAttempts} intentos.`,
           "Volviendo a la consola principal..."
         );
       }
       setGameState({ active: false, target: 0, attempts: 0 });
     } else if (guessNum < gameState.target) {
-      response.push(isEn ? "📈 Too LOW! Try a higher value:" : "📈 ¡Muy BAJO! Intenta con un número más alto:");
+      response.push(isEn ? " Too LOW! Try a higher value:" : " ¡Muy BAJO! Intenta con un número más alto:");
       setGameState((prev) => ({ ...prev, attempts: nextAttempts }));
     } else {
-      response.push(isEn ? "📉 Too HIGH! Try a lower value:" : "📉 ¡Muy ALTO! Intenta con un número más bajo:");
+      response.push(isEn ? " Too HIGH! Try a lower value:" : " ¡Muy ALTO! Intenta con un número más bajo:");
       setGameState((prev) => ({ ...prev, attempts: nextAttempts }));
     }
 
@@ -324,14 +324,14 @@ function HackerConsole() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-black/60 backdrop-blur-md z-[99999] flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 bg-black/60 backdrop-blur-md z-[99999] flex items-center justify-center p-3 sm:p-6"
           >
             <motion.div
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-2xl h-[400px] rounded-2xl flex flex-col overflow-hidden border border-white/10"
+              className="w-full max-w-2xl h-[400px] max-h-[85vh] rounded-2xl flex flex-col overflow-hidden border border-white/10"
               style={{
                 background: "linear-gradient(135deg, rgba(10,10,10,0.95) 0%, rgba(20,20,20,0.92) 100%)",
                 boxShadow: "0 30px 70px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05)"
@@ -343,15 +343,24 @@ function HackerConsole() {
                   <div className="w-3 h-3 rounded-full bg-white/10" />
                   <div className="w-3 h-3 rounded-full bg-white/10" />
                 </div>
-                <span className="text-[11px] font-mono font-bold text-white/40 tracking-wider uppercase">
+                <span className="text-[10px] sm:text-[11px] font-mono font-bold text-white/40 tracking-wider uppercase truncate max-w-[180px] sm:max-w-none">
                   terminal - marcela@mint-portfolio
                 </span>
                 <div className="w-4" />
               </div>
 
-              <div className="flex-1 p-5 overflow-y-auto font-mono text-xs text-green-400 leading-relaxed selection:bg-green-500/30">
+              <div className="flex-1 p-4 sm:p-5 overflow-y-auto font-mono text-[11px] sm:text-xs text-green-400 leading-relaxed selection:bg-green-500/30 whitespace-pre-wrap break-words">
                 {consoleHistory.map((line, index) => (
-                  <div key={index} className={line.startsWith("marcela@") ? "text-white font-bold" : line.startsWith("📡") || line.startsWith("  [") || line.startsWith("🎮") ? "text-[var(--primary)] font-bold" : "text-green-400/90"}>
+                  <div 
+                    key={index} 
+                    className={
+                      line.startsWith("marcela@") 
+                        ? "text-white font-bold break-all" 
+                        : line.startsWith("📡") || line.startsWith("  [") || line.startsWith("🎮") 
+                        ? "text-[var(--primary)] font-bold" 
+                        : "text-green-400/90"
+                    }
+                  >
                     {line}
                   </div>
                 ))}
@@ -360,16 +369,21 @@ function HackerConsole() {
 
               <form 
                 onSubmit={handleCommandSubmit}
-                className="bg-black/40 border-t border-white/5 p-4 flex items-center gap-2 shrink-0 font-mono text-xs"
+              
+                className="bg-black/40 border-t border-white/5 p-3 sm:p-4 flex items-center gap-2 shrink-0 font-mono text-[11px] sm:text-xs w-full overflow-hidden"
               >
-                <span className="text-[var(--primary)] font-bold shrink-0">marcela@mint-portfolio:~$</span>
+
+                <span className="text-[var(--primary)] font-bold shrink-0 select-none">
+                  <span className="hidden sm:inline">marcela@mint-portfolio</span>
+                  <span className="inline sm:hidden">marcela</span>:~$
+                </span>
                 <input
                   autoFocus
                   type="text"
                   value={consoleInput}
                   onChange={(e) => setConsoleInput(e.target.value)}
-                  className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder:text-white/20"
-                  placeholder={isEn ? "enter command (try 'help')..." : "ingresa un comando (prueba 'help')..."}
+                  className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder:text-white/20 min-w-0 text-[11px] sm:text-xs"
+                  placeholder={isEn ? "command (try 'help')..." : "comando (prueba 'help')..."}
                 />
               </form>
             </motion.div>
